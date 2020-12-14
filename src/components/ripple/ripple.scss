@@ -1,0 +1,86 @@
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+  width: 130px;
+  height: 35px;
+  margin: 1em;
+}
+
+.ripple-effect {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+
+  contain: strict;
+  pointer-events: none;
+}
+.ripple-effect::after {
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  position: absolute;
+  content: "";
+  opacity: 0;
+}
+
+.ripple-effect[data-type="unbounded"] {
+  contain: size layout style;
+}
+
+.ripple-effect-inner {
+  position: absolute;
+
+  background-color: #ffffff;
+  color: inherit;
+
+  contain: strict;
+  opacity: 0;
+  animation: 225ms rippleAnimation forwards, 75ms fadeInAnimation forwards;
+
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.fade-out {
+  transform: translate(var(--translate-end)) scale(var(--final-scale, 1));
+  animation: 150ms fadeOutAnimation forwards;
+}
+
+@keyframes rippleAnimation {
+  from {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+    transform: scale(1);
+  }
+
+  to {
+    transform: translate(var(--translate-end)) scale(var(--final-scale, 1));
+  }
+}
+
+@keyframes fadeInAnimation {
+  from {
+    animation-timing-function: linear;
+
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.16;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    animation-timing-function: linear;
+
+    opacity: 0.16;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
