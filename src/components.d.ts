@@ -10,11 +10,17 @@ export namespace Components {
     }
     interface CyContent {
     }
+    interface CyNav {
+        "addCom": () => Promise<void>;
+    }
     interface CyPage {
     }
     interface CyRefresh {
     }
     interface CyRipple {
+    }
+    interface PageOne {
+        "id": string;
     }
 }
 declare global {
@@ -29,6 +35,12 @@ declare global {
     var HTMLCyContentElement: {
         prototype: HTMLCyContentElement;
         new (): HTMLCyContentElement;
+    };
+    interface HTMLCyNavElement extends Components.CyNav, HTMLStencilElement {
+    }
+    var HTMLCyNavElement: {
+        prototype: HTMLCyNavElement;
+        new (): HTMLCyNavElement;
     };
     interface HTMLCyPageElement extends Components.CyPage, HTMLStencilElement {
     }
@@ -48,12 +60,20 @@ declare global {
         prototype: HTMLCyRippleElement;
         new (): HTMLCyRippleElement;
     };
+    interface HTMLPageOneElement extends Components.PageOne, HTMLStencilElement {
+    }
+    var HTMLPageOneElement: {
+        prototype: HTMLPageOneElement;
+        new (): HTMLPageOneElement;
+    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "cy-content": HTMLCyContentElement;
+        "cy-nav": HTMLCyNavElement;
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
+        "page-one": HTMLPageOneElement;
     }
 }
 declare namespace LocalJSX {
@@ -61,18 +81,25 @@ declare namespace LocalJSX {
     }
     interface CyContent {
     }
+    interface CyNav {
+    }
     interface CyPage {
     }
     interface CyRefresh {
     }
     interface CyRipple {
     }
+    interface PageOne {
+        "id"?: string;
+    }
     interface IntrinsicElements {
         "app-root": AppRoot;
         "cy-content": CyContent;
+        "cy-nav": CyNav;
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
+        "page-one": PageOne;
     }
 }
 export { LocalJSX as JSX };
@@ -81,9 +108,11 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
+            "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
+            "page-one": LocalJSX.PageOne & JSXBase.HTMLAttributes<HTMLPageOneElement>;
         }
     }
 }

@@ -1,0 +1,85 @@
+import { Element, Component, State, Method, h } from '@stencil/core';
+
+@Component({
+  tag: 'cy-nav',
+  styleUrl: 'nav.scss',
+})
+export class nav {
+  @Element() el;
+  @State() comList = [1];
+  @State() lastId = 1;
+
+  @Method()
+  addCom() {
+    const navContainer = this.el.querySelector('.nav-container');
+    const com = document.createElement('page-one');
+    [...navContainer.children]
+      .filter((item, index) => index !== [...navContainer.children].length - 1)
+      .forEach(ele => {
+        ele.className = 'cy-page hidden';
+      });
+    const prev = navContainer.children[navContainer.children.length - 1];
+
+    this.lastId++;
+    com.style.zIndex = this.lastId + '';
+    com.id = this.lastId + '';
+    com.className = 'cy-page';
+
+    setTimeout(() => {
+      [...navContainer.children][[...navContainer.children].length - 2].className = 'cy-page hidden';
+    }, 700);
+    this.createAnimation(com);
+    this.createHiddenAnimation(prev);
+    navContainer.appendChild(com);
+  }
+
+  // 创建动画
+  createAnimation(ele: HTMLElement) {
+    ele.animate([{ transform: 'translateX(100%)' }, { transform: 'translateX(0px)' }], {
+      delay: 0,
+      duration: 1000,
+      easing: 'cubic-bezier(0.36, 0.66, 0.04, 1)',
+      iterations: 1,
+      fill: 'both',
+      direction: 'normal',
+    });
+  }
+
+  createHiddenAnimation(ele: HTMLElement) {
+    ele.animate(
+      [
+        { transform: 'translateX(0)', opacity: '1' },
+        { transform: 'translateX(-100%)', opacity: '0.8' },
+      ],
+      {
+        delay: 0,
+        duration: 1000,
+        easing: 'cubic-bezier(0.36, 0.66, 0.04, 1)',
+        iterations: 1,
+        fill: 'both',
+        direction: 'normal',
+      },
+    );
+  }
+
+  getLastComponent() {
+    const children = this.el.querySelector('.nav-container');
+    return children[children.length - 1];
+  }
+
+  render() {
+    return (
+      <div class="nav-container">
+        {this.comList.map((id, index) => (
+          <page-one
+            style={{
+              'z-index': id + '',
+            }}
+            id={id + ''}
+            class={index === this.comList.length - 1 ? 'cy-page' : 'cy-page hidden'}
+          ></page-one>
+        ))}
+      </div>
+    );
+  }
+}

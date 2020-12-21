@@ -10,17 +10,6 @@ export class AppRoot {
   }
 
   render() {
-    return (
-      <cy-page>
-        <header>
-          <h3>Stencil App Starter</h3>
-        </header>
-
-        <cy-content>
-          <cy-refresh slot="fixed"></cy-refresh>
-          <cy-ripple></cy-ripple>
-        </cy-content>
-      </cy-page>
-    );
+    return <cy-nav></cy-nav>;
   }
 }

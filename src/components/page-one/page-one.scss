@@ -1,0 +1,19 @@
+header {
+  display: block;
+  position: relative;
+  order: -1;
+  width: 100%;
+  background-color: #1c1c1c;
+  color: #ffffff;
+}
+header::after {
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  content: "";
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);
+  background-repeat: repeat-x;
+}
+cy-content{
+  background-color: #e7e7e7;
+}
