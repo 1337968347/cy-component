@@ -1,0 +1,48 @@
+:host {
+  display: inline-block;
+  display: flex;
+  background-color: white;
+  border-radius: 4px;
+  width: 172px;
+  height: 60px;
+  transform-style: preserve-3d;
+}
+
+.oper {
+  height: 100%;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.num-box {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.front {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+.back {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  transform: rotateY(-180deg);
+}

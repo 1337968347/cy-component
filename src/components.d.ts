@@ -20,6 +20,8 @@ export namespace Components {
     }
     interface CyRipple {
     }
+    interface NumberInput {
+    }
     interface PageOne {
         "id": string;
     }
@@ -61,6 +63,12 @@ declare global {
         prototype: HTMLCyRippleElement;
         new (): HTMLCyRippleElement;
     };
+    interface HTMLNumberInputElement extends Components.NumberInput, HTMLStencilElement {
+    }
+    var HTMLNumberInputElement: {
+        prototype: HTMLNumberInputElement;
+        new (): HTMLNumberInputElement;
+    };
     interface HTMLPageOneElement extends Components.PageOne, HTMLStencilElement {
     }
     var HTMLPageOneElement: {
@@ -74,6 +82,7 @@ declare global {
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
+        "number-input": HTMLNumberInputElement;
         "page-one": HTMLPageOneElement;
     }
 }
@@ -90,6 +99,8 @@ declare namespace LocalJSX {
     }
     interface CyRipple {
     }
+    interface NumberInput {
+    }
     interface PageOne {
         "id"?: string;
     }
@@ -100,6 +111,7 @@ declare namespace LocalJSX {
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
+        "number-input": NumberInput;
         "page-one": PageOne;
     }
 }
@@ -113,6 +125,7 @@ declare module "@stencil/core" {
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
+            "number-input": LocalJSX.NumberInput & JSXBase.HTMLAttributes<HTMLNumberInputElement>;
             "page-one": LocalJSX.PageOne & JSXBase.HTMLAttributes<HTMLPageOneElement>;
         }
     }

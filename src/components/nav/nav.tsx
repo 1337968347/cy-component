@@ -35,23 +35,21 @@ export class nav {
 
   @Method()
   pop() {
-    this.lastId--
+    this.lastId--;
     const navContainer = this.el.querySelector('.nav-container');
     if (navContainer.children.length == 1) {
-      return
+      return;
     }
-    [...navContainer.children]
-      .forEach(ele => {
-        ele.className = 'cy-page hidden';
-      });
+    [...navContainer.children].slice(0, [...navContainer.children].length - 2).forEach(ele => {
+      ele.className = 'hydrated hidden';
+    });
+    navContainer.children[navContainer.children.length - 2].className = 'cy-page hydrated';
     const prev = navContainer.children[navContainer.children.length - 1];
-
-
-    this.createPopHiddenAnimation(prev)
-
+    console.log(prev);
+    this.createPopHiddenAnimation(prev);
     setTimeout(() => {
       navContainer.removeChild(prev);
-    }, 900);
+    }, 700);
   }
 
   // 创建动画
@@ -100,8 +98,6 @@ export class nav {
     );
   }
 
-
-
   getLastComponent() {
     const children = this.el.querySelector('.nav-container');
     return children[children.length - 1];
@@ -117,7 +113,6 @@ export class nav {
               'z-index': id + '',
             }}
             id={id + ''}
-            class={index === this.comList.length - 1 ? 'cy-page' : 'cy-page hidden'}
           ></page-one>
         ))}
       </div>

@@ -21,7 +21,9 @@ export class PageOne {
             onClick={() => {
               this.back();
             }}
-          >返回</cy-ripple>
+          >
+            返回
+          </cy-ripple>
           <h3>Stencil App Starter{this.id}</h3>
         </header>
 
@@ -31,7 +33,10 @@ export class PageOne {
             onClick={() => {
               this.addCom();
             }}
-          >next page</cy-ripple>
+          >
+            next page
+          </cy-ripple>
+          <number-input />
         </cy-content>
       </cy-page>
     );
