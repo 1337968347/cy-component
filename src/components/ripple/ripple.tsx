@@ -8,7 +8,7 @@ export class ripple {
   render() {
     return (
       <button class="activatable ripple-parent">
-        Profile page
+        <slot />
         <div class="ripple-effect"></div>
       </button>
     );

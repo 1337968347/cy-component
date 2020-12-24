@@ -10,19 +10,28 @@ export class PageOne {
   addCom() {
     this.el.closest('cy-nav').addCom();
   }
+  back() {
+    this.el.closest('cy-nav').pop();
+  }
   render() {
     return (
       <cy-page>
         <header>
+          <cy-ripple
+            onClick={() => {
+              this.back();
+            }}
+          >返回</cy-ripple>
           <h3>Stencil App Starter{this.id}</h3>
         </header>
 
         <cy-content>
+          <cy-refresh slot="fixed"></cy-refresh>
           <cy-ripple
             onClick={() => {
               this.addCom();
             }}
-          ></cy-ripple>
+          >next page</cy-ripple>
         </cy-content>
       </cy-page>
     );

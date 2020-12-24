@@ -10,6 +10,10 @@ export class AppRoot {
   }
 
   render() {
-    return <cy-nav></cy-nav>;
+    return (
+      <cy-nav>
+        <page-one></page-one>
+      </cy-nav>
+    );
   }
 }

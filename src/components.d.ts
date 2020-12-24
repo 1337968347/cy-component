@@ -12,6 +12,7 @@ export namespace Components {
     }
     interface CyNav {
         "addCom": () => Promise<void>;
+        "pop": () => Promise<void>;
     }
     interface CyPage {
     }
