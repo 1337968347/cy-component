@@ -6,9 +6,12 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AppRoot {
+    interface CyButton {
+        "color": string;
     }
     interface CyContent {
+    }
+    interface CyHeader {
     }
     interface CyNav {
         "addCom": () => Promise<void>;
@@ -22,22 +25,32 @@ export namespace Components {
     }
     interface NumberInput {
     }
+    interface PageHome {
+    }
     interface PageOne {
-        "id": string;
+        "comId": string;
+    }
+    interface PageRoot {
     }
 }
 declare global {
-    interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
+    interface HTMLCyButtonElement extends Components.CyButton, HTMLStencilElement {
     }
-    var HTMLAppRootElement: {
-        prototype: HTMLAppRootElement;
-        new (): HTMLAppRootElement;
+    var HTMLCyButtonElement: {
+        prototype: HTMLCyButtonElement;
+        new (): HTMLCyButtonElement;
     };
     interface HTMLCyContentElement extends Components.CyContent, HTMLStencilElement {
     }
     var HTMLCyContentElement: {
         prototype: HTMLCyContentElement;
         new (): HTMLCyContentElement;
+    };
+    interface HTMLCyHeaderElement extends Components.CyHeader, HTMLStencilElement {
+    }
+    var HTMLCyHeaderElement: {
+        prototype: HTMLCyHeaderElement;
+        new (): HTMLCyHeaderElement;
     };
     interface HTMLCyNavElement extends Components.CyNav, HTMLStencilElement {
     }
@@ -69,27 +82,45 @@ declare global {
         prototype: HTMLNumberInputElement;
         new (): HTMLNumberInputElement;
     };
+    interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
+    }
+    var HTMLPageHomeElement: {
+        prototype: HTMLPageHomeElement;
+        new (): HTMLPageHomeElement;
+    };
     interface HTMLPageOneElement extends Components.PageOne, HTMLStencilElement {
     }
     var HTMLPageOneElement: {
         prototype: HTMLPageOneElement;
         new (): HTMLPageOneElement;
     };
+    interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
+    }
+    var HTMLPageRootElement: {
+        prototype: HTMLPageRootElement;
+        new (): HTMLPageRootElement;
+    };
     interface HTMLElementTagNameMap {
-        "app-root": HTMLAppRootElement;
+        "cy-button": HTMLCyButtonElement;
         "cy-content": HTMLCyContentElement;
+        "cy-header": HTMLCyHeaderElement;
         "cy-nav": HTMLCyNavElement;
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
         "number-input": HTMLNumberInputElement;
+        "page-home": HTMLPageHomeElement;
         "page-one": HTMLPageOneElement;
+        "page-root": HTMLPageRootElement;
     }
 }
 declare namespace LocalJSX {
-    interface AppRoot {
+    interface CyButton {
+        "color"?: string;
     }
     interface CyContent {
+    }
+    interface CyHeader {
     }
     interface CyNav {
     }
@@ -101,32 +132,42 @@ declare namespace LocalJSX {
     }
     interface NumberInput {
     }
+    interface PageHome {
+    }
     interface PageOne {
-        "id"?: string;
+        "comId"?: string;
+    }
+    interface PageRoot {
     }
     interface IntrinsicElements {
-        "app-root": AppRoot;
+        "cy-button": CyButton;
         "cy-content": CyContent;
+        "cy-header": CyHeader;
         "cy-nav": CyNav;
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
         "number-input": NumberInput;
+        "page-home": PageHome;
         "page-one": PageOne;
+        "page-root": PageRoot;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
+            "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
             "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
             "number-input": LocalJSX.NumberInput & JSXBase.HTMLAttributes<HTMLNumberInputElement>;
+            "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-one": LocalJSX.PageOne & JSXBase.HTMLAttributes<HTMLPageOneElement>;
+            "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
         }
     }
 }

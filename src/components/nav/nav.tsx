@@ -10,11 +10,11 @@ export class nav {
   @State() lastId = 0;
 
   @Method()
-  addCom() {
+  async addCom() {
     const navContainer = this.el.querySelector('.nav-container');
     const com = document.createElement('page-one');
     [...navContainer.children]
-      .filter((item, index) => index !== [...navContainer.children].length - 1)
+      .filter((_item, index) => index !== [...navContainer.children].length - 1)
       .forEach(ele => {
         ele.className = 'cy-page hidden';
       });
@@ -22,7 +22,7 @@ export class nav {
 
     this.lastId++;
     com.style.zIndex = this.lastId + '';
-    com.id = this.lastId + '';
+    com.comId = this.lastId + '';
     com.className = 'cy-page';
 
     setTimeout(() => {
@@ -34,7 +34,7 @@ export class nav {
   }
 
   @Method()
-  pop() {
+  async pop() {
     this.lastId--;
     const navContainer = this.el.querySelector('.nav-container');
     if (navContainer.children.length == 1) {
@@ -107,7 +107,7 @@ export class nav {
     return (
       <div class="nav-container">
         <slot />
-        {this.comList.map((id, index) => (
+        {this.comList.map(id => (
           <page-one
             style={{
               'z-index': id + '',

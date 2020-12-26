@@ -1,0 +1,165 @@
+:root {
+  --header-height: 44px;
+
+  --cy-color-primary: #3880ff;
+  --cy-color-primary-rgb: 56, 128, 255;
+  --cy-color-primary-contrast: #ffffff;
+  --cy-color-primary-contrast-rgb: 255, 255, 255;
+  --cy-color-primary-shade: #3171e0;
+  --cy-color-primary-tint: #4c8dff;
+
+  --cy-color-secondary: #3dc2ff;
+  --cy-color-secondary-rgb: 61, 194, 255;
+  --cy-color-secondary-contrast: #ffffff;
+  --cy-color-secondary-contrast-rgb: 255, 255, 255;
+  --cy-color-secondary-shade: #36abe0;
+  --cy-color-secondary-tint: #50c8ff;
+
+  --cy-color-tertiary: #5260ff;
+  --cy-color-tertiary-rgb: 82, 96, 255;
+  --cy-color-tertiary-contrast: #ffffff;
+  --cy-color-tertiary-contrast-rgb: 255, 255, 255;
+  --cy-color-tertiary-shade: #4854e0;
+  --cy-color-tertiary-tint: #6370ff;
+
+  --cy-color-success: #2dd36f;
+  --cy-color-success-rgb: 45, 211, 111;
+  --cy-color-success-contrast: #ffffff;
+  --cy-color-success-contrast-rgb: 255, 255, 255;
+  --cy-color-success-shade: #28ba62;
+  --cy-color-success-tint: #42d77d;
+
+  --cy-color-warning: #ffc409;
+  --cy-color-warning-rgb: 255, 196, 9;
+  --cy-color-warning-contrast: #000000;
+  --cy-color-warning-contrast-rgb: 0, 0, 0;
+  --cy-color-warning-shade: #e0ac08;
+  --cy-color-warning-tint: #ffca22;
+
+  --cy-color-danger: #eb445a;
+  --cy-color-danger-rgb: 235, 68, 90;
+  --cy-color-danger-contrast: #ffffff;
+  --cy-color-danger-contrast-rgb: 255, 255, 255;
+  --cy-color-danger-shade: #cf3c4f;
+  --cy-color-danger-tint: #ed576b;
+
+  --cy-color-dark: #222428;
+  --cy-color-dark-rgb: 34, 36, 40;
+  --cy-color-dark-contrast: #ffffff;
+  --cy-color-dark-contrast-rgb: 255, 255, 255;
+  --cy-color-dark-shade: #1e2023;
+  --cy-color-dark-tint: #383a3e;
+
+  --cy-color-medium: #92949c;
+  --cy-color-medium-rgb: 146, 148, 156;
+  --cy-color-medium-contrast: #ffffff;
+  --cy-color-medium-contrast-rgb: 255, 255, 255;
+  --cy-color-medium-shade: #808289;
+  --cy-color-medium-tint: #9d9fa6;
+
+  --cy-color-light: #f4f5f8;
+  --cy-color-light-rgb: 244, 245, 248;
+  --cy-color-light-contrast: #000000;
+  --cy-color-light-contrast-rgb: 0, 0, 0;
+  --cy-color-light-shade: #d7d8da;
+  --cy-color-light-tint: #f5f6f9;
+}
+
+.ion-color-primary {
+  --cy-color-base: var(--cy-color-primary, #3880ff) !important;
+  --cy-color-base-rgb: var(--cy-color-primary-rgb, 56, 128, 255) !important;
+  --cy-color-contrast: var(--cy-color-primary-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-primary-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-primary-shade, #3171e0) !important;
+  --cy-color-tint: var(--cy-color-primary-tint, #4c8dff) !important;
+}
+.ion-color-secondary {
+  --cy-color-base: var(--cy-color-secondary, #3dc2ff) !important;
+  --cy-color-base-rgb: var(--cy-color-secondary-rgb, 61, 194, 255) !important;
+  --cy-color-contrast: var(--cy-color-secondary-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-secondary-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-secondary-shade, #36abe0) !important;
+  --cy-color-tint: var(--cy-color-secondary-tint, #50c8ff) !important;
+}
+.ion-color-tertiary {
+  --cy-color-base: var(--cy-color-tertiary, #5260ff) !important;
+  --cy-color-base-rgb: var(--cy-color-tertiary-rgb, 82, 96, 255) !important;
+  --cy-color-contrast: var(--cy-color-tertiary-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-tertiary-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-tertiary-shade, #4854e0) !important;
+  --cy-color-tint: var(--cy-color-tertiary-tint, #6370ff) !important;
+}
+.ion-color-success {
+  --cy-color-base: var(--cy-color-success, #2dd36f) !important;
+  --cy-color-base-rgb: var(--cy-color-success-rgb, 45, 211, 111) !important;
+  --cy-color-contrast: var(--cy-color-success-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-success-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-success-shade, #28ba62) !important;
+  --cy-color-tint: var(--cy-color-success-tint, #42d77d) !important;
+}
+.ion-color-warning {
+  --cy-color-base: var(--cy-color-warning, #ffc409) !important;
+  --cy-color-base-rgb: var(--cy-color-warning-rgb, 255, 196, 9) !important;
+  --cy-color-contrast: var(--cy-color-warning-contrast, #000) !important;
+  --cy-color-contrast-rgb: var(--cy-color-warning-contrast-rgb, 0, 0, 0) !important;
+  --cy-color-shade: var(--cy-color-warning-shade, #e0ac08) !important;
+  --cy-color-tint: var(--cy-color-warning-tint, #ffca22) !important;
+}
+.ion-color-danger {
+  --cy-color-base: var(--cy-color-danger, #eb445a) !important;
+  --cy-color-base-rgb: var(--cy-color-danger-rgb, 235, 68, 90) !important;
+  --cy-color-contrast: var(--cy-color-danger-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-danger-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-danger-shade, #cf3c4f) !important;
+  --cy-color-tint: var(--cy-color-danger-tint, #ed576b) !important;
+}
+.ion-color-light {
+  --cy-color-base: var(--cy-color-light, #f4f5f8) !important;
+  --cy-color-base-rgb: var(--cy-color-light-rgb, 244, 245, 248) !important;
+  --cy-color-contrast: var(--cy-color-light-contrast, #000) !important;
+  --cy-color-contrast-rgb: var(--cy-color-light-contrast-rgb, 0, 0, 0) !important;
+  --cy-color-shade: var(--cy-color-light-shade, #d7d8da) !important;
+  --cy-color-tint: var(--cy-color-light-tint, #f5f6f9) !important;
+}
+.ion-color-medium {
+  --cy-color-base: var(--cy-color-medium, #92949c) !important;
+  --cy-color-base-rgb: var(--cy-color-medium-rgb, 146, 148, 156) !important;
+  --cy-color-contrast: var(--cy-color-medium-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-medium-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-medium-shade, #808289) !important;
+  --cy-color-tint: var(--cy-color-medium-tint, #9d9fa6) !important;
+}
+.ion-color-dark {
+  --cy-color-base: var(--cy-color-dark, #222428) !important;
+  --cy-color-base-rgb: var(--cy-color-dark-rgb, 34, 36, 40) !important;
+  --cy-color-contrast: var(--cy-color-dark-contrast, #fff) !important;
+  --cy-color-contrast-rgb: var(--cy-color-dark-contrast-rgb, 255, 255, 255) !important;
+  --cy-color-shade: var(--cy-color-dark-shade, #1e2023) !important;
+  --cy-color-tint: var(--cy-color-dark-tint, #383a3e) !important;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.activatable {
+  position: relative;
+  overflow: hidden;
+}
+
+.cy-page {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-between;
+  contain: layout size style;
+  overflow: hidden;
+  z-index: 0;
+}

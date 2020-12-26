@@ -1,13 +1,4 @@
-
-.ripple-parent {
-  position: relative;
-  overflow: hidden;
-  width: 130px;
-  height: 35px;
-  margin: 1em;
-}
-
-.ripple-effect {
+:host {
   top: 0;
   left: 0;
   right: 0;
@@ -17,7 +8,7 @@
   contain: strict;
   pointer-events: none;
 }
-.ripple-effect::after {
+:host::after {
   left: 0px;
   right: 0px;
   top: 0px;
@@ -27,14 +18,14 @@
   opacity: 0;
 }
 
-.ripple-effect[data-type="unbounded"] {
+:host[type="unbounded"] {
   contain: size layout style;
 }
 
 .ripple-effect-inner {
   position: absolute;
 
-  background-color: #ffffff;
+  background-color: currentColor;
   color: inherit;
 
   contain: strict;

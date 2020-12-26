@@ -24,16 +24,15 @@ export class NumberInput {
   modify(numA) {
     setTimeout(() => {
       this.num = this.num + numA;
-    }, 150);
+    }, 200);
   }
 
   // 创建动画
   createAnimation(ele: HTMLElement, keyframes: any[]) {
     ele.animate(keyframes, {
       delay: 0,
-      duration: 400,
-      easing: 'cubic-bezier(0.36, 0.66, 0.04, 1)',
-      fill: 'both',
+      duration: 300,
+      fill: 'none',
       iterations: 1,
       direction: 'normal',
     });
@@ -43,21 +42,21 @@ export class NumberInput {
     return (
       <Host>
         <div class="front">
-          <div class="oper" onClick={this.reduce.bind(this)}>
-            -
+          <div class="oper activatable" onClick={this.reduce.bind(this)}>
+            -<cy-ripple />
           </div>
           <div class="num-box">{this.num}</div>
-          <div class="oper" onClick={this.add.bind(this)}>
-            +
+          <div class="oper activatable" onClick={this.add.bind(this)}>
+            +<cy-ripple />
           </div>
         </div>
         <div class="back">
-          <div class="oper" onClick={this.reduce.bind(this)}>
-            -
+          <div class="oper activatable" onClick={this.reduce.bind(this)}>
+            -<cy-ripple />
           </div>
           <div class="num-box">{this.num}</div>
-          <div class="oper" onClick={this.add.bind(this)}>
-            +
+          <div class="oper activatable" onClick={this.add.bind(this)}>
+            +<cy-ripple />
           </div>
         </div>
       </Host>

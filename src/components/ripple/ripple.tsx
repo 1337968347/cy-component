@@ -1,16 +1,12 @@
-import { Component, h } from '@stencil/core';
+import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'cy-ripple',
   styleUrl: 'ripple.scss',
+  shadow: true,
 })
 export class ripple {
   render() {
-    return (
-      <button class="activatable ripple-parent">
-        <slot />
-        <div class="ripple-effect"></div>
-      </button>
-    );
+    return <Host class="ripple-effect"></Host>;
   }
 }

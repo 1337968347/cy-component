@@ -5,7 +5,7 @@ import { Element, Prop, Component, h } from '@stencil/core';
   styleUrl: 'page-one.scss',
 })
 export class PageOne {
-  @Prop() id = '';
+  @Prop() comId = '';
   @Element() el;
   addCom() {
     this.el.closest('cy-nav').addCom();
@@ -24,7 +24,7 @@ export class PageOne {
           >
             返回
           </cy-ripple>
-          <h3>Stencil App Starter{this.id}</h3>
+          <h3>Stencil App Starter{this.comId}</h3>
         </header>
 
         <cy-content>
