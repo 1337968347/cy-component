@@ -38,6 +38,23 @@ export class PageHome {
                 <number-input></number-input>
               </div>
             </div>
+
+            <div class="card">
+              <div class="card-header activatable">
+                toggle
+                <cy-ripple />
+              </div>
+              <div class="card-content">
+                <cy-toggle color="primary">primary</cy-toggle>
+                <cy-toggle color="secondary">secondary</cy-toggle>
+                <cy-toggle color="tertiary">tertiary</cy-toggle>
+                <cy-toggle color="success">success</cy-toggle>
+                <cy-toggle color="warning">warning</cy-toggle>
+                <cy-toggle color="danger">danger</cy-toggle>
+                <cy-toggle color="dark">dark</cy-toggle>
+                <cy-toggle color="light">light</cy-toggle>
+              </div>
+            </div>
           </div>
         </cy-content>
       </div>

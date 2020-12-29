@@ -1,5 +1,5 @@
 import { Component, Element, State, h, Host } from '@stencil/core';
-
+import { createAnimation } from '../../utils/animation/animation';
 @Component({
   tag: 'number-input',
   styleUrl: 'number-input.scss',
@@ -8,34 +8,28 @@ import { Component, Element, State, h, Host } from '@stencil/core';
 export class NumberInput {
   @Element() el: HTMLElement;
   @State() num = 1;
+  animationNext: any = null;
+  animationPrev: any = null;
+
+  componentDidLoad() {
+    this.animationNext = createAnimation().addElement(this.el).fill('none').duration(500).fromTo('transform', 'rotateY(0)', 'rotateY(180deg)');
+    this.animationPrev = createAnimation().addElement(this.el).fill('none').duration(500).fromTo('transform', 'rotateY(0)', 'rotateY(-180deg)');
+  }
 
   add() {
     this.modify(1);
-    const addKeyframes = [{ transform: 'rotateY(0)' }, { transform: 'rotateY(180deg)' }];
-    this.createAnimation(this.el, addKeyframes);
+    this.animationNext.play();
   }
 
   reduce() {
     this.modify(-1);
-    const reduceKeyframes = [{ transform: 'rotateY(0)' }, { transform: 'rotateY(-180deg)' }];
-    this.createAnimation(this.el, reduceKeyframes);
+    this.animationPrev.play();
   }
 
   modify(numA) {
     setTimeout(() => {
       this.num = this.num + numA;
     }, 200);
-  }
-
-  // 创建动画
-  createAnimation(ele: HTMLElement, keyframes: any[]) {
-    ele.animate(keyframes, {
-      delay: 0,
-      duration: 300,
-      fill: 'none',
-      iterations: 1,
-      direction: 'normal',
-    });
   }
 
   render() {
