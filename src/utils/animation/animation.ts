@@ -22,7 +22,9 @@ export const createAnimation = () => {
     return ani;
   };
 
-  const resetFlags = () => {};
+  const resetFlags = () => {
+    // eslint-disable-next-line no-trailing-spaces
+  };
 
   const addAnimation = animationToAdd => {
     if (animationToAdd != null) {
@@ -99,7 +101,7 @@ export const createAnimation = () => {
     return ani;
   };
 
-  const from = (property: string, value: any) => {
+  const from = (property, value) => {
     const firstFrame = _keyframes[0];
 
     if (firstFrame !== undefined && (firstFrame.offset === undefined || firstFrame.offset === 0)) {
@@ -111,7 +113,7 @@ export const createAnimation = () => {
     return ani;
   };
 
-  const to = (property: string, value: any) => {
+  const to = (property, value) => {
     const lastFrame = _keyframes[_keyframes.length - 1];
 
     if (lastFrame !== undefined && (lastFrame.offset === undefined || lastFrame.offset === 1)) {
@@ -122,7 +124,8 @@ export const createAnimation = () => {
     return ani;
   };
 
-  const fromTo = (property: string, fromValue: any, toValue: any) => {
+  const fromTo = (property, fromValue, toValue) => {
+    initialized = false;
     return from(property, fromValue).to(property, toValue);
   };
 
@@ -183,7 +186,7 @@ export const createAnimation = () => {
     }
   };
 
-  const updateWebAnimation = (step?) => {
+  const updateWebAnimation = (step = undefined) => {
     webAnimations.map(animation => {
       animation.effect.updateTiming({
         delay: getDelay(),
@@ -205,7 +208,7 @@ export const createAnimation = () => {
    * @param {*} deep
    * @param {*} step ?
    */
-  const update = (deep = false, step?) => {
+  const update = (deep = false, step = undefined) => {
     if (deep) {
       childAnimations.map(animation => {
         animation.update(deep, step);
@@ -349,6 +352,12 @@ export const createAnimation = () => {
     from,
     to,
     delay,
+    getFill,
+    getDirection,
+    getDelay,
+    getIterations,
+    getEasing,
+    getDuration,
     duration,
     easing,
     iterations,
