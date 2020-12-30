@@ -4,26 +4,46 @@
   height: 14px;
   padding: 12px;
   contain: strict;
-
+  cursor: pointer;
   --background: rgba(var(--cy-text-color-rgb, 0, 0, 0), 0.39);
-  --background-checked: rgba(var(--cy-color-primary-rgb, 56, 128, 255), 0.5);
+  --background-checked: rgba(var(--cy-color-base-rgb), 0.5);
   --border-radius: 14px;
   --handle-background: #ffffff;
-  --handle-background-checked: var(--cy-color-primary, #3880ff);
+  --handle-background-checked: var(--cy-color-base);
   --handle-border-radius: 50%;
   --handle-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
   --handle-width: 20px;
   --handle-height: 20px;
   --handle-max-height: calc(100% + 6px);
-  --handle-spacing: 0;
   --handle-transition: transform 160ms cubic-bezier(0.4, 0, 0.2, 1), background-color 160ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.toggle-icon {
+.toggle-bg {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background-color: rgba(var(--cy-color-base-rgb), 0.5);
-
+  background: var(--background);
   border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+}
+
+.toggle-icon-handle {
+  background: var(--handle-background);
+  border-radius: var(--handle-border-radius);
+  box-shadow: var(--handle-box-shadow);
+  width: var(--handle-width);
+  height: var(--handle-height);
+  max-height: var(--handle-max-height);
+  transition: var(--handle-transition);
+}
+
+:host(.toggle-checked) .toggle-bg {
+  background: var(--background-checked);
+  transition: background-color 160ms ease 0s;
+}
+
+:host(.toggle-checked) .toggle-icon-handle {
+  transform: translateX(var(--handle-width));
+  background: var(--handle-background-checked);
 }

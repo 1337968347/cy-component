@@ -1,4 +1,4 @@
-import { Component, Prop, h, Host } from '@stencil/core';
+import { Component, Prop, State, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'cy-toggle',
@@ -7,15 +7,22 @@ import { Component, Prop, h, Host } from '@stencil/core';
 })
 export class toggle {
   @Prop() color: string = '';
+  @State() checked: boolean = true;
 
   render() {
     return (
       <Host
+        onClick={() => {
+          this.checked = !!!this.checked;
+        }}
         class={{
-          [`ion-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: true,
+          'toggle-checked': this.checked,
         }}
       >
-        <div class="toggle-icon"></div>
+        <div class="toggle-bg">
+          <div class="toggle-icon-handle"></div>
+        </div>
       </Host>
     );
   }

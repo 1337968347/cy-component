@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Prop, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'cy-ripple',
@@ -6,7 +6,9 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class ripple {
+  @Prop() type: 'unbounded' | 'bounded' = 'bounded';
+
   render() {
-    return <Host class="ripple-effect"></Host>;
+    return <Host data-type={this.type} class="ripple-effect"></Host>;
   }
 }

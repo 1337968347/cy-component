@@ -6,12 +6,16 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface CyBackdrop {
+    }
     interface CyButton {
         "color": string;
     }
     interface CyContent {
     }
     interface CyHeader {
+    }
+    interface CyModal {
     }
     interface CyNav {
         "addCom": () => Promise<void>;
@@ -22,6 +26,7 @@ export namespace Components {
     interface CyRefresh {
     }
     interface CyRipple {
+        "type": 'unbounded' | 'bounded';
     }
     interface CyToggle {
         "color": string;
@@ -37,6 +42,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLCyBackdropElement extends Components.CyBackdrop, HTMLStencilElement {
+    }
+    var HTMLCyBackdropElement: {
+        prototype: HTMLCyBackdropElement;
+        new (): HTMLCyBackdropElement;
+    };
     interface HTMLCyButtonElement extends Components.CyButton, HTMLStencilElement {
     }
     var HTMLCyButtonElement: {
@@ -54,6 +65,12 @@ declare global {
     var HTMLCyHeaderElement: {
         prototype: HTMLCyHeaderElement;
         new (): HTMLCyHeaderElement;
+    };
+    interface HTMLCyModalElement extends Components.CyModal, HTMLStencilElement {
+    }
+    var HTMLCyModalElement: {
+        prototype: HTMLCyModalElement;
+        new (): HTMLCyModalElement;
     };
     interface HTMLCyNavElement extends Components.CyNav, HTMLStencilElement {
     }
@@ -110,9 +127,11 @@ declare global {
         new (): HTMLPageRootElement;
     };
     interface HTMLElementTagNameMap {
+        "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
         "cy-content": HTMLCyContentElement;
         "cy-header": HTMLCyHeaderElement;
+        "cy-modal": HTMLCyModalElement;
         "cy-nav": HTMLCyNavElement;
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
@@ -125,12 +144,16 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface CyBackdrop {
+    }
     interface CyButton {
         "color"?: string;
     }
     interface CyContent {
     }
     interface CyHeader {
+    }
+    interface CyModal {
     }
     interface CyNav {
     }
@@ -139,6 +162,7 @@ declare namespace LocalJSX {
     interface CyRefresh {
     }
     interface CyRipple {
+        "type"?: 'unbounded' | 'bounded';
     }
     interface CyToggle {
         "color"?: string;
@@ -153,9 +177,11 @@ declare namespace LocalJSX {
     interface PageRoot {
     }
     interface IntrinsicElements {
+        "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
         "cy-content": CyContent;
         "cy-header": CyHeader;
+        "cy-modal": CyModal;
         "cy-nav": CyNav;
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
@@ -171,9 +197,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
+            "cy-modal": LocalJSX.CyModal & JSXBase.HTMLAttributes<HTMLCyModalElement>;
             "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;

@@ -65,7 +65,7 @@
   --cy-color-light-tint: #f5f6f9;
 }
 
-.ion-color-primary {
+.cy-color-primary {
   --cy-color-base: var(--cy-color-primary, #3880ff) !important;
   --cy-color-base-rgb: var(--cy-color-primary-rgb, 56, 128, 255) !important;
   --cy-color-contrast: var(--cy-color-primary-contrast, #fff) !important;
@@ -73,7 +73,7 @@
   --cy-color-shade: var(--cy-color-primary-shade, #3171e0) !important;
   --cy-color-tint: var(--cy-color-primary-tint, #4c8dff) !important;
 }
-.ion-color-secondary {
+.cy-color-secondary {
   --cy-color-base: var(--cy-color-secondary, #3dc2ff) !important;
   --cy-color-base-rgb: var(--cy-color-secondary-rgb, 61, 194, 255) !important;
   --cy-color-contrast: var(--cy-color-secondary-contrast, #fff) !important;
@@ -81,7 +81,7 @@
   --cy-color-shade: var(--cy-color-secondary-shade, #36abe0) !important;
   --cy-color-tint: var(--cy-color-secondary-tint, #50c8ff) !important;
 }
-.ion-color-tertiary {
+.cy-color-tertiary {
   --cy-color-base: var(--cy-color-tertiary, #5260ff) !important;
   --cy-color-base-rgb: var(--cy-color-tertiary-rgb, 82, 96, 255) !important;
   --cy-color-contrast: var(--cy-color-tertiary-contrast, #fff) !important;
@@ -89,7 +89,7 @@
   --cy-color-shade: var(--cy-color-tertiary-shade, #4854e0) !important;
   --cy-color-tint: var(--cy-color-tertiary-tint, #6370ff) !important;
 }
-.ion-color-success {
+.cy-color-success {
   --cy-color-base: var(--cy-color-success, #2dd36f) !important;
   --cy-color-base-rgb: var(--cy-color-success-rgb, 45, 211, 111) !important;
   --cy-color-contrast: var(--cy-color-success-contrast, #fff) !important;
@@ -97,7 +97,7 @@
   --cy-color-shade: var(--cy-color-success-shade, #28ba62) !important;
   --cy-color-tint: var(--cy-color-success-tint, #42d77d) !important;
 }
-.ion-color-warning {
+.cy-color-warning {
   --cy-color-base: var(--cy-color-warning, #ffc409) !important;
   --cy-color-base-rgb: var(--cy-color-warning-rgb, 255, 196, 9) !important;
   --cy-color-contrast: var(--cy-color-warning-contrast, #000) !important;
@@ -105,7 +105,7 @@
   --cy-color-shade: var(--cy-color-warning-shade, #e0ac08) !important;
   --cy-color-tint: var(--cy-color-warning-tint, #ffca22) !important;
 }
-.ion-color-danger {
+.cy-color-danger {
   --cy-color-base: var(--cy-color-danger, #eb445a) !important;
   --cy-color-base-rgb: var(--cy-color-danger-rgb, 235, 68, 90) !important;
   --cy-color-contrast: var(--cy-color-danger-contrast, #fff) !important;
@@ -113,7 +113,7 @@
   --cy-color-shade: var(--cy-color-danger-shade, #cf3c4f) !important;
   --cy-color-tint: var(--cy-color-danger-tint, #ed576b) !important;
 }
-.ion-color-light {
+.cy-color-light {
   --cy-color-base: var(--cy-color-light, #f4f5f8) !important;
   --cy-color-base-rgb: var(--cy-color-light-rgb, 244, 245, 248) !important;
   --cy-color-contrast: var(--cy-color-light-contrast, #000) !important;
@@ -121,7 +121,7 @@
   --cy-color-shade: var(--cy-color-light-shade, #d7d8da) !important;
   --cy-color-tint: var(--cy-color-light-tint, #f5f6f9) !important;
 }
-.ion-color-medium {
+.cy-color-medium {
   --cy-color-base: var(--cy-color-medium, #92949c) !important;
   --cy-color-base-rgb: var(--cy-color-medium-rgb, 146, 148, 156) !important;
   --cy-color-contrast: var(--cy-color-medium-contrast, #fff) !important;
@@ -129,7 +129,7 @@
   --cy-color-shade: var(--cy-color-medium-shade, #808289) !important;
   --cy-color-tint: var(--cy-color-medium-tint, #9d9fa6) !important;
 }
-.ion-color-dark {
+.cy-color-dark {
   --cy-color-base: var(--cy-color-dark, #222428) !important;
   --cy-color-base-rgb: var(--cy-color-dark-rgb, 34, 36, 40) !important;
   --cy-color-contrast: var(--cy-color-dark-contrast, #fff) !important;

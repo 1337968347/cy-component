@@ -1,0 +1,12 @@
+:host {
+  --background: #000000;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  touch-action: none;
+  z-index: 2;
+  opacity: 0.3;
+  transform: translateZ(0px);
+  contain: strict;
+  background-color: var(--background);
+}

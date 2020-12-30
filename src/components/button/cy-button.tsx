@@ -11,7 +11,7 @@ export class CyButton {
     return (
       <Host class={
         {
-          [`ion-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: true,
           'activatable': true
         }
       }>
