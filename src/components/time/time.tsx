@@ -17,7 +17,7 @@ export class CyTime {
 
   componentDidLoad() {
     this.baseAnimation = createAnimation().addElement(this.el).iterations(Infinity);
-    this.hourAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.hour')).duration(86400000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
+    this.hourAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.hour')).duration(43200000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
     this.minusAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.minus')).duration(3600000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
     this.secondAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.second')).duration(60000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
     this.baseAnimation.addAnimation([this.hourAnimation, this.minusAnimation, this.secondAnimation]);
