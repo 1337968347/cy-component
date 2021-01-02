@@ -1,0 +1,58 @@
+:host {
+  --center-size: 8px;
+  --clock-size: 100px;
+  --clock-border-width: 1.5px;
+  --line-base-width: 4px;
+  display: inline-block;
+  margin: 5px;
+}
+.clock {
+  width: var(--clock-size);
+  height: var(--clock-size);
+  border-width: var(--clock-border-width);
+  border-style: solid;
+  border-color: var(--cy-color-shade);
+  border-radius: 50%;
+  background: var(--cy-color-tint);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.clock::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - var(--center-size) / 2);
+  left: calc(50% - var(--center-size) / 2);
+  width: var(--center-size);
+  height: var(--center-size);
+  border-radius: 50%;
+  background: var(--cy-color-contrast);
+}
+
+.hour,
+.minus,
+.second {
+  position: absolute;
+  top: 50%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  transform-origin: top center;
+  background: var(--cy-color-contrast);
+  will-change: transform;
+  // border-color: var(--cy-color-base);
+  // border-style: solid;
+  // border-width: 1px;
+}
+.hour {
+  width: var(--line-base-width);
+  height: calc(var(--clock-size) / 3.5);
+}
+.minus {
+  width: calc(var(--line-base-width) / 1.5);
+  height: calc(var(--clock-size) / 3);
+}
+.second {
+  width: calc(var(--line-base-width) / 2);
+  height: calc(var(--clock-size) / 2.2);
+}

@@ -53,15 +53,16 @@ export const createAnimation = () => {
     }
   };
 
-  const play = () => {
+  const play = (reset = true) => {
     if (!initialized) {
       initializeAnimation();
     }
-
-    resetAnimation();
+    if (reset) {
+      resetAnimation();
+    }
 
     childAnimations.forEach(animation => {
-      animation.play();
+      animation.play(reset);
     });
     if (supportsWebAnimations) {
       playWebAnimations();
@@ -136,9 +137,8 @@ export const createAnimation = () => {
     pauseAnimation();
     if (!initialized) {
       initializeAnimation();
-    } else {
-      update(false, step);
     }
+    update(false, step);
     return ani;
   };
 
@@ -365,6 +365,7 @@ export const createAnimation = () => {
     direction,
     stop,
     pause,
+    update,
     progressStart,
     progressStep,
   });

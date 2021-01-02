@@ -28,6 +28,9 @@ export namespace Components {
     interface CyRipple {
         "type": 'unbounded' | 'bounded';
     }
+    interface CyTime {
+        "color": string;
+    }
     interface CyToggle {
         "color": string;
     }
@@ -96,6 +99,12 @@ declare global {
         prototype: HTMLCyRippleElement;
         new (): HTMLCyRippleElement;
     };
+    interface HTMLCyTimeElement extends Components.CyTime, HTMLStencilElement {
+    }
+    var HTMLCyTimeElement: {
+        prototype: HTMLCyTimeElement;
+        new (): HTMLCyTimeElement;
+    };
     interface HTMLCyToggleElement extends Components.CyToggle, HTMLStencilElement {
     }
     var HTMLCyToggleElement: {
@@ -136,6 +145,7 @@ declare global {
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
+        "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
         "number-input": HTMLNumberInputElement;
         "page-home": HTMLPageHomeElement;
@@ -164,6 +174,9 @@ declare namespace LocalJSX {
     interface CyRipple {
         "type"?: 'unbounded' | 'bounded';
     }
+    interface CyTime {
+        "color"?: string;
+    }
     interface CyToggle {
         "color"?: string;
     }
@@ -186,6 +199,7 @@ declare namespace LocalJSX {
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
+        "cy-time": CyTime;
         "cy-toggle": CyToggle;
         "number-input": NumberInput;
         "page-home": PageHome;
@@ -206,6 +220,7 @@ declare module "@stencil/core" {
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
+            "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
             "number-input": LocalJSX.NumberInput & JSXBase.HTMLAttributes<HTMLNumberInputElement>;
             "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;

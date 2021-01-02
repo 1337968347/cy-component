@@ -114,6 +114,20 @@ export class PageHome {
                 </cy-button>
               </div>
             </div>
+
+            <div class="card">
+              <div class="card-header activatable">Time</div>
+              <div class="card-content">
+                <cy-time color="primary">primary</cy-time>
+                <cy-time color="secondary">secondary</cy-time>
+                <cy-time color="tertiary">tertiary</cy-time>
+                <cy-time color="success">success</cy-time>
+                <cy-time color="warning">warning</cy-time>
+                <cy-time color="danger">danger</cy-time>
+                <cy-time color="dark">dark</cy-time>
+                <cy-time color="light">light</cy-time>
+              </div>
+            </div>
           </div>
         </cy-content>
       </cy-page>
