@@ -11,6 +11,10 @@ export namespace Components {
     interface CyButton {
         "color": string;
     }
+    interface CyCheckbox {
+        "checked": boolean;
+        "color": string;
+    }
     interface CyContent {
     }
     interface CyHeader {
@@ -56,6 +60,12 @@ declare global {
     var HTMLCyButtonElement: {
         prototype: HTMLCyButtonElement;
         new (): HTMLCyButtonElement;
+    };
+    interface HTMLCyCheckboxElement extends Components.CyCheckbox, HTMLStencilElement {
+    }
+    var HTMLCyCheckboxElement: {
+        prototype: HTMLCyCheckboxElement;
+        new (): HTMLCyCheckboxElement;
     };
     interface HTMLCyContentElement extends Components.CyContent, HTMLStencilElement {
     }
@@ -138,6 +148,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
+        "cy-checkbox": HTMLCyCheckboxElement;
         "cy-content": HTMLCyContentElement;
         "cy-header": HTMLCyHeaderElement;
         "cy-modal": HTMLCyModalElement;
@@ -157,6 +168,10 @@ declare namespace LocalJSX {
     interface CyBackdrop {
     }
     interface CyButton {
+        "color"?: string;
+    }
+    interface CyCheckbox {
+        "checked"?: boolean;
         "color"?: string;
     }
     interface CyContent {
@@ -192,6 +207,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
+        "cy-checkbox": CyCheckbox;
         "cy-content": CyContent;
         "cy-header": CyHeader;
         "cy-modal": CyModal;
@@ -213,6 +229,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
+            "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
             "cy-modal": LocalJSX.CyModal & JSXBase.HTMLAttributes<HTMLCyModalElement>;

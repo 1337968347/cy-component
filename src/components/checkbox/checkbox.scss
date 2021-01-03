@@ -1,0 +1,30 @@
+:host {
+  display: inline-block;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  --border-color: rgba(0, 0, 0, 0.51);
+  --border-width: 10;
+  --fill-color: transparent;
+  --right-width: 6;
+  --right-color: var(--cy-color-contrast);
+  margin: 5px;
+}
+
+rect {
+  stroke-linecap: round;
+}
+
+path {
+  stroke-dashoffset: 60;
+  stroke-dasharray: 60;
+}
+
+:host(.cy-checked) {
+  --fill-color: var(--cy-color-tint);
+  --border-color: transparent;
+}
+:host(.cy-checked) path {
+  transition: stroke-dashoffset 90ms linear 90ms;
+  stroke-dashoffset: 0;
+}
