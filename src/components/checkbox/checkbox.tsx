@@ -7,7 +7,7 @@ import { Component, Prop, Host, h } from '@stencil/core';
 })
 export class checkbox {
   @Prop() color: string = 'primary';
-  @Prop() checked: boolean = false;
+  @Prop() checked: boolean = true;
 
   render() {
     return (

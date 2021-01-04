@@ -149,6 +149,20 @@ export class PageHome {
                 <cy-checkbox color="light">light</cy-checkbox>
               </div>
             </div>
+
+            <div class="card">
+              <div class="card-header activatable">spinner</div>
+              <div class="card-content">
+                <cy-spinner color="primary">primary</cy-spinner>
+                <cy-spinner color="secondary">secondary</cy-spinner>
+                <cy-spinner color="tertiary">tertiary</cy-spinner>
+                <cy-spinner color="success">success</cy-spinner>
+                <cy-spinner color="warning">warning</cy-spinner>
+                <cy-spinner color="danger">danger</cy-spinner>
+                <cy-spinner color="dark">dark</cy-spinner>
+                <cy-spinner color="light">light</cy-spinner>
+              </div>
+            </div>
           </div>
         </cy-content>
       </cy-page>

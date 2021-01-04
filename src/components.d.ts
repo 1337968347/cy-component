@@ -32,6 +32,9 @@ export namespace Components {
     interface CyRipple {
         "type": 'unbounded' | 'bounded';
     }
+    interface CySpinner {
+        "color": string;
+    }
     interface CyTime {
         "color": string;
     }
@@ -109,6 +112,12 @@ declare global {
         prototype: HTMLCyRippleElement;
         new (): HTMLCyRippleElement;
     };
+    interface HTMLCySpinnerElement extends Components.CySpinner, HTMLStencilElement {
+    }
+    var HTMLCySpinnerElement: {
+        prototype: HTMLCySpinnerElement;
+        new (): HTMLCySpinnerElement;
+    };
     interface HTMLCyTimeElement extends Components.CyTime, HTMLStencilElement {
     }
     var HTMLCyTimeElement: {
@@ -156,6 +165,7 @@ declare global {
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
+        "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
         "number-input": HTMLNumberInputElement;
@@ -189,6 +199,9 @@ declare namespace LocalJSX {
     interface CyRipple {
         "type"?: 'unbounded' | 'bounded';
     }
+    interface CySpinner {
+        "color"?: string;
+    }
     interface CyTime {
         "color"?: string;
     }
@@ -215,6 +228,7 @@ declare namespace LocalJSX {
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
+        "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
         "number-input": NumberInput;
@@ -237,6 +251,7 @@ declare module "@stencil/core" {
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
+            "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
             "number-input": LocalJSX.NumberInput & JSXBase.HTMLAttributes<HTMLNumberInputElement>;
