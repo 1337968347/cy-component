@@ -1,5 +1,5 @@
 import { Component, Element, h } from '@stencil/core';
-
+import { showToast } from '../../utils/toast';
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.scss',
@@ -13,6 +13,12 @@ export class PageHome {
       this.el.querySelector('cy-page').removeChild(cyModal);
     };
     this.el.querySelector('cy-page').appendChild(cyModal);
+  }
+
+  showToast() {
+    showToast({
+      title: '这个是标题',
+    });
   }
 
   render() {
@@ -154,13 +160,36 @@ export class PageHome {
               <div class="card-header activatable">spinner</div>
               <div class="card-content">
                 <cy-spinner color="primary">primary</cy-spinner>
-                <cy-spinner color="secondary">secondary</cy-spinner>
+                {/* <cy-spinner color="secondary">secondary</cy-spinner>
                 <cy-spinner color="tertiary">tertiary</cy-spinner>
                 <cy-spinner color="success">success</cy-spinner>
                 <cy-spinner color="warning">warning</cy-spinner>
                 <cy-spinner color="danger">danger</cy-spinner>
                 <cy-spinner color="dark">dark</cy-spinner>
-                <cy-spinner color="light">light</cy-spinner>
+                <cy-spinner color="light">light</cy-spinner> */}
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header activatable">toast</div>
+              <div class="card-content">
+                <cy-button color="primary" onClick={this.showToast}>
+                  show Toast
+                </cy-button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header activatable">Segment</div>
+              <div class="card-content">
+                <cy-segment value="sunny">
+                  <cy-segment-button value="sunny">
+                    <cy-label>Sunny</cy-label>
+                  </cy-segment-button>
+                  <cy-segment-button value="rainy">
+                    <cy-label>Rainy</cy-label>
+                  </cy-segment-button>
+                </cy-segment>
               </div>
             </div>
           </div>

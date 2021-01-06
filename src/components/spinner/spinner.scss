@@ -3,10 +3,11 @@
   width: 30px;
   height: 30px;
   margin: 8px;
-  animation: spinner-circular 1400ms linear 0s infinite normal none running;
+  transform: translateZ(0);
 }
 
 svg {
+  animation: spinner-circular 1400ms linear 0s infinite normal none running;
   width: 100%;
   height: 100%;
 }

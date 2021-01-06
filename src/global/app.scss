@@ -164,3 +164,19 @@ body {
   overflow: hidden;
   z-index: 0;
 }
+
+.toast-wrapper {
+  position: absolute;
+  bottom: 40px;
+  left: 5%;
+  right: 5%;
+  padding: 1em;
+  border-radius: 4px;
+  color: var(--cy-color-light);
+  background: rgba(var(--cy-color-light-contrast-rgb), 0.9);
+}
+
+.toast-animated {
+  transition: transform 400ms cubic-bezier(0.155, 1.105, 0.295, 1.12),
+    opacity 400ms cubic-bezier(0.155, 1.105, 0.295, 1.12);
+}

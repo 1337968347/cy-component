@@ -32,6 +32,14 @@ export namespace Components {
     interface CyRipple {
         "type": 'unbounded' | 'bounded';
     }
+    interface CySegment {
+        "color": string;
+        "value": string;
+    }
+    interface CySegmentButton {
+        "update": () => Promise<void>;
+        "value": string;
+    }
     interface CySpinner {
         "color": string;
     }
@@ -112,6 +120,18 @@ declare global {
         prototype: HTMLCyRippleElement;
         new (): HTMLCyRippleElement;
     };
+    interface HTMLCySegmentElement extends Components.CySegment, HTMLStencilElement {
+    }
+    var HTMLCySegmentElement: {
+        prototype: HTMLCySegmentElement;
+        new (): HTMLCySegmentElement;
+    };
+    interface HTMLCySegmentButtonElement extends Components.CySegmentButton, HTMLStencilElement {
+    }
+    var HTMLCySegmentButtonElement: {
+        prototype: HTMLCySegmentButtonElement;
+        new (): HTMLCySegmentButtonElement;
+    };
     interface HTMLCySpinnerElement extends Components.CySpinner, HTMLStencilElement {
     }
     var HTMLCySpinnerElement: {
@@ -165,6 +185,8 @@ declare global {
         "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
+        "cy-segment": HTMLCySegmentElement;
+        "cy-segment-button": HTMLCySegmentButtonElement;
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
@@ -199,6 +221,13 @@ declare namespace LocalJSX {
     interface CyRipple {
         "type"?: 'unbounded' | 'bounded';
     }
+    interface CySegment {
+        "color"?: string;
+        "value"?: string;
+    }
+    interface CySegmentButton {
+        "value"?: string;
+    }
     interface CySpinner {
         "color"?: string;
     }
@@ -228,6 +257,8 @@ declare namespace LocalJSX {
         "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
+        "cy-segment": CySegment;
+        "cy-segment-button": CySegmentButton;
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
@@ -251,6 +282,8 @@ declare module "@stencil/core" {
             "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
+            "cy-segment": LocalJSX.CySegment & JSXBase.HTMLAttributes<HTMLCySegmentElement>;
+            "cy-segment-button": LocalJSX.CySegmentButton & JSXBase.HTMLAttributes<HTMLCySegmentButtonElement>;
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
