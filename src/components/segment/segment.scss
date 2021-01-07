@@ -6,7 +6,8 @@
   overflow: hidden;
   cursor: pointer;
   user-select: none;
-  background: rgba(var(--cy-color-base-rgb), 0.5);
+  background: rgba(var(--cy-color-base-rgb), 0.1);
   padding: 1.5px 1px;
   margin: 3px;
+  box-shadow: 0 0 5px rgba(197, 142, 142, 0.16);
 }
