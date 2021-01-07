@@ -182,13 +182,45 @@ export class PageHome {
             <div class="card">
               <div class="card-header activatable">Segment</div>
               <div class="card-content">
-                <cy-segment value="sunny">
-                  <cy-segment-button value="sunny">
-                    <cy-label>Sunny</cy-label>
-                  </cy-segment-button>
-                  <cy-segment-button value="rainy">
-                    <cy-label>Rainy</cy-label>
-                  </cy-segment-button>
+                <cy-segment color="primary" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="secondary" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="tertiary" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="success" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="warning" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="danger" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="dark" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+                </cy-segment>
+                <cy-segment color="light" value="大狗子">
+                  <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+                  <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+                  <cy-segment-button value="三狗子">三狗子</cy-segment-button>
                 </cy-segment>
               </div>
             </div>

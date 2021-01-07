@@ -1,9 +1,12 @@
 :host {
-  display: block;
-  width: 100%;
   display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
+  background: rgba(var(--cy-color-base-rgb), 0.5);
+  padding: 1.5px 1px;
+  margin: 3px;
 }

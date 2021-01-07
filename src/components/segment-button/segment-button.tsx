@@ -13,20 +13,31 @@ export class SegmentButton {
 
   componentDidLoad() {
     this.segmentEl = this.el.closest('cy-segment');
+    this.update();
   }
 
   @Method()
-  update() {
+  async update() {
     this.check = this.segmentEl.value === this.value;
   }
 
   render() {
     return (
-      <Host>
+      <Host
+        class={{
+          'segment-button-checked': this.check,
+        }}
+      >
         <div class="segment-button-container">
           <slot />
         </div>
-        <div class="segment-button-indicator segment-change-animation"></div>
+        <div
+          class={{
+            'segment-button-indicator': true,
+          }}
+        >
+          {this.check ? <div class="seg-button-bg"></div> : null}
+        </div>
       </Host>
     );
   }
