@@ -44,13 +44,6 @@ export class PageHome {
             </div>
 
             <div class="card">
-              <div class="card-header activatable">input type=number</div>
-              <div class="card-content">
-                <number-input></number-input>
-              </div>
-            </div>
-
-            <div class="card">
               <div class="card-header activatable">toggle</div>
               <div class="card-content">
                 <cy-toggle color="primary">primary</cy-toggle>
@@ -132,13 +125,6 @@ export class PageHome {
                 <cy-time color="danger">danger</cy-time>
                 <cy-time color="dark">dark</cy-time>
                 <cy-time color="light">light</cy-time>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-header activatable">SVG</div>
-              <div class="card-content">
-                <embed src="../../assets/svg/demo.svg" type="" />
               </div>
             </div>
 

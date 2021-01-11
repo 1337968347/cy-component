@@ -49,8 +49,6 @@ export namespace Components {
     interface CyToggle {
         "color": string;
     }
-    interface NumberInput {
-    }
     interface PageHome {
     }
     interface PageOne {
@@ -150,12 +148,6 @@ declare global {
         prototype: HTMLCyToggleElement;
         new (): HTMLCyToggleElement;
     };
-    interface HTMLNumberInputElement extends Components.NumberInput, HTMLStencilElement {
-    }
-    var HTMLNumberInputElement: {
-        prototype: HTMLNumberInputElement;
-        new (): HTMLNumberInputElement;
-    };
     interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
     }
     var HTMLPageHomeElement: {
@@ -190,7 +182,6 @@ declare global {
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
-        "number-input": HTMLNumberInputElement;
         "page-home": HTMLPageHomeElement;
         "page-one": HTMLPageOneElement;
         "page-root": HTMLPageRootElement;
@@ -237,8 +228,6 @@ declare namespace LocalJSX {
     interface CyToggle {
         "color"?: string;
     }
-    interface NumberInput {
-    }
     interface PageHome {
     }
     interface PageOne {
@@ -262,7 +251,6 @@ declare namespace LocalJSX {
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
-        "number-input": NumberInput;
         "page-home": PageHome;
         "page-one": PageOne;
         "page-root": PageRoot;
@@ -287,7 +275,6 @@ declare module "@stencil/core" {
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
-            "number-input": LocalJSX.NumberInput & JSXBase.HTMLAttributes<HTMLNumberInputElement>;
             "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-one": LocalJSX.PageOne & JSXBase.HTMLAttributes<HTMLPageOneElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
