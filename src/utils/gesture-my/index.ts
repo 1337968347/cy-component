@@ -1,3 +1,5 @@
+import { createPointerEvents } from './pointer-events';
+import { createPanRecognizer } from './recognizers';
 export interface GestureDetail {
   type: string;
   startX: number;
@@ -34,6 +36,107 @@ export interface Gesture {
 }
 
 export const createGesture = (config: GestureConfig): Gesture => {
+  let hasCapturedPan = false;
+  let hasStartedPan = false;
+
+  const finalConfig: GestureConfig = {
+    direction: 'x',
+    passive: true,
+    maxAngle: 40,
+    threshold: 10,
+
+    ...config,
+  };
+
+  const detail: GestureDetail = {
+    type: 'pan',
+    startX: 0,
+    startY: 0,
+    startTime: 0,
+    currentX: 0,
+    currentY: 0,
+    deltaX: 0,
+    deltaY: 0,
+    currentTime: 0,
+    event: undefined,
+    data: undefined,
+  };
+
+  const canStart = finalConfig.canStart;
+  const onWillStart = finalConfig.onWillStart;
+  const onStart = finalConfig.onStart;
+  const onMove = finalConfig.onMove;
+  const onEnd = finalConfig.onEnd;
+  const passive = finalConfig.passive;
+
+  const pan = createPanRecognizer(finalConfig.direction, finalConfig.threshold, finalConfig.maxAngle);
+
   console.log(config);
-  return { enable: () => {}, destroy: () => {} };
+
+  const pointerDown = (ev: UIEvent): boolean => {
+    if (hasStartedPan) {
+      return false;
+    }
+    hasStartedPan = true;
+    const timeStamp = Date.now();
+
+    updateDetail(ev, detail);
+
+    detail.startTime = timeStamp;
+    detail.currentTime = timeStamp;
+    detail.startX = detail.currentX;
+    detail.startY = detail.currentY;
+    detail.event = ev;
+
+    if (canStart && canStart(detail) === false) {
+      return false;
+    }
+
+    pan.start(detail.startX, detail.startY);
+
+    return true;
+  };
+  const pointerMove = (ev: UIEvent) => {};
+  const pointerUp = (ev: UIEvent | undefined) => {};
+
+  const reset = () => {
+    hasCapturedPan = false;
+    hasStartedPan = false;
+  };
+
+  const pointerEvents = createPointerEvents(finalConfig.el, pointerDown, pointerMove, pointerUp, {
+    passage: passive,
+    capture: false,
+  });
+
+  return {
+    enable: (enable = true) => {
+      if (!enable) {
+        reset();
+        if (hasCapturedPan) {
+          pointerUp(undefined);
+        }
+      }
+      pointerEvents.enable(enable);
+    },
+    destroy: () => {},
+  };
+};
+
+const updateDetail = (ev: any, detail: GestureDetail) => {
+  let x = 0;
+  let y = 0;
+  if (ev) {
+    const changedTouches = ev.changedTouches;
+    if (changedTouches && changedTouches.length > 0) {
+      const touch = changedTouches[0];
+      x = touch.clientX;
+      y = touch.clientY;
+    } else if (ev.pageX !== undefined) {
+      x = ev.pageX;
+      y = ev.pageY;
+    }
+  }
+  detail.currentX = x;
+  detail.currentY = y;
 };
