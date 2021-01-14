@@ -1,4 +1,5 @@
 import { Component, Element, Prop, Host, h, Listen, writeTask } from '@stencil/core';
+import { createGesture, Gesture,GestureDetail } from '../../utils/gesture';
 
 @Component({
   tag: 'cy-segment',
@@ -6,17 +7,37 @@ import { Component, Element, Prop, Host, h, Listen, writeTask } from '@stencil/c
   shadow: true,
 })
 export class segment {
+  private gesture: Gesture;
   @Element() el: HTMLElement;
   private currentEl: HTMLCySegmentButtonElement;
   @Prop() color: string = 'primary';
   @Prop() value: string = '';
 
   componentDidLoad() {
+    this.gesture = createGesture({
+      el: this.el,
+      direction: 'x',
+      passive: true,
+      maxAngle: 15,
+      onMove: this.onMove;
+   
+    });
     this.updateCurrent();
   }
+
   @Listen('choose')
   handleSegChoose(e) {
     this.value = e.detail.value;
+  }
+
+ 
+  onMove(detail: GestureDetail) {
+    this.setNextIndex(detail);
+  }
+
+  private setNextIndex(detail: GestureDetail, isEnd = false) {
+  //  TODO 
+
   }
 
   clickSeg(e) {
@@ -50,22 +71,16 @@ export class segment {
     const widthDelta = previousClientRect.width / currentClientRect.width;
     const xPosition = previousClientRect.left - currentClientRect.left;
 
-    // Scale the indicator width to match the previous indicator width
-    // and translate it on top of the previous indicator
     const transform = `translate3d(${xPosition}px, 0, 0) scaleX(${widthDelta})`;
 
     writeTask(() => {
-      // Remove the transition before positioning on top of the previous indicator
       currentIndicator.classList.remove('segment-change-animation');
       currentIndicator.style.setProperty('transform', transform);
 
-      // Force a repaint to ensure the transform happens
       currentIndicator.getBoundingClientRect();
 
-      // Add the transition to move the indicator into place
       currentIndicator.classList.add('segment-change-animation');
 
-      // Remove the transform to slide the indicator back to the button clicked
       currentIndicator.style.setProperty('transform', '');
     });
 
