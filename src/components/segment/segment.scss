@@ -1,13 +1,24 @@
 :host {
   display: flex;
-  width: 100%;
   flex-wrap: nowrap;
   border-radius: 8px;
+  width: 100%;
   overflow: auto;
   cursor: pointer;
   user-select: none;
   background: rgba(var(--cy-color-base-rgb), 0.1);
   padding: 1.5px 1px;
-  margin: 3px;
   box-shadow: 0 0 5px rgba(197, 142, 142, 0.16);
+}
+:host(.overfrow-scroll) {
+  overflow: auto;
+}
+:host(.direction-y) {
+  width: initial;
+  height: 100%;
+  flex-direction: column;
+  border-radius: 0;
+}
+:host(.direction-y) ::slotted(cy-segment-button) {
+  padding: 1em 0.1em;
 }

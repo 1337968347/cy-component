@@ -12,18 +12,20 @@ export class segment {
   private currentEl: HTMLCySegmentButtonElement;
   @Prop() color: string = 'primary';
   @Prop() value: string = '';
+  @Prop() scrollable: boolean = false;
+  @Prop() direction: 'x' | 'y' = 'x';
   @Event() cyChange: EventEmitter;
 
   componentDidLoad() {
     this.gesture = createGesture({
       el: this.el,
-      direction: 'x',
+      direction: this.direction,
       passive: true,
       maxAngle: 15,
       canStart: this.canStart.bind(this),
       onMove: this.onMove.bind(this),
     });
-    this.gesture.enable();
+    this.gesture.enable(!this.scrollable);
     this.updateCurrent();
   }
 
@@ -72,11 +74,7 @@ export class segment {
 
     const previousClientRect = previousIndicator.getBoundingClientRect();
     const currentClientRect = currentIndicator.getBoundingClientRect();
-
-    const widthDelta = previousClientRect.width / currentClientRect.width;
-    const xPosition = previousClientRect.left - currentClientRect.left;
-
-    const transform = `translate3d(${xPosition}px, 0, 0) scaleX(${widthDelta})`;
+    const transform = this.clacTransform(previousClientRect, currentClientRect);
 
     writeTask(() => {
       currentIndicator.classList.remove('segment-change-animation');
@@ -91,6 +89,23 @@ export class segment {
 
     this.value = current.value;
     this.updateCurrent();
+  }
+
+  clacTransform(previousClientRect: DOMRect, currentClientRect: DOMRect) {
+    let transform = '';
+    let widthDelta;
+    let xPosition;
+    if (this.direction == 'x') {
+      widthDelta = previousClientRect.width / currentClientRect.width;
+      xPosition = previousClientRect.left - currentClientRect.left;
+      transform = `translate3d(${xPosition}px, 0, 0) scaleX(${widthDelta})`;
+      return transform;
+    }
+
+    widthDelta = previousClientRect.height / currentClientRect.height;
+    xPosition = previousClientRect.top - currentClientRect.top;
+    transform = `translate3d(0, ${xPosition}px, 0) scaleY(${widthDelta})`;
+    return transform;
   }
 
   updateCurrent() {
@@ -116,6 +131,8 @@ export class segment {
         }}
         class={{
           [`cy-color-${this.color}`]: true,
+          'overfrow-scroll': this.scrollable,
+          'direction-y': this.direction == 'y',
         }}
       >
         <slot />

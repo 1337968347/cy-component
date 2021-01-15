@@ -16,26 +16,29 @@ export class PageHome {
           <h3>欢迎</h3>
         </cy-header>
         <cy-content>
-          <div class="container">
-            <cy-segment
-              color="primary"
-              value={this.choose}
-              onCyChange={e => {
-                this.choose = e.detail;
-              }}
-            >
-              <cy-segment-button value="button">Button</cy-segment-button>
-              <cy-segment-button value="toggle">Toggle</cy-segment-button>
-              <cy-segment-button value="ripple">ripple</cy-segment-button>
-              <cy-segment-button value="modal">modal</cy-segment-button>
-              <cy-segment-button value="time">time</cy-segment-button>
-              <cy-segment-button value="checkBox">checkBox</cy-segment-button>
-              <cy-segment-button value="spinner">spinner</cy-segment-button>
-              <cy-segment-button value="toast">toast</cy-segment-button>
-              <cy-segment-button value="segment">segment</cy-segment-button>
-            </cy-segment>
-
-            {RenderShowItem(this.choose)}
+          <div class="content">
+            <div class="nav-bar">
+              <cy-segment
+                scrollable={false}
+                direction="y"
+                color="primary"
+                value={this.choose}
+                onCyChange={e => {
+                  this.choose = e.detail;
+                }}
+              >
+                <cy-segment-button value="button">Button</cy-segment-button>
+                <cy-segment-button value="toggle">Toggle</cy-segment-button>
+                <cy-segment-button value="ripple">ripple</cy-segment-button>
+                <cy-segment-button value="modal">modal</cy-segment-button>
+                <cy-segment-button value="time">time</cy-segment-button>
+                <cy-segment-button value="checkBox">checkBox</cy-segment-button>
+                <cy-segment-button value="spinner">spinner</cy-segment-button>
+                <cy-segment-button value="toast">toast</cy-segment-button>
+                <cy-segment-button value="segment">segment</cy-segment-button>
+              </cy-segment>
+            </div>
+            <div class="container">{RenderShowItem(this.choose)}</div>
           </div>
         </cy-content>
       </cy-page>
