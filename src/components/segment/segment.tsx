@@ -1,5 +1,5 @@
-import { Component, Element, Prop, Host, h, Listen, writeTask } from '@stencil/core';
-import { createGesture, Gesture,GestureDetail } from '../../utils/gesture';
+import { Component, Element, Prop, Host, h, Event, EventEmitter, writeTask } from '@stencil/core';
+import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 
 @Component({
   tag: 'cy-segment',
@@ -12,6 +12,7 @@ export class segment {
   private currentEl: HTMLCySegmentButtonElement;
   @Prop() color: string = 'primary';
   @Prop() value: string = '';
+  @Event() cyChange: EventEmitter;
 
   componentDidLoad() {
     this.gesture = createGesture({
@@ -19,25 +20,26 @@ export class segment {
       direction: 'x',
       passive: true,
       maxAngle: 15,
-      onMove: this.onMove;
-   
+      canStart: this.canStart.bind(this),
+      onMove: this.onMove.bind(this),
     });
+    this.gesture.enable();
     this.updateCurrent();
   }
 
-  @Listen('choose')
-  handleSegChoose(e) {
-    this.value = e.detail.value;
+  canStart(detail: GestureDetail) {
+    if (this.getSegmentButtonEL(detail.event) === this.currentEl) {
+      return true;
+    }
+    return false;
   }
 
- 
   onMove(detail: GestureDetail) {
     this.setNextIndex(detail);
   }
 
-  private setNextIndex(detail: GestureDetail, isEnd = false) {
-  //  TODO 
-
+  setNextIndex(detail: GestureDetail, isEnd = false) {
+    console.log(detail, isEnd);
   }
 
   clickSeg(e) {
@@ -45,7 +47,10 @@ export class segment {
     if (!segBtn || segBtn == this.currentEl) {
       return;
     }
+
     this.value = segBtn.value;
+    this.cyChange.emit(this.value);
+
     if (this.currentEl) {
       this.checkButton(this.currentEl, segBtn);
     } else {

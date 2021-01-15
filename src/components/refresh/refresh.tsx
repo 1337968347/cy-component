@@ -21,8 +21,6 @@ export class refresh {
   async setNativeFresh() {
     this.gesture = createGesture({
       el: this.scrollEl!,
-      gestureName: 'refresher',
-      gesturePriority: 31,
       direction: 'y',
       threshold: 5,
       canStart: () => this.state !== RefresherState.Refreshing && this.state !== RefresherState.Completing && this.scrollEl!.scrollTop === 0,

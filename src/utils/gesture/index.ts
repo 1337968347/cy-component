@@ -79,7 +79,6 @@ export const createGesture = (config: GestureConfig): Gesture => {
     }
     hasStartedPan = true;
     const timeStamp = Date.now();
-
     updateDetail(ev, detail);
 
     detail.startTime = timeStamp;
@@ -87,8 +86,8 @@ export const createGesture = (config: GestureConfig): Gesture => {
     detail.startX = detail.currentX;
     detail.startY = detail.currentY;
     detail.event = ev;
-
     if (canStart && canStart(detail) === false) {
+      reset();
       return false;
     }
 

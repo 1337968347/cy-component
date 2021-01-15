@@ -214,6 +214,7 @@ declare namespace LocalJSX {
     }
     interface CySegment {
         "color"?: string;
+        "onCyChange"?: (event: CustomEvent<any>) => void;
         "value"?: string;
     }
     interface CySegmentButton {

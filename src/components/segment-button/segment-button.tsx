@@ -11,7 +11,7 @@ export class SegmentButton {
   @Prop() value: string = '';
   @State() check: boolean = false;
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.segmentEl = this.el.closest('cy-segment');
     this.update();
   }
