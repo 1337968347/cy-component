@@ -12,7 +12,7 @@ export class SegmentButton {
   @State() check: boolean = false;
 
   componentWillLoad() {
-    this.segmentEl = this.el.closest('cy-segment');
+    this.segmentEl = this.el.closest('cy-segment') as HTMLCySegmentElement | undefined;
     this.update();
   }
 

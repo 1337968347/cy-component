@@ -17,27 +17,24 @@ export class PageHome {
         </cy-header>
         <cy-content>
           <div class="content">
-            <div class="nav-bar">
-              <cy-segment
-                scrollable={false}
-                direction="y"
-                color="primary"
-                value={this.choose}
-                onCyChange={e => {
-                  this.choose = e.detail;
-                }}
-              >
-                <cy-segment-button value="button">Button</cy-segment-button>
-                <cy-segment-button value="toggle">Toggle</cy-segment-button>
-                <cy-segment-button value="ripple">ripple</cy-segment-button>
-                <cy-segment-button value="modal">modal</cy-segment-button>
-                <cy-segment-button value="time">time</cy-segment-button>
-                <cy-segment-button value="checkBox">checkBox</cy-segment-button>
-                <cy-segment-button value="spinner">spinner</cy-segment-button>
-                <cy-segment-button value="toast">toast</cy-segment-button>
-                <cy-segment-button value="segment">segment</cy-segment-button>
-              </cy-segment>
-            </div>
+            <cy-segment
+              scrollable={true}
+              color="medium"
+              value={this.choose}
+              onCyChange={e => {
+                this.choose = e.detail;
+              }}
+            >
+              <cy-segment-button value="button">Button</cy-segment-button>
+              <cy-segment-button value="toggle">Toggle</cy-segment-button>
+              <cy-segment-button value="ripple">ripple</cy-segment-button>
+              <cy-segment-button value="modal">modal</cy-segment-button>
+              <cy-segment-button value="time">time</cy-segment-button>
+              <cy-segment-button value="checkBox">checkBox</cy-segment-button>
+              <cy-segment-button value="spinner">spinner</cy-segment-button>
+              <cy-segment-button value="toast">toast</cy-segment-button>
+              <cy-segment-button value="segment">segment</cy-segment-button>
+            </cy-segment>
             <div class="container">{RenderShowItem(this.choose)}</div>
           </div>
         </cy-content>
@@ -241,6 +238,19 @@ const RenderShowItem = (showName: string) => {
               <cy-segment-button value="三狗子">三狗子</cy-segment-button>
             </cy-segment>
             <cy-segment color="light" value="大狗子">
+              <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+              <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+              <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+            </cy-segment>
+
+            <cy-segment color="light" value="大狗子" scrollable>
+              <cy-segment-button value="大狗子">大狗子</cy-segment-button>
+              <cy-segment-button value="二狗子">二狗子</cy-segment-button>
+              <cy-segment-button value="四狗子">特别长特别长特别长</cy-segment-button>
+              <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+            </cy-segment>
+
+            <cy-segment style={{ width: '70px' }} color="primary" direction="y" value="大狗子">
               <cy-segment-button value="大狗子">大狗子</cy-segment-button>
               <cy-segment-button value="二狗子">二狗子</cy-segment-button>
               <cy-segment-button value="三狗子">三狗子</cy-segment-button>

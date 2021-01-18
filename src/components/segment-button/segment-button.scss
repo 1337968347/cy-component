@@ -1,17 +1,35 @@
 :host {
-  display: inline-flex;
-  padding: 0.1em 1em;
+  display: flex;
   min-width: 70px;
   min-height: 28px;
   font-weight: 600;
-  flex: 1;
+  margin: 1px 0;
+  flex: 1 1 auto;
   --btn-bg: #fff;
+  padding: 0 0.8em;
   color: #000;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   position: relative;
   transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+:host::before {
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  content: '';
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  transition: opacity 160ms ease-in-out 100ms;
+}
+
+:host(.segment-button-checked)::before,
+:host(.segment-button-after-checked)::before {
+  opacity: 0;
+}
+
+:host(:first-of-type)::before {
+  border-left-color: transparent;
 }
 
 :host(:not(.segment-button-checked):hover) {
@@ -24,9 +42,13 @@
 
 .segment-button-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 2;
   background-color: transparent;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 
 .segment-button-indicator {
@@ -37,7 +59,6 @@
   right: 1px;
   bottom: 1px;
   z-index: 1;
-  max-height: 30px;
 }
 
 .seg-button-bg {

@@ -111,7 +111,13 @@ export class segment {
   updateCurrent() {
     const buttons = Array.from(this.el.querySelectorAll('cy-segment-button'));
     this.currentEl = buttons.find(btn => btn.value === this.value);
-    buttons.forEach(btn => btn.update());
+    buttons.forEach(btn => {
+      btn.update();
+      btn.classList.remove('segment-button-after-checked');
+    });
+    if (this.currentEl.nextSibling) {
+      (this.currentEl.nextSibling as HTMLCySegmentButtonElement).classList.add('segment-button-after-checked');
+    }
   }
 
   getSegmentButtonEL(e): HTMLCySegmentButtonElement {
