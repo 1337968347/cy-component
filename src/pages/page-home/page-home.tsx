@@ -23,6 +23,7 @@ export class PageHome {
         <cy-content>
           <div class="content">
             <cy-segment
+              style={{ height: '35px' }}
               scrollable={true}
               color="medium"
               value={this.choose}
@@ -54,6 +55,7 @@ const RenderShowItem = (showName: string) => {
     case 'button':
       return (
         <div>
+          <h3>default</h3>
           <cy-button color="primary">primary</cy-button>
           <cy-button color="secondary">secondary</cy-button>
           <cy-button color="tertiary">tertiary</cy-button>
@@ -62,6 +64,14 @@ const RenderShowItem = (showName: string) => {
           <cy-button color="danger">danger</cy-button>
           <cy-button color="dark">dark</cy-button>
           <cy-button color="light">light</cy-button>
+          <h3>block width</h3>
+          <cy-button color="primary" expend="block">
+            primary
+          </cy-button>
+          <h3>full width</h3>
+          <cy-button color="primary" expend="full">
+            primary
+          </cy-button>
         </div>
       );
     case 'toggle':
@@ -123,7 +133,7 @@ const RenderShowItem = (showName: string) => {
       );
     case 'modal':
       return (
-        <cy-button color="primary" onClick={createBackDrop.bind(this)}>
+        <cy-button color="primary" expend="full" onClick={createBackDrop.bind(this)}>
           show modal
         </cy-button>
       );
@@ -169,6 +179,7 @@ const RenderShowItem = (showName: string) => {
     case 'toast':
       return (
         <cy-button
+          expend="full"
           color="primary"
           onClick={() => {
             showToast({ title: '标题' });

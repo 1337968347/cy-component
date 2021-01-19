@@ -10,7 +10,7 @@
   /* stylelint-disable */
   margin: 0 !important;
 
-  padding: 3px !important;
+  padding: 0 !important;
   /* stylelint-enable */
 
   contain: size style;
@@ -29,7 +29,7 @@
   width: 1px;
   height: 1px;
 
-  content: "";
+  content: '';
 }
 
 .overscroll::before {
@@ -40,7 +40,7 @@
   top: -1px;
 }
 
-[slot="fixed"] {
+[slot='fixed'] {
   position: absolute;
   top: 0;
   left: 40%;

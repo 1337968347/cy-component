@@ -10,6 +10,7 @@ export namespace Components {
     }
     interface CyButton {
         "color": string;
+        "expend": 'default' | 'full' | 'block';
     }
     interface CyCheckbox {
         "checked": boolean;
@@ -193,6 +194,7 @@ declare namespace LocalJSX {
     }
     interface CyButton {
         "color"?: string;
+        "expend"?: 'default' | 'full' | 'block';
     }
     interface CyCheckbox {
         "checked"?: boolean;

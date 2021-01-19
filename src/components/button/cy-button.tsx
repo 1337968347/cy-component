@@ -1,4 +1,4 @@
-import { Component,Prop, Host, h } from '@stencil/core';
+import { Component, Prop, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'cy-button',
@@ -6,15 +6,18 @@ import { Component,Prop, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class CyButton {
-  @Prop() color: string = ''
+  @Prop() color: string = '';
+  @Prop() expend: 'default' | 'full' | 'block' = 'default';
   render() {
     return (
-      <Host class={
-        {
+      <Host
+        class={{
           [`cy-color-${this.color}`]: true,
-          'activatable': true
-        }
-      }>
+          ['button-full']: this.expend === 'full',
+          ['button-block']: this.expend === 'block',
+          activatable: true,
+        }}
+      >
         <button class="button-native">
           <slot />
         </button>
