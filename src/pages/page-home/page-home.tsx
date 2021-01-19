@@ -242,18 +242,13 @@ const RenderShowItem = (showName: string) => {
               <cy-segment-button value="二狗子">二狗子</cy-segment-button>
               <cy-segment-button value="三狗子">三狗子</cy-segment-button>
             </cy-segment>
-
-            <cy-segment color="light" value="大狗子" scrollable>
-              <cy-segment-button value="大狗子">大狗子</cy-segment-button>
-              <cy-segment-button value="二狗子">二狗子</cy-segment-button>
-              <cy-segment-button value="四狗子">特别长特别长特别长</cy-segment-button>
-              <cy-segment-button value="三狗子">三狗子</cy-segment-button>
-            </cy-segment>
-
-            <cy-segment style={{ width: '70px' }} color="primary" direction="y" value="大狗子">
+            <h3>可以滚动的</h3>
+            <cy-segment color="primary" value="大狗子" scrollable>
               <cy-segment-button value="大狗子">大狗子</cy-segment-button>
               <cy-segment-button value="二狗子">二狗子</cy-segment-button>
               <cy-segment-button value="三狗子">三狗子</cy-segment-button>
+              <cy-segment-button value="四狗子">特别长特别长特别长特别长特别长特别长特别长特别长特别长</cy-segment-button>
+              <cy-segment-button value="五狗子">五狗子</cy-segment-button>
             </cy-segment>
           </div>
         </div>

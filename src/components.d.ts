@@ -34,7 +34,6 @@ export namespace Components {
     }
     interface CySegment {
         "color": string;
-        "direction": 'x' | 'y';
         "scrollable": boolean;
         "value": string;
     }
@@ -216,7 +215,6 @@ declare namespace LocalJSX {
     }
     interface CySegment {
         "color"?: string;
-        "direction"?: 'x' | 'y';
         "onCyChange"?: (event: CustomEvent<any>) => void;
         "scrollable"?: boolean;
         "value"?: string;

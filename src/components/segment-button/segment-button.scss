@@ -37,7 +37,7 @@
 }
 
 :host(.segment-button-checked:active) {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }
 
 .segment-button-container {
@@ -59,6 +59,7 @@
   right: 1px;
   bottom: 1px;
   z-index: 1;
+  transform-origin: left center;
 }
 
 .seg-button-bg {

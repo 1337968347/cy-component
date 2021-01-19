@@ -13,15 +13,6 @@
 :host(.overfrow-scroll) {
   overflow: auto;
 }
-:host(.direction-y) {
-  width: initial;
-  height: 100%;
-  flex-direction: column;
-}
-:host(.direction-y) ::slotted(cy-segment-button) {
-  padding: 0.5em 0.1em;
-}
-
 :host(.overfrow-scroll) ::slotted(cy-segment-button) {
   flex: none;
 }
