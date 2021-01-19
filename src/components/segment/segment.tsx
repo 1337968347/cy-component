@@ -20,7 +20,7 @@ export class segment {
       el: this.el,
       direction: 'x',
       passive: true,
-      maxAngle: 15,
+      maxAngle: 25,
       canStart: this.canStart.bind(this),
       onMove: this.onMove.bind(this),
     });
@@ -36,11 +36,21 @@ export class segment {
   }
 
   onMove(detail: GestureDetail) {
-    this.setNextIndex(detail);
+    this.setNextButton(detail);
   }
 
-  setNextIndex(detail: GestureDetail, isEnd = false) {
-    console.log(detail, isEnd);
+  setNextButton(detail: GestureDetail) {
+    const prev = this.currentEl;
+    const prevRect = prev.getBoundingClientRect();
+    const currentEl = document.elementFromPoint(detail.currentX, prevRect.y) as HTMLCySegmentButtonElement;
+
+    if (!currentEl || currentEl.tagName !== 'CY-SEGMENT-BUTTON') {
+      return;
+    }
+
+    if (currentEl !== prev) {
+      this.checkButton(prev, currentEl);
+    }
   }
 
   clickSeg(e) {

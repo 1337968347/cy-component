@@ -1,6 +1,6 @@
 /**
  *
- * @param {*} option {text : string,duration: number}
+ * @param {*} option {title : string,duration: number}
  */
 const showToast = option => {
   formatOption(option);

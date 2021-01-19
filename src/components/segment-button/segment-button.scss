@@ -33,7 +33,7 @@
 }
 
 :host(:not(.segment-button-checked):hover) {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 :host(.segment-button-checked:active) {
