@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface CyBackdrop {
+        "stopPropagation": boolean;
+        "tappable": boolean;
     }
     interface CyButton {
         "color": string;
@@ -191,6 +193,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface CyBackdrop {
+        "onBackDrop"?: (event: CustomEvent<any>) => void;
+        "stopPropagation"?: boolean;
+        "tappable"?: boolean;
     }
     interface CyButton {
         "color"?: string;
