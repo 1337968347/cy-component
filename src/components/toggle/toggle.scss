@@ -1,19 +1,19 @@
 :host {
   display: inline-block;
-  width: 36px;
-  height: 14px;
+  width: calc(var(--size));
+  height: calc(var(--size) * 2 / 5);
   padding: 12px;
   contain: strict;
   cursor: pointer;
+  --size: 40px;
   --background: rgba(var(--cy-text-color-rgb, 0, 0, 0), 0.39);
   --background-checked: rgba(var(--cy-color-base-rgb), 0.5);
   --border-radius: 14px;
   --handle-background: #ffffff;
   --handle-background-checked: var(--cy-color-base);
   --handle-border-radius: 50%;
-  --handle-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  --move-length: 14.5px;
+  --handle-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  --move-length: calc(var(--size) / 2);
   --handle-width: 20px;
   --handle-height: 20px;
   --handle-max-height: calc(100% + 6px);

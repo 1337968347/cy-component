@@ -11,6 +11,7 @@
   background: rgba(var(--cy-color-base-rgb), 0.15);
   box-shadow: 0 0 5px rgba(197, 142, 142, 0.16);
 }
+
 :host(.overfrow-scroll) {
   overflow: auto;
 }

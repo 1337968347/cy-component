@@ -11,7 +11,6 @@ export class PageHome {
 
   componentWillLoad() {
     this.choose = location.hash.split('#')[1] || 'button';
-    console.log(this.choose);
   }
 
   render() {
@@ -34,13 +33,13 @@ export class PageHome {
             >
               <cy-segment-button value="button">Button</cy-segment-button>
               <cy-segment-button value="toggle">Toggle</cy-segment-button>
-              <cy-segment-button value="ripple">ripple</cy-segment-button>
-              <cy-segment-button value="modal">modal</cy-segment-button>
-              <cy-segment-button value="time">time</cy-segment-button>
-              <cy-segment-button value="checkBox">checkBox</cy-segment-button>
-              <cy-segment-button value="spinner">spinner</cy-segment-button>
-              <cy-segment-button value="toast">toast</cy-segment-button>
-              <cy-segment-button value="segment">segment</cy-segment-button>
+              <cy-segment-button value="ripple">Ripple</cy-segment-button>
+              <cy-segment-button value="modal">Modal</cy-segment-button>
+              <cy-segment-button value="time">Time</cy-segment-button>
+              <cy-segment-button value="checkBox">CheckBox</cy-segment-button>
+              <cy-segment-button value="spinner">Spinner</cy-segment-button>
+              <cy-segment-button value="toast">Toast</cy-segment-button>
+              <cy-segment-button value="segment">Segment</cy-segment-button>
             </cy-segment>
             <div class="container">{RenderShowItem(this.choose)}</div>
           </div>

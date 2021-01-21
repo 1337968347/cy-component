@@ -80,7 +80,7 @@ export class segment {
     if (previousIndicator === null || currentIndicator === null) {
       return;
     }
-
+    // 这里计算会造成丢帧
     const previousClientRect = previousIndicator.getBoundingClientRect();
     const currentClientRect = currentIndicator.getBoundingClientRect();
     const transform = this.clacTransform(previousClientRect, currentClientRect);
