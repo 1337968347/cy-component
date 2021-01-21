@@ -91,8 +91,7 @@ const RenderShowItem = (showName: string) => {
         <div>
           <div
             style={{
-              width: '150px',
-              height: '40px',
+              height: '50px',
               margin: '5px',
               background: '#f1f1f1',
               color: 'var(--cy-color-primary)',
@@ -104,8 +103,7 @@ const RenderShowItem = (showName: string) => {
           </div>
           <div
             style={{
-              width: '180px',
-              height: '40px',
+              height: '50px',
               margin: '5px',
               background: '#f1f1f1',
               color: 'var(--cy-color-secondary)',
@@ -117,8 +115,8 @@ const RenderShowItem = (showName: string) => {
           </div>
           <div
             style={{
-              'width': '80px',
-              'height': '70px',
+              'width': '100px',
+              'height': '100px',
               'margin': '5px',
               'border-radius': '50%',
               'background': '#f1f1f1',
