@@ -21,7 +21,7 @@ export class CyButton {
         <button class="button-native">
           <slot />
         </button>
-        <cy-ripple></cy-ripple>
+        <cy-ripple />
       </Host>
     );
   }

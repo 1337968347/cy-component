@@ -20,34 +20,84 @@ export class PageHome {
           <h3>欢迎</h3>
         </cy-header>
         <cy-content>
-          <div class="content">
-            <cy-segment
-              style={{ height: '35px' }}
-              scrollable={true}
-              color="medium"
-              value={this.choose}
-              onCyChange={e => {
-                this.choose = e.detail;
-                location.hash = e.detail;
-              }}
-            >
-              <cy-segment-button value="button">Button</cy-segment-button>
-              <cy-segment-button value="toggle">Toggle</cy-segment-button>
-              <cy-segment-button value="ripple">Ripple</cy-segment-button>
-              <cy-segment-button value="modal">Modal</cy-segment-button>
-              <cy-segment-button value="time">Time</cy-segment-button>
-              <cy-segment-button value="checkBox">CheckBox</cy-segment-button>
-              <cy-segment-button value="spinner">Spinner</cy-segment-button>
-              <cy-segment-button value="toast">Toast</cy-segment-button>
-              <cy-segment-button value="segment">Segment</cy-segment-button>
-            </cy-segment>
-            <div class="container">{RenderShowItem(this.choose)}</div>
-          </div>
+          <cy-segment
+            style={{ height: '35px' }}
+            scrollable={true}
+            color="medium"
+            value={this.choose}
+            onCyChange={e => {
+              this.choose = e.detail;
+              location.hash = e.detail;
+            }}
+          >
+            <cy-segment-button value="button">Button</cy-segment-button>
+            <cy-segment-button value="toggle">Toggle</cy-segment-button>
+            <cy-segment-button value="ripple">Ripple</cy-segment-button>
+            <cy-segment-button value="modal">Modal</cy-segment-button>
+            <cy-segment-button value="action-sheet">ActionSheet</cy-segment-button>
+            <cy-segment-button value="time">Time</cy-segment-button>
+            <cy-segment-button value="checkBox">CheckBox</cy-segment-button>
+            <cy-segment-button value="spinner">Spinner</cy-segment-button>
+            <cy-segment-button value="toast">Toast</cy-segment-button>
+            <cy-segment-button value="segment">Segment</cy-segment-button>
+          </cy-segment>
+          <div class="container">{RenderShowItem(this.choose)}</div>
         </cy-content>
       </cy-page>
     );
   }
 }
+const createActionSheet = () => {
+  const actionSheet = document.createElement('cy-action-sheet');
+  actionSheet.header = 'Albums';
+  actionSheet.cssClass = 'my-custom-class';
+  actionSheet.buttons = [
+    {
+      text: 'Delete',
+      role: 'destructive',
+      icon: 'trash',
+      handler: () => {
+        console.log('Delete clicked');
+        document.body.removeChild(actionSheet);
+      },
+    },
+    {
+      text: 'Share',
+      icon: 'share',
+      handler: () => {
+        console.log('Share clicked');
+        document.body.removeChild(actionSheet);
+      },
+    },
+    {
+      text: 'Play (open modal)',
+      icon: 'caret-forward-circle',
+      handler: () => {
+        console.log('Play clicked');
+        document.body.removeChild(actionSheet);
+      },
+    },
+    {
+      text: 'Favorite',
+      icon: 'heart',
+      handler: () => {
+        console.log('Favorite clicked');
+        document.body.removeChild(actionSheet);
+      },
+    },
+    {
+      text: 'Cancel',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+        document.body.removeChild(actionSheet);
+      },
+    },
+  ];
+  document.body.appendChild(actionSheet);
+  actionSheet.present();
+};
 
 const RenderShowItem = (showName: string) => {
   switch (showName) {
@@ -130,10 +180,17 @@ const RenderShowItem = (showName: string) => {
       );
     case 'modal':
       return (
-        <cy-button color="primary" expend="full" onClick={createBackDrop.bind(this)}>
+        <cy-button color="primary" expend="block" onClick={createBackDrop.bind(this)}>
           show modal
         </cy-button>
       );
+    case 'action-sheet':
+      return (
+        <cy-button color="primary" expend="block" onClick={createActionSheet.bind(this)}>
+          action sheet
+        </cy-button>
+      );
+
     case 'time':
       return (
         <div>
@@ -176,7 +233,7 @@ const RenderShowItem = (showName: string) => {
     case 'toast':
       return (
         <cy-button
-          expend="full"
+          expend="block"
           color="primary"
           onClick={() => {
             showToast({ title: '标题' });

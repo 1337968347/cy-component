@@ -5,8 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ActionSheetButton } from "./interface";
 export namespace Components {
-    interface ActionSheet {
+    interface CyActionSheet {
+        "buttons": ActionSheetButton[];
+        "cssClass": string;
+        "header": string;
+        "present": () => Promise<void>;
     }
     interface CyBackdrop {
         "stopPropagation": boolean;
@@ -64,11 +69,11 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLActionSheetElement extends Components.ActionSheet, HTMLStencilElement {
+    interface HTMLCyActionSheetElement extends Components.CyActionSheet, HTMLStencilElement {
     }
-    var HTMLActionSheetElement: {
-        prototype: HTMLActionSheetElement;
-        new (): HTMLActionSheetElement;
+    var HTMLCyActionSheetElement: {
+        prototype: HTMLCyActionSheetElement;
+        new (): HTMLCyActionSheetElement;
     };
     interface HTMLCyBackdropElement extends Components.CyBackdrop, HTMLStencilElement {
     }
@@ -179,7 +184,7 @@ declare global {
         new (): HTMLPageRootElement;
     };
     interface HTMLElementTagNameMap {
-        "action-sheet": HTMLActionSheetElement;
+        "cy-action-sheet": HTMLCyActionSheetElement;
         "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
         "cy-checkbox": HTMLCyCheckboxElement;
@@ -201,7 +206,10 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface ActionSheet {
+    interface CyActionSheet {
+        "buttons"?: ActionSheetButton[];
+        "cssClass"?: string;
+        "header"?: string;
     }
     interface CyBackdrop {
         "onBackDrop"?: (event: CustomEvent<any>) => void;
@@ -257,7 +265,7 @@ declare namespace LocalJSX {
     interface PageRoot {
     }
     interface IntrinsicElements {
-        "action-sheet": ActionSheet;
+        "cy-action-sheet": CyActionSheet;
         "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
         "cy-checkbox": CyCheckbox;
@@ -282,7 +290,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "action-sheet": LocalJSX.ActionSheet & JSXBase.HTMLAttributes<HTMLActionSheetElement>;
+            "cy-action-sheet": LocalJSX.CyActionSheet & JSXBase.HTMLAttributes<HTMLCyActionSheetElement>;
             "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
