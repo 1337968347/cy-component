@@ -9,6 +9,7 @@ import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 export class toggle {
   @Element() el: HTMLElement;
   private gesture: Gesture;
+  private lastDrag: number = 0;
   @Prop() color: string = '';
   @State() checked: boolean = true;
 
@@ -16,9 +17,11 @@ export class toggle {
     this.gesture = createGesture({
       el: this.el,
       direction: 'x',
-      passive: true,
+      passive: false,
       maxAngle: 25,
+      threshold: 3,
       onMove: this.onMove.bind(this),
+      onEnd: this.onEnd.bind(this),
     });
     this.gesture.enable();
   }
@@ -34,12 +37,23 @@ export class toggle {
     }
   }
 
+  onEnd(e: GestureDetail) {
+    e.event.preventDefault();
+    e.event.stopImmediatePropagation();
+    this.lastDrag = Date.now();
+  }
+
+  onClick(ev) {
+    ev.preventDefault();
+    if (this.lastDrag + 300 < Date.now()) {
+      this.checked = !!!this.checked;
+    }
+  }
+
   render() {
     return (
       <Host
-        onClick={() => {
-          this.checked = !!!this.checked;
-        }}
+        onClick={this.onClick}
         class={{
           [`cy-color-${this.color}`]: true,
           'toggle-checked': this.checked,

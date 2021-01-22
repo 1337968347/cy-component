@@ -70,6 +70,7 @@ export const createGesture = (config: GestureConfig): Gesture => {
   const onEnd = finalConfig.onEnd;
   const passive = finalConfig.passive;
   const blurOnStart = finalConfig.blurOnStart;
+  const threshold = finalConfig.threshold;
 
   const pan = createPanRecognizer(finalConfig.direction, finalConfig.threshold, finalConfig.maxAngle);
 
@@ -90,7 +91,9 @@ export const createGesture = (config: GestureConfig): Gesture => {
       reset();
       return false;
     }
-
+    if (threshold === 0) {
+      return tryToCapturePan();
+    }
     pan.start(detail.startX, detail.startY);
 
     return true;
@@ -144,6 +147,7 @@ export const createGesture = (config: GestureConfig): Gesture => {
     } else {
       fireOnStart();
     }
+    return true;
   };
 
   const fireOnStart = () => {

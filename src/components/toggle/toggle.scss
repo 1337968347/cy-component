@@ -5,8 +5,10 @@
   padding: 12px;
   contain: strict;
   cursor: pointer;
+  touch-action: none;
+  user-select: none;
   --size: 40px;
-  --background: rgba(var(--cy-text-color-rgb, 0, 0, 0), 0.39);
+  --background: var(--cy-background-contrast, #d3d3d3);
   --background-checked: rgba(var(--cy-color-base-rgb), 0.5);
   --border-radius: 14px;
   --handle-background: #ffffff;

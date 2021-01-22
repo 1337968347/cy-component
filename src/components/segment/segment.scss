@@ -8,8 +8,8 @@
   cursor: pointer;
   user-select: none;
   margin: 5px 0;
-  background: rgba(var(--cy-color-base-rgb), 0.15);
-  box-shadow: 0 0 5px rgba(197, 142, 142, 0.16);
+  background: rgba(var(--cy-color-base-rgb), 0.2);
+  box-shadow: 0 0 5px rgba(var(--cy-background-contrast-rgb), 0.16);
 }
 
 :host(.overfrow-scroll) {

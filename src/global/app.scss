@@ -1,8 +1,5 @@
 :root {
-  --header-height: 44px;
-
-
-  --background: #ffffff;
+  --header-height: 50px;
 
   --cy-color-primary: #3880ff;
   --cy-color-primary-rgb: 56, 128, 255;
@@ -66,6 +63,110 @@
   --cy-color-light-contrast-rgb: 0, 0, 0;
   --cy-color-light-shade: #d7d8da;
   --cy-color-light-tint: #f5f6f9;
+
+  --cy-background-color: #ffffff;
+  --cy-background-contrast: #2b2a2a;
+  --cy-background-contrast-rgb: 18, 18, 18;
+  --cy-background-color-rgb: 255, 255, 255;
+
+  --cy-text-color: #333333;
+
+  --cy-border-color: #dddddd;
+  --cy-item-background: #e0e0e0;
+
+  --cy-toolbar-background: #ffffff;
+
+  --cy-tab-bar-background: #ececec;
+
+  --cy-card-background: #dfdfdf;
+}
+
+@media (prefers-color-scheme: dark) {
+  /*
+   * Dark Colors
+   * -------------------------------------------
+   */
+
+  :root {
+    --cy-color-primary: #428cff;
+    --cy-color-primary-rgb: 66, 140, 255;
+    --cy-color-primary-contrast: #ffffff;
+    --cy-color-primary-contrast-rgb: 255, 255, 255;
+    --cy-color-primary-shade: #3a7be0;
+    --cy-color-primary-tint: #5598ff;
+
+    --cy-color-secondary: #50c8ff;
+    --cy-color-secondary-rgb: 80, 200, 255;
+    --cy-color-secondary-contrast: #ffffff;
+    --cy-color-secondary-contrast-rgb: 255, 255, 255;
+    --cy-color-secondary-shade: #46b0e0;
+    --cy-color-secondary-tint: #62ceff;
+
+    --cy-color-tertiary: #6a64ff;
+    --cy-color-tertiary-rgb: 106, 100, 255;
+    --cy-color-tertiary-contrast: #ffffff;
+    --cy-color-tertiary-contrast-rgb: 255, 255, 255;
+    --cy-color-tertiary-shade: #5d58e0;
+    --cy-color-tertiary-tint: #7974ff;
+
+    --cy-color-success: #2fdf75;
+    --cy-color-success-rgb: 47, 223, 117;
+    --cy-color-success-contrast: #000000;
+    --cy-color-success-contrast-rgb: 0, 0, 0;
+    --cy-color-success-shade: #29c467;
+    --cy-color-success-tint: #44e283;
+
+    --cy-color-warning: #ffd534;
+    --cy-color-warning-rgb: 255, 213, 52;
+    --cy-color-warning-contrast: #000000;
+    --cy-color-warning-contrast-rgb: 0, 0, 0;
+    --cy-color-warning-shade: #e0bb2e;
+    --cy-color-warning-tint: #ffd948;
+
+    --cy-color-danger: #ff4961;
+    --cy-color-danger-rgb: 255, 73, 97;
+    --cy-color-danger-contrast: #ffffff;
+    --cy-color-danger-contrast-rgb: 255, 255, 255;
+    --cy-color-danger-shade: #e04055;
+    --cy-color-danger-tint: #ff5b71;
+
+    --cy-color-dark: #f4f5f8;
+    --cy-color-dark-rgb: 244, 245, 248;
+    --cy-color-dark-contrast: #000000;
+    --cy-color-dark-contrast-rgb: 0, 0, 0;
+    --cy-color-dark-shade: #d7d8da;
+    --cy-color-dark-tint: #f5f6f9;
+
+    --cy-color-medium: #989aa2;
+    --cy-color-medium-rgb: 152, 154, 162;
+    --cy-color-medium-contrast: #000000;
+    --cy-color-medium-contrast-rgb: 0, 0, 0;
+    --cy-color-medium-shade: #86888f;
+    --cy-color-medium-tint: #a2a4ab;
+
+    --cy-color-light: #222428;
+    --cy-color-light-rgb: 34, 36, 40;
+    --cy-color-light-contrast: #ffffff;
+    --cy-color-light-contrast-rgb: 255, 255, 255;
+    --cy-color-light-shade: #1e2023;
+    --cy-color-light-tint: #383a3e;
+
+    --cy-background-color: #1b1b1b;
+    --cy-background-contrast: #dddddd;
+    --cy-background-contrast-rgb: 255, 255, 255;
+    --cy-background-color-rgb: 18, 18, 18;
+
+    --cy-text-color: #ffffff;
+
+    --cy-border-color: #222222;
+    --cy-item-background: #1e1e1e;
+
+    --cy-toolbar-background: #1a1a1a;
+
+    --cy-tab-bar-background: #1f1f1f;
+
+    --cy-card-background: #1e1e1e;
+  }
 }
 
 .cy-color-primary {
@@ -146,6 +247,8 @@ body {
   padding: 0px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   -webkit-tap-highlight-color: transparent;
+  color: var(--cy-text-color, #ffffff);
+  background-color: var(--cy-background-color, #ffffff);
 }
 
 .activatable {

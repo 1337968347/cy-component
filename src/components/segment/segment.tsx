@@ -21,8 +21,11 @@ export class segment {
       direction: 'x',
       passive: true,
       maxAngle: 25,
+      threshold: 0,
       canStart: this.canStart.bind(this),
+      onStart: this.onStart.bind(this),
       onMove: this.onMove.bind(this),
+      onEnd: this.onEnd.bind(this),
     });
     this.gesture.enable(!this.scrollable);
     this.updateCurrent();
@@ -35,8 +38,16 @@ export class segment {
     return false;
   }
 
+  onStart() {
+    this.currentEl.classList.add('segment-button-active');
+  }
+
   onMove(detail: GestureDetail) {
     this.setNextButton(detail);
+  }
+
+  onEnd() {
+    this.currentEl.classList.remove('segment-button-active');
   }
 
   setNextButton(detail: GestureDetail) {

@@ -64,6 +64,7 @@ export const createPointerEvents = (el: Node, pointerDown: any, pointerMove: any
   };
 
   const stopMouse = () => {
+    console.log('stop');
     if (rmMouseMove) {
       rmMouseMove();
     }
