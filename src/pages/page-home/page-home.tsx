@@ -31,8 +31,6 @@ export class PageHome {
         >
           <cy-segment-button value="button">Button</cy-segment-button>
           <cy-segment-button value="toggle">Toggle</cy-segment-button>
-          <cy-segment-button value="ripple">Ripple</cy-segment-button>
-          <cy-segment-button value="modal">Modal</cy-segment-button>
           <cy-segment-button value="action-sheet">ActionSheet</cy-segment-button>
           <cy-segment-button value="time">Time</cy-segment-button>
           <cy-segment-button value="checkBox">CheckBox</cy-segment-button>
@@ -126,6 +124,7 @@ const RenderShowItem = (showName: string) => {
     case 'toggle':
       return (
         <div>
+          <h3>可拖动</h3>
           <cy-toggle color="primary">primary</cy-toggle>
           <cy-toggle color="secondary">secondary</cy-toggle>
           <cy-toggle color="tertiary">tertiary</cy-toggle>
@@ -136,61 +135,12 @@ const RenderShowItem = (showName: string) => {
           <cy-toggle color="light">light</cy-toggle>
         </div>
       );
-    case 'ripple':
-      return (
-        <div>
-          <div
-            style={{
-              height: '50px',
-              margin: '5px',
-              background: '#f1f1f1',
-              color: 'var(--cy-color-primary)',
-            }}
-            class="activatable"
-          >
-            PRIMARY
-            <cy-ripple />
-          </div>
-          <div
-            style={{
-              height: '50px',
-              margin: '5px',
-              background: '#f1f1f1',
-              color: 'var(--cy-color-secondary)',
-            }}
-            class="activatable"
-          >
-            secondary
-            <cy-ripple />
-          </div>
-          <div
-            style={{
-              'width': '100px',
-              'height': '100px',
-              'margin': '5px',
-              'border-radius': '50%',
-              'background': '#f1f1f1',
-              'color': 'var(--cy-color-tertiary)',
-            }}
-            class="activatable"
-          >
-            <cy-ripple type="unbounded" />
-          </div>
-        </div>
-      );
-    case 'modal':
-      return (
-        <cy-button color="primary" expend="block" onClick={createBackDrop.bind(this)}>
-          show modal
-        </cy-button>
-      );
     case 'action-sheet':
       return (
         <cy-button color="primary" expend="block" onClick={createActionSheet.bind(this)}>
           action sheet
         </cy-button>
       );
-
     case 'time':
       return (
         <div>
@@ -245,7 +195,7 @@ const RenderShowItem = (showName: string) => {
     case 'segment':
       return (
         <div>
-          <h3>不可滚动的</h3>
+          <h3>不可滚动的（可拖动）</h3>
           <cy-segment color="primary" value="大狗子">
             <cy-segment-button value="大狗子">大狗子</cy-segment-button>
             <cy-segment-button value="二狗子">二狗子</cy-segment-button>

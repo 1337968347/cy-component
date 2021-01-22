@@ -5,9 +5,8 @@
   font-weight: 600;
   margin: 1px 0;
   flex: 1 0 auto;
-  --box-shadow-rgba: var(--cy-background-contrast-rgb, 0, 0, 0);
   --border-color: var(--cy-border-color, #ccc);
-  --btn-bg: rgba(var(--cy-background-color-rgb, 255, 255, 255), 0.8);
+  --btn-bg: rgba(var(--cy-background-color-rgb, 255, 255, 255), 0.9);
   padding: 0 0.8em;
   color: var(--cy-text-color, #000000);
   flex-direction: row;
@@ -69,7 +68,7 @@
   width: 100%;
   border-radius: 8px;
   background-color: var(--btn-bg);
-  box-shadow: 0 0 5px rgba(var(--box-shadow-rgba), 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .segment-change-animation {
