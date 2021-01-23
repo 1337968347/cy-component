@@ -1,4 +1,4 @@
-import { AnimationBuilder } from '../interface';
+import { Animation } from '../interface';
 let lastId: number = 10000;
 
 export const prepareOverlay = el => {
@@ -6,18 +6,17 @@ export const prepareOverlay = el => {
   el.overlayIndex = overlayId;
 };
 
-export const present = async (overlay, enterAnimationBuilder: AnimationBuilder) => {
-  overlayAnimation(overlay.el, enterAnimationBuilder);
+export const present = async (overlay, enterAnimation: Animation) => {
+  overlayAnimation(overlay.el, enterAnimation);
 };
 
-export const dismiss = async (overlay, leaveAnimationBuilder: AnimationBuilder) => {
-  await overlayAnimation(overlay.el, leaveAnimationBuilder);
+export const dismiss = async (overlay, leaveAnimation: Animation) => {
+  await overlayAnimation(overlay.el, leaveAnimation);
   overlay.el.remove();
 };
 
-const overlayAnimation = async (el: HTMLElement, animationBuilder: AnimationBuilder) => {
+const overlayAnimation = async (el: HTMLElement, animation: Animation) => {
   el.classList.remove('overlay-hidden');
-  const animation = animationBuilder(el);
   await animation.play();
 
   return true;

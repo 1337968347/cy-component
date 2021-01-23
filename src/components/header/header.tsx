@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, Prop, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'cy-header',
@@ -6,9 +6,15 @@ import { Component, h, Host } from '@stencil/core';
   shadow: true,
 })
 export class header {
+  @Prop() color: string = 'primary';
+
   render() {
     return (
-      <Host>
+      <Host
+        class={{
+          [`cy-color-${this.color}`]: true,
+        }}
+      >
         <div class="btn-box">
           <slot name="start" />
         </div>

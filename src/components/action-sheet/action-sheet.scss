@@ -22,10 +22,18 @@
 
 .action-sheet-group {
   background: var(--cy-background-color);
-  margin-bottom: 8px;
+  margin-top: 8px;
   border-radius: 8px;
   overflow: hidden;
   pointer-events: initial;
+  flex-shrink: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.action-sheet-opers {
+  overflow: auto;
+  flex: 1;
 }
 
 .action-sheet-title {
@@ -51,7 +59,10 @@
   bottom: 0;
   position: absolute;
 }
-
+.drag-container {
+  will-change: transform;
+  transition: transform cubic-bezier(0.36, 0.66, 0.04, 1) 100ms;
+}
 .action-sheet-oper:active::after {
   background-color: currentColor;
   opacity: 0.1;
@@ -65,4 +76,6 @@
 }
 .action-sheet-cancel {
   font-weight: 600;
+  flex-shrink: 0;
+  margin-bottom: 8px;
 }

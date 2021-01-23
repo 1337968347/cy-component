@@ -32,6 +32,7 @@ export namespace Components {
     interface CyContent {
     }
     interface CyHeader {
+        "color": string;
     }
     interface CyModal {
     }
@@ -232,6 +233,7 @@ declare namespace LocalJSX {
     interface CyContent {
     }
     interface CyHeader {
+        "color"?: string;
     }
     interface CyModal {
     }

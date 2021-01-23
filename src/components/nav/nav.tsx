@@ -45,7 +45,6 @@ export class nav {
     });
     navContainer.children[navContainer.children.length - 2].className = 'cy-page hydrated';
     const prev = navContainer.children[navContainer.children.length - 1];
-    console.log(prev);
     this.createPopHiddenAnimation(prev);
     setTimeout(() => {
       navContainer.removeChild(prev);
