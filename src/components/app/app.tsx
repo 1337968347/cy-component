@@ -1,12 +1,12 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, Host, h } from '@stencil/core';
 import { startTapClick } from '../../utils/tap-click';
 
 @Component({
-  tag: 'cy-page',
-  styleUrl: 'page.scss',
+  tag: 'cy-app',
+  styleUrl: 'app.css',
 })
-export class CyPage {
-  componentDidLoad() {
+export class app {
+  componentWillLoad() {
     startTapClick();
   }
 

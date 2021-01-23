@@ -1,11 +1,12 @@
 :host {
+  --opacity: 0.4;
   --background: #000000;
   position: absolute;
   inset: 0;
   cursor: pointer;
   touch-action: none;
   z-index: 2;
-  opacity: 0.3;
+  opacity: var(--opacity, 0.4);
   transform: translateZ(0px);
   contain: strict;
   background: var(--background);

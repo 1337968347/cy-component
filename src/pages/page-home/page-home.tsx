@@ -1,6 +1,6 @@
-import { Component, State, Element, h } from '@stencil/core';
+import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-import { createBackDrop } from '../../utils/backdrop';
+
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.scss',
@@ -15,7 +15,7 @@ export class PageHome {
 
   render() {
     return (
-      <cy-page>
+      <Host class="cy-page">
         <cy-header>
           <h3>欢迎</h3>
         </cy-header>
@@ -41,7 +41,7 @@ export class PageHome {
         <cy-content>
           <div class="container">{RenderShowItem(this.choose)}</div>
         </cy-content>
-      </cy-page>
+      </Host>
     );
   }
 }
@@ -56,7 +56,6 @@ const createActionSheet = () => {
       icon: 'trash',
       handler: () => {
         console.log('Delete clicked');
-        document.body.removeChild(actionSheet);
       },
     },
     {
@@ -64,7 +63,6 @@ const createActionSheet = () => {
       icon: 'share',
       handler: () => {
         console.log('Share clicked');
-        document.body.removeChild(actionSheet);
       },
     },
     {
@@ -72,7 +70,6 @@ const createActionSheet = () => {
       icon: 'caret-forward-circle',
       handler: () => {
         console.log('Play clicked');
-        document.body.removeChild(actionSheet);
       },
     },
     {
@@ -80,7 +77,6 @@ const createActionSheet = () => {
       icon: 'heart',
       handler: () => {
         console.log('Favorite clicked');
-        document.body.removeChild(actionSheet);
       },
     },
     {
@@ -89,7 +85,6 @@ const createActionSheet = () => {
       role: 'cancel',
       handler: () => {
         console.log('Cancel clicked');
-        document.body.removeChild(actionSheet);
       },
     },
   ];

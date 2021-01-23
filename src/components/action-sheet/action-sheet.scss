@@ -7,9 +7,6 @@
   z-index: 1000;
   touch-action: none;
 }
-:host(.action-sheet-hidden) {
-  display: none;
-}
 .action-sheet-container {
   padding: 0 8px;
   height: 100%;
@@ -43,6 +40,26 @@
   align-items: center;
   font-size: 20px;
   color: var(--cy-color-primary);
+}
+.action-sheet-oper::after {
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.action-sheet-oper:active::after {
+  background-color: currentColor;
+  opacity: 0.1;
+}
+
+@media (any-hover: hover) {
+  .action-sheet-oper:hover::after {
+    background-color: currentColor;
+    opacity: 0.1;
+  }
 }
 .action-sheet-cancel {
   font-weight: 600;

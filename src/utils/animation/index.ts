@@ -1,4 +1,118 @@
-export const createAnimation = () => {
+export type AnimationBuilder = (baseEl) => Animation;
+export interface Animation {
+  parentAnimation: Animation | undefined;
+  elements: HTMLElement[];
+  childAnimations: Animation[];
+
+  /**
+   * Play the animation
+   *
+   * If the `sync` options is `true`, the animation will play synchronously. This
+   * is the equivalent of running the animation
+   * with a duration of 0ms.
+   */
+  play(reset?: boolean): Promise<void>;
+
+  /**
+   * Pauses the animation
+   */
+  pause(): void;
+
+  /**
+   * Stop the animation and reset
+   * all elements to their initial state
+   */
+  stop(): void;
+
+  progressStart(forceLinearEasing: boolean, step?: number): void;
+  progressStep(step: number): void;
+
+  from(property: string, value: any): Animation;
+  to(property: string, value: any): Animation;
+  fromTo(property: string, fromValue: any, toValue: any): Animation;
+
+  /**
+   * Set the keyframes for the animation.
+   */
+  keyframes(keyframes: []): Animation;
+
+  /**
+   * Group one or more animations together to be controlled by a parent animation.
+   */
+  addAnimation(animationToAdd: Animation | Animation[]): Animation;
+
+  /**
+   * Add one or more elements to the animation
+   */
+  addElement(el: Element | Element[] | Node | Node[] | NodeList): Animation;
+
+  /**
+   * Sets the number of times the animation cycle
+   * should be played before stopping.
+   */
+  iterations(iterations: number): Animation;
+
+  /**
+   * Sets how the animation applies styles to its
+   * elements before and after the animation's execution.
+   */
+  fill(fill: string | undefined): Animation;
+
+  /**
+   * Sets whether the animation should play forwards,
+   * backwards, or alternating back and forth.
+   */
+  direction(direction: string | undefined): Animation;
+
+  /**
+   * Sets the length of time the animation takes
+   * to complete one cycle.
+   */
+  duration(duration: number | undefined): Animation;
+
+  /**
+   * Sets how the animation progresses through the
+   * duration of each cycle.
+   */
+  easing(easing: string | undefined): Animation;
+
+  /**
+   * Sets when an animation starts (in milliseconds).
+   */
+  delay(delay: number | undefined): Animation;
+
+  /**
+   * Returns the animation's direction.
+   */
+  getDirection(): string;
+
+  /**
+   * Returns the animation's fill mode.
+   */
+  getFill(): string;
+
+  /**
+   * Gets the animation's delay in milliseconds.
+   */
+  getDelay(): number;
+
+  /**
+   * Gets the number of iterations the animation will run.
+   */
+  getIterations(): number;
+
+  /**
+   * Returns the animation's easing.
+   */
+  getEasing(): string;
+
+  /**
+   * Gets the animation's duration in milliseconds.
+   */
+  getDuration(): number;
+}
+
+export const createAnimation = (): Animation => {
   let ani;
   let _delay;
   let _duration;
@@ -9,11 +123,45 @@ export const createAnimation = () => {
   let _keyframes = [];
   let parentAnimation;
   let initialized = false;
+  let finished = false;
+  let numAnimationsRunning = 0;
+  const onFinishCallbacks = [];
   const elements = [];
   const childAnimations = [];
-  const supportsAnimationEffect = typeof AnimationEffect === 'function' || typeof window.AnimationEffect === 'function';
-  const supportsWebAnimations = typeof Element === 'function' && typeof Element.prototype.animate === 'function' && supportsAnimationEffect;
+  const supportsAnimationEffect =
+    typeof AnimationEffect === 'function' || typeof window.AnimationEffect === 'function';
+  const supportsWebAnimations =
+    typeof Element === 'function' &&
+    typeof Element.prototype.animate === 'function' &&
+    supportsAnimationEffect;
   const webAnimations = [];
+
+  const onFinish = (callBack): (() => void) => {
+    onFinishCallbacks.push(callBack);
+    return ani;
+  };
+
+  const afterAnimation = () => {
+    onFinishCallbacks.forEach(aniCallBack => {
+      aniCallBack();
+    });
+    finished = true;
+  };
+
+  const animationFinish = () => {
+    if (numAnimationsRunning === 0) {
+      return;
+    }
+
+    numAnimationsRunning--;
+
+    if (numAnimationsRunning === 0) {
+      afterAnimation();
+      if (parentAnimation) {
+        parentAnimation.animationFinish();
+      }
+    }
+  };
 
   const addElement = el => {
     if (el != null) {
@@ -23,6 +171,7 @@ export const createAnimation = () => {
   };
 
   const resetFlags = () => {
+    numAnimationsRunning = 0;
     // eslint-disable-next-line no-trailing-spaces
   };
 
@@ -53,21 +202,28 @@ export const createAnimation = () => {
     }
   };
 
-  const play = (reset = true) => {
-    if (!initialized) {
-      initializeAnimation();
-    }
-    if (reset) {
-      resetAnimation();
-    }
+  const play = () => {
+    return new Promise<void>(resolve => {
+      if (!initialized) {
+        initializeAnimation();
+      }
+      if (finished) {
+        resetAnimation();
+        finished = false;
+      }
 
-    childAnimations.forEach(animation => {
-      animation.play(reset);
+      numAnimationsRunning = childAnimations.length + 1;
+
+      onFinish(() => {
+        resolve();
+      });
+      childAnimations.forEach(animation => {
+        animation.play();
+      });
+      if (supportsWebAnimations) {
+        playWebAnimations();
+      }
     });
-    if (supportsWebAnimations) {
-      playWebAnimations();
-    }
-    return ani;
   };
 
   const stop = () => {
@@ -163,6 +319,9 @@ export const createAnimation = () => {
     webAnimations.forEach(animation => {
       animation.play();
     });
+    if (_keyframes.length === 0 || elements.length === 0) {
+      animationFinish();
+    }
   };
 
   const initializeAnimation = () => {
@@ -335,6 +494,11 @@ export const createAnimation = () => {
       animation.pause();
       webAnimations.push(animation);
     });
+    if (webAnimations.length > 0) {
+      webAnimations[0].onfinish = () => {
+        animationFinish();
+      };
+    }
   };
 
   const parent = animation => {
@@ -343,6 +507,9 @@ export const createAnimation = () => {
   };
 
   return (ani = {
+    elements,
+    childAnimations,
+    parentAnimation,
     addElement,
     addAnimation,
     parent,
@@ -368,5 +535,6 @@ export const createAnimation = () => {
     update,
     progressStart,
     progressStep,
+    animationFinish,
   });
 };

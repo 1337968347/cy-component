@@ -1,5 +1,5 @@
 import { Component, h, Element, Host, Prop, State } from '@stencil/core';
-import { createAnimation } from '../../utils/animation/animation';
+import { createAnimation } from '../../utils/animation';
 
 @Component({
   tag: 'cy-time',
@@ -25,11 +25,11 @@ export class CyTime {
     const secondStep = (currentDate.getSeconds() / 60).toFixed(4);
     const minusStep = ((currentDate.getSeconds() + currentDate.getMinutes() * 60) / 3600).toFixed(4);
     const hourStep = ((currentDate.getSeconds() + currentDate.getMinutes() * 60 + (currentDate.getHours() % 12) * 3600) / 43200).toFixed(4);
-    this.baseAnimation.play(false);
+    this.baseAnimation.play();
     this.secondAnimation.progressStart(secondStep);
     this.minusAnimation.progressStart(minusStep);
     this.hourAnimation.progressStart(hourStep);
-    this.baseAnimation.play(false);
+    this.baseAnimation.play();
   }
 
   render() {

@@ -10,8 +10,12 @@ export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
         "cssClass": string;
+        "dismiss": () => Promise<void>;
         "header": string;
+        "overlayIndex": number;
         "present": () => Promise<void>;
+    }
+    interface CyApp {
     }
     interface CyBackdrop {
         "stopPropagation": boolean;
@@ -34,8 +38,6 @@ export namespace Components {
     interface CyNav {
         "addCom": () => Promise<void>;
         "pop": () => Promise<void>;
-    }
-    interface CyPage {
     }
     interface CyRefresh {
     }
@@ -74,6 +76,12 @@ declare global {
     var HTMLCyActionSheetElement: {
         prototype: HTMLCyActionSheetElement;
         new (): HTMLCyActionSheetElement;
+    };
+    interface HTMLCyAppElement extends Components.CyApp, HTMLStencilElement {
+    }
+    var HTMLCyAppElement: {
+        prototype: HTMLCyAppElement;
+        new (): HTMLCyAppElement;
     };
     interface HTMLCyBackdropElement extends Components.CyBackdrop, HTMLStencilElement {
     }
@@ -116,12 +124,6 @@ declare global {
     var HTMLCyNavElement: {
         prototype: HTMLCyNavElement;
         new (): HTMLCyNavElement;
-    };
-    interface HTMLCyPageElement extends Components.CyPage, HTMLStencilElement {
-    }
-    var HTMLCyPageElement: {
-        prototype: HTMLCyPageElement;
-        new (): HTMLCyPageElement;
     };
     interface HTMLCyRefreshElement extends Components.CyRefresh, HTMLStencilElement {
     }
@@ -185,6 +187,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "cy-action-sheet": HTMLCyActionSheetElement;
+        "cy-app": HTMLCyAppElement;
         "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
         "cy-checkbox": HTMLCyCheckboxElement;
@@ -192,7 +195,6 @@ declare global {
         "cy-header": HTMLCyHeaderElement;
         "cy-modal": HTMLCyModalElement;
         "cy-nav": HTMLCyNavElement;
-        "cy-page": HTMLCyPageElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
         "cy-segment": HTMLCySegmentElement;
@@ -210,6 +212,9 @@ declare namespace LocalJSX {
         "buttons"?: ActionSheetButton[];
         "cssClass"?: string;
         "header"?: string;
+        "overlayIndex"?: number;
+    }
+    interface CyApp {
     }
     interface CyBackdrop {
         "onBackDrop"?: (event: CustomEvent<any>) => void;
@@ -231,8 +236,6 @@ declare namespace LocalJSX {
     interface CyModal {
     }
     interface CyNav {
-    }
-    interface CyPage {
     }
     interface CyRefresh {
     }
@@ -266,6 +269,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "cy-action-sheet": CyActionSheet;
+        "cy-app": CyApp;
         "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
         "cy-checkbox": CyCheckbox;
@@ -273,7 +277,6 @@ declare namespace LocalJSX {
         "cy-header": CyHeader;
         "cy-modal": CyModal;
         "cy-nav": CyNav;
-        "cy-page": CyPage;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
         "cy-segment": CySegment;
@@ -291,6 +294,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "cy-action-sheet": LocalJSX.CyActionSheet & JSXBase.HTMLAttributes<HTMLCyActionSheetElement>;
+            "cy-app": LocalJSX.CyApp & JSXBase.HTMLAttributes<HTMLCyAppElement>;
             "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
@@ -298,7 +302,6 @@ declare module "@stencil/core" {
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
             "cy-modal": LocalJSX.CyModal & JSXBase.HTMLAttributes<HTMLCyModalElement>;
             "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
-            "cy-page": LocalJSX.CyPage & JSXBase.HTMLAttributes<HTMLCyPageElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
             "cy-segment": LocalJSX.CySegment & JSXBase.HTMLAttributes<HTMLCySegmentElement>;

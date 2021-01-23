@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, h, Host } from '@stencil/core';
+import { Component, Element, Prop, State, ComponentInterface, h, Host } from '@stencil/core';
 import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 
 @Component({
@@ -6,12 +6,12 @@ import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
   styleUrl: 'toggle.scss',
   shadow: true,
 })
-export class toggle {
+export class toggle implements ComponentInterface {
   @Element() el: HTMLElement;
   private gesture: Gesture;
   private lastDrag: number = 0;
   @Prop() color: string = '';
-  @State() checked: boolean = true;
+  @State() checked: boolean = false;
 
   componentDidLoad() {
     this.gesture = createGesture({
@@ -53,7 +53,7 @@ export class toggle {
   render() {
     return (
       <Host
-        onClick={this.onClick}
+        onClick={this.onClick.bind(this)}
         class={{
           [`cy-color-${this.color}`]: true,
           'toggle-checked': this.checked,

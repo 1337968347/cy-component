@@ -8,7 +8,7 @@
   touch-action: none;
   user-select: none;
   --size: 40px;
-  --background: var(--cy-background-contrast, #d3d3d3);
+  --background: var(--cy-color-light-tint, #d3d3d3);
   --background-checked: rgba(var(--cy-color-base-rgb), 0.5);
   --border-radius: 14px;
   --handle-background: #ffffff;

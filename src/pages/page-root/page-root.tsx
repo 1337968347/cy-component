@@ -5,6 +5,10 @@ import { Component, h } from '@stencil/core';
 })
 export class PageRoot {
   render() {
-    return <page-home />;
+    return (
+      <cy-app>
+        <page-home />
+      </cy-app>
+    );
   }
 }
