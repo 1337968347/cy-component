@@ -39,6 +39,7 @@ export const createGesture = (config: GestureConfig): Gesture => {
   let hasCapturedPan = false;
   let hasStartedPan = false;
   let hasFiredStart = false;
+  let hasFiredEnd = false;
 
   const finalConfig: GestureConfig = {
     direction: 'x',
@@ -79,6 +80,7 @@ export const createGesture = (config: GestureConfig): Gesture => {
       return false;
     }
     hasStartedPan = true;
+    hasFiredEnd = false;
     const timeStamp = Date.now();
     updateDetail(ev, detail);
 
@@ -102,6 +104,9 @@ export const createGesture = (config: GestureConfig): Gesture => {
     if (hasCapturedPan) {
       calcGestureData(detail, ev);
       requestAnimationFrame(() => {
+        if (hasFiredEnd) {
+          return;
+        }
         if (onMove) {
           onMove(detail);
         }
@@ -119,7 +124,7 @@ export const createGesture = (config: GestureConfig): Gesture => {
   const pointerUp = (ev: UIEvent | undefined) => {
     const tempHasFiredStart = hasFiredStart;
     const tempHasCapturedPan = hasCapturedPan;
-
+    hasFiredEnd = true;
     reset();
 
     if (!tempHasFiredStart) {

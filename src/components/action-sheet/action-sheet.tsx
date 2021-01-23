@@ -23,8 +23,10 @@ export class ActionSheet implements ComponentInterface {
 
   componentDidLoad() {
     this.gesture = createGesture({
-      el: this.el.querySelector('.drag-container'),
+      el: this.el.querySelector('.action-sheet-title'),
       direction: 'y',
+      threshold: 3,
+      passive: true,
       canStart: () => {
         this.el.querySelector('.action-sheet-opers').scrollTop === 0;
       },
@@ -35,16 +37,16 @@ export class ActionSheet implements ComponentInterface {
   }
 
   onMove(e: GestureDetail) {
+    console.log('move');
     const translateY = Math.max(e.currentY - e.startY, 0);
-    requestAnimationFrame(() => {
-      const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
-      containerEl.style.transform = `translateY(${translateY}px)`;
-    });
+    const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
+    containerEl.style.transform = `translateY(${translateY}px)`;
   }
 
   onEnd(e: GestureDetail) {
+    console.log('end');
     const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
-    containerEl.style.removeProperty('transform');
+    containerEl.style.transform = `translateY(${0}px)`;
     const moveY = e.currentY - e.startY;
     if (moveY > 150) {
       dismiss(this, leaveAnimationBuilder(this.el, `translateY(${moveY}px)`));
