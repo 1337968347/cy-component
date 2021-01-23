@@ -17,18 +17,27 @@ export class CyTime {
 
   componentDidLoad() {
     this.baseAnimation = createAnimation().addElement(this.el).iterations(Infinity);
-    this.hourAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.hour')).duration(43200000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
-    this.minusAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.minus')).duration(3600000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
-    this.secondAnimation = createAnimation().addElement(this.el.shadowRoot.querySelector('.second')).duration(60000).fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
+    this.hourAnimation = createAnimation()
+      .addElement(this.el.shadowRoot.querySelector('.hour'))
+      .duration(43200000)
+      .fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
+    this.minusAnimation = createAnimation()
+      .addElement(this.el.shadowRoot.querySelector('.minus'))
+      .duration(3600000)
+      .fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
+    this.secondAnimation = createAnimation()
+      .addElement(this.el.shadowRoot.querySelector('.second'))
+      .duration(60000)
+      .fromTo('transform', 'rotate(-180deg)', 'rotate(180deg)');
     this.baseAnimation.addAnimation([this.hourAnimation, this.minusAnimation, this.secondAnimation]);
     let currentDate = new Date();
     const secondStep = (currentDate.getSeconds() / 60).toFixed(4);
     const minusStep = ((currentDate.getSeconds() + currentDate.getMinutes() * 60) / 3600).toFixed(4);
     const hourStep = ((currentDate.getSeconds() + currentDate.getMinutes() * 60 + (currentDate.getHours() % 12) * 3600) / 43200).toFixed(4);
     this.baseAnimation.play();
-    this.secondAnimation.progressStart(secondStep);
-    this.minusAnimation.progressStart(minusStep);
-    this.hourAnimation.progressStart(hourStep);
+    this.secondAnimation.progressStart(false, secondStep);
+    this.minusAnimation.progressStart(false, minusStep);
+    this.hourAnimation.progressStart(false, hourStep);
     this.baseAnimation.play();
   }
 

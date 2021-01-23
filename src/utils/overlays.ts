@@ -1,4 +1,4 @@
-import { AnimationBuilder } from '../utils/animation';
+import { AnimationBuilder } from '../interface';
 let lastId: number = 10000;
 
 export const prepareOverlay = el => {

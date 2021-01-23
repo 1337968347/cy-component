@@ -1,4 +1,5 @@
-import { createAnimation, AnimationBuilder } from '../../utils/animation';
+import { AnimationBuilder } from '../../interface';
+import { createAnimation } from '../../utils/animation';
 
 export const enterAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
   const baseAnimation = createAnimation();

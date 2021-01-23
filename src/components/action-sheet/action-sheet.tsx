@@ -35,6 +35,11 @@ export class ActionSheet implements ComponentInterface {
     this.dismiss();
   }
 
+  onBackDropClick() {
+    console.log("")
+    this.dismiss();
+  }
+
   render() {
     const actionSheets = this.buttons.filter(item => item.role !== 'cancel');
     const actionCancel = this.buttons.find(item => item.role === 'cancel');
@@ -45,7 +50,7 @@ export class ActionSheet implements ComponentInterface {
           zIndex: `${this.overlayIndex}`,
         }}
       >
-        <cy-backdrop />
+        <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} />
         <div></div>
         <div class={'action-sheet-container ' + this.cssClass}>
           <div class="action-sheet-group">

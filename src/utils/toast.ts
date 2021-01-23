@@ -56,7 +56,7 @@ const addfadeInAnimation = (toastEl: HTMLElement) => {
 };
 
 const getAppEl = (): HTMLElement => {
-  return document.querySelector('cy-page');
+  return document.querySelector('cy-app');
 };
 
 export { showToast };
