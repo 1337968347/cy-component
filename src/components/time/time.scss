@@ -1,33 +1,28 @@
 :host {
-  --center-size: 8px;
-  --clock-size: 100px;
-  --clock-border-width: 1.5px;
-  --line-base-width: 4px;
+  --center-size: 7px;
+  --clock-size: 140px;
+  --line-base-width: 8px;
   display: inline-block;
   margin: 5px;
 }
 .clock {
   width: var(--clock-size);
   height: var(--clock-size);
-  border-width: var(--clock-border-width);
-  border-style: solid;
-  border-color: var(--cy-color-shade);
   border-radius: 50%;
   background: var(--cy-color-tint);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.clock::after {
-  content: "";
-  position: absolute;
-  top: calc(50% - var(--center-size) / 2);
-  left: calc(50% - var(--center-size) / 2);
-  width: var(--center-size);
-  height: var(--center-size);
-  border-radius: 50%;
-  background: var(--cy-color-contrast);
+  box-shadow: 0 0 0 2px var(--cy-color-shade), inset 0 4px 2px 4px rgb(0 0 0 / 10%), 0 3px 2px 3px rgb(0 0 0 / 20%);
+  background-image: radial-gradient(circle at center, var(--cy-color-contrast) var(--center-size), transparent var(--center-size)),
+    radial-gradient(circle at center, var(--cy-color-tint) 68%, transparent 68%),
+    linear-gradient(to right, transparent 50%, var(--cy-color-contrast) 50%, var(--cy-color-contrast) 51%, transparent 51%),
+    linear-gradient(to bottom, transparent 50%, var(--cy-color-contrast) 50%, var(--cy-color-contrast) 51%, transparent 51%),
+    linear-gradient(60deg, transparent 50%, var(--cy-color-contrast) 50%, var(--cy-color-contrast) 51%, transparent 51%),
+    linear-gradient(30deg, transparent 50%, var(--cy-color-contrast) 50%, var(--cy-color-contrast) 51%, transparent 51%),
+    linear-gradient(-60deg, transparent 50%, var(--cy-color-contrast) 50%, var(--cy-color-contrast) 51%, transparent 51%),
+    linear-gradient(-30deg, transparent 50%, var(--cy-color-contrast) 50%, var(--cy-color-contrast) 51%, transparent 51%);
 }
 
 .hour,
@@ -40,19 +35,17 @@
   transform-origin: top center;
   background: var(--cy-color-contrast);
   will-change: transform;
-  // border-color: var(--cy-color-base);
-  // border-style: solid;
-  // border-width: 1px;
+  overflow: hidden;
 }
 .hour {
-  width: var(--line-base-width);
-  height: calc(var(--clock-size) / 3.5);
+  width: calc(var(--line-base-width) / 1.6);
+  height: calc(var(--clock-size) / 4);
 }
 .minus {
-  width: calc(var(--line-base-width) / 1.5);
-  height: calc(var(--clock-size) / 3);
+  width: calc(var(--line-base-width) / 2);
+  height: calc(var(--clock-size) / 2.9);
 }
 .second {
-  width: calc(var(--line-base-width) / 2);
+  width: calc(var(--line-base-width) / 2.1);
   height: calc(var(--clock-size) / 2.2);
 }
