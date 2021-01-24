@@ -38,8 +38,8 @@ export interface Gesture {
 export const createGesture = (config: GestureConfig): Gesture => {
   let hasCapturedPan = false;
   let hasStartedPan = false;
-  let hasFiredStart = false;
-  let hasFiredEnd = false;
+  let hasFiredStart = true;
+  let isMoveQueued = false;
 
   const finalConfig: GestureConfig = {
     direction: 'x',
@@ -76,11 +76,10 @@ export const createGesture = (config: GestureConfig): Gesture => {
   const pan = createPanRecognizer(finalConfig.direction, finalConfig.threshold, finalConfig.maxAngle);
 
   const pointerDown = (ev: UIEvent): boolean => {
-    if (hasStartedPan) {
+    if (hasStartedPan || !hasFiredStart) {
       return false;
     }
     hasStartedPan = true;
-    hasFiredEnd = false;
     const timeStamp = Date.now();
     updateDetail(ev, detail);
 
@@ -102,15 +101,11 @@ export const createGesture = (config: GestureConfig): Gesture => {
   };
   const pointerMove = (ev: UIEvent) => {
     if (hasCapturedPan) {
-      calcGestureData(detail, ev);
-      requestAnimationFrame(() => {
-        if (hasFiredEnd) {
-          return;
-        }
-        if (onMove) {
-          onMove(detail);
-        }
-      });
+      if (!isMoveQueued && hasFiredStart) {
+        isMoveQueued = true;
+        calcGestureData(detail, ev);
+        requestAnimationFrame(fireOnMove);
+      }
       return;
     }
 
@@ -121,10 +116,22 @@ export const createGesture = (config: GestureConfig): Gesture => {
       }
     }
   };
+
+  const fireOnMove = () => {
+    // 运行在RAF requestAnimationFrame中的OnMove事件 可能会再OnEnd事件后调用
+    // 所以需要再次判断
+    if (!hasCapturedPan) {
+      return;
+    }
+    isMoveQueued = false;
+    if (onMove) {
+      onMove(detail);
+    }
+  };
+
   const pointerUp = (ev: UIEvent | undefined) => {
     const tempHasFiredStart = hasFiredStart;
     const tempHasCapturedPan = hasCapturedPan;
-    hasFiredEnd = true;
     reset();
 
     if (!tempHasFiredStart) {
@@ -140,6 +147,7 @@ export const createGesture = (config: GestureConfig): Gesture => {
 
   const tryToCapturePan = () => {
     hasCapturedPan = true;
+    hasFiredStart = false;
 
     detail.startX = detail.currentX;
     detail.startY = detail.currentY;
@@ -156,19 +164,20 @@ export const createGesture = (config: GestureConfig): Gesture => {
   };
 
   const fireOnStart = () => {
-    hasFiredStart = true;
     if (blurOnStart) {
       blurActiveElement();
     }
     if (onStart) {
       onStart(detail);
     }
+    hasFiredStart = true;
   };
 
   const reset = () => {
     hasCapturedPan = false;
     hasStartedPan = false;
-    hasFiredStart = false;
+    isMoveQueued = false;
+    hasFiredStart = true;
   };
 
   const pointerEvents = createPointerEvents(finalConfig.el, pointerDown, pointerMove, pointerUp, {

@@ -3,7 +3,6 @@ import { ActionSheetButton } from '../../interface';
 import { prepareOverlay, present, dismiss } from '../../utils/overlays';
 import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
-
 @Component({
   tag: 'cy-action-sheet',
   styleUrl: 'action-sheet.scss',
@@ -23,33 +22,41 @@ export class ActionSheet implements ComponentInterface {
 
   componentDidLoad() {
     this.gesture = createGesture({
-      el: this.el.querySelector('.action-sheet-title'),
+      el: this.el.querySelector('.drag-container'),
       direction: 'y',
-      threshold: 3,
       passive: true,
       canStart: () => {
-        this.el.querySelector('.action-sheet-opers').scrollTop === 0;
+        return this.el.querySelector('.action-sheet-opers').scrollTop === 0;
       },
+      onStart: this.onStart.bind(this),
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
     });
     this.gesture.enable();
   }
 
+  onStart() {
+    document.body.style.overscrollBehavior = 'none';
+  }
+
   onMove(e: GestureDetail) {
-    console.log('move');
     const translateY = Math.max(e.currentY - e.startY, 0);
-    const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
-    containerEl.style.transform = `translateY(${translateY}px)`;
+    requestAnimationFrame(() => {
+      const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
+      containerEl.style.transform = `translateY(${translateY}px)`;
+    });
   }
 
   onEnd(e: GestureDetail) {
-    console.log('end');
+    document.body.style.removeProperty('overscroll-behavior');
     const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
-    containerEl.style.transform = `translateY(${0}px)`;
     const moveY = e.currentY - e.startY;
-    if (moveY > 150) {
+    if (moveY > screen.height / 5) {
       dismiss(this, leaveAnimationBuilder(this.el, `translateY(${moveY}px)`));
+    } else {
+      requestAnimationFrame(() => {
+        containerEl.style.transform = `translateY(${0}px)`;
+      });
     }
   }
 

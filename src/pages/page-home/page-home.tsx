@@ -49,45 +49,25 @@ const createActionSheet = () => {
   const actionSheet = document.createElement('cy-action-sheet');
   actionSheet.header = 'Albums';
   actionSheet.cssClass = 'my-custom-class';
-  actionSheet.buttons = [
-    {
-      text: 'Delete',
-      role: 'destructive',
-      icon: 'trash',
+  const buttons = [];
+  for (let i = 0; i < 20; i++) {
+    const title = `select ${i}`;
+    buttons.push({
+      text: title,
       handler: () => {
-        console.log('Delete clicked');
+        showToast({ title: '你选中了 ' + title });
       },
+    });
+  }
+  buttons.push({
+    text: 'Cancel',
+    role: 'cancel',
+    handler: () => {
+      showToast({ title: 'Cancel' });
     },
-    {
-      text: 'Share',
-      icon: 'share',
-      handler: () => {
-        console.log('Share clicked');
-      },
-    },
-    {
-      text: 'Play (open modal)',
-      icon: 'caret-forward-circle',
-      handler: () => {
-        console.log('Play clicked');
-      },
-    },
-    {
-      text: 'Favorite',
-      icon: 'heart',
-      handler: () => {
-        console.log('Favorite clicked');
-      },
-    },
-    {
-      text: 'Cancel',
-      icon: 'close',
-      role: 'cancel',
-      handler: () => {
-        console.log('Cancel clicked');
-      },
-    },
-  ];
+  });
+
+  actionSheet.buttons = buttons;
   document.body.appendChild(actionSheet);
   actionSheet.present();
 };
@@ -119,7 +99,7 @@ const RenderShowItem = (showName: string) => {
     case 'toggle':
       return (
         <div>
-          <h3>可拖动</h3>
+          <h3>一键滑动解锁</h3>
           <cy-toggle color="primary">primary</cy-toggle>
           <cy-toggle color="secondary">secondary</cy-toggle>
           <cy-toggle color="tertiary">tertiary</cy-toggle>
@@ -132,9 +112,11 @@ const RenderShowItem = (showName: string) => {
       );
     case 'action-sheet':
       return (
-        <cy-button color="primary" expend="block" onClick={createActionSheet.bind(this)}>
-          action sheet
-        </cy-button>
+        <div>
+          <cy-button color="primary" expend="block" onClick={createActionSheet.bind(this)}>
+            action sheet
+          </cy-button>
+        </div>
       );
     case 'time':
       return (

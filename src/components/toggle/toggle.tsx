@@ -11,7 +11,7 @@ export class toggle implements ComponentInterface {
   private gesture: Gesture;
   private lastDrag: number = 0;
   @Prop() color: string = '';
-  @State() checked: boolean = false;
+  @State() checked: boolean = true;
 
   componentDidLoad() {
     this.gesture = createGesture({
