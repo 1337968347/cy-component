@@ -1,6 +1,6 @@
 import { Component, Element, Prop, h, Host, ComponentInterface, Method } from '@stencil/core';
-import { ActionSheetButton } from '../../interface';
-import { prepareOverlay, present, dismiss } from '../../utils/overlays';
+import { ActionSheetButton, Animation } from '../../interface';
+import { prepareOverlay } from '../../utils/overlays';
 import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
 @Component({
@@ -10,6 +10,8 @@ import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
 })
 export class ActionSheet implements ComponentInterface {
   private gesture?: Gesture;
+  private enterAnimation: Animation;
+  private leaveAnimation: Animation;
   @Element() el: HTMLElement;
   @Prop() overlayIndex: number = 0;
   @Prop() header: string = '';
@@ -21,6 +23,8 @@ export class ActionSheet implements ComponentInterface {
   }
 
   componentDidLoad() {
+    this.enterAnimation = enterAnimationBuilder(this.el);
+    this.leaveAnimation = leaveAnimationBuilder(this.el);
     this.gesture = createGesture({
       el: this.el.querySelector('.drag-container'),
       direction: 'y',
@@ -37,37 +41,34 @@ export class ActionSheet implements ComponentInterface {
 
   onStart() {
     document.body.style.overscrollBehavior = 'none';
+    this.leaveAnimation.progressStart(true, 0);
   }
 
   onMove(e: GestureDetail) {
-    const translateY = Math.max(e.currentY - e.startY, 0);
-    requestAnimationFrame(() => {
-      const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
-      containerEl.style.transform = `translateY(${translateY}px)`;
-    });
+    const step = Math.min(Math.max((e.currentY - e.startY) / this.el.clientHeight, 0), 1);
+    this.leaveAnimation.progressStep(step);
   }
 
-  onEnd(e: GestureDetail) {
+  async onEnd(e: GestureDetail) {
     document.body.style.removeProperty('overscroll-behavior');
-    const containerEl = this.el.querySelector('.drag-container') as HTMLElement;
     const moveY = e.currentY - e.startY;
-    if (moveY > screen.height / 5) {
-      dismiss(this, leaveAnimationBuilder(this.el, `translateY(${moveY}px)`));
+    if (moveY > screen.height / 3) {
+      await this.leaveAnimation.play();
+      this.el.remove();
     } else {
-      requestAnimationFrame(() => {
-        containerEl.style.transform = `translateY(${0}px)`;
-      });
+      this.leaveAnimation.progressEnd(0, 0);
     }
   }
 
   @Method()
   async present() {
-    present(this, enterAnimationBuilder(this.el));
+    this.enterAnimation.play();
   }
 
   @Method()
   async dismiss() {
-    dismiss(this, leaveAnimationBuilder(this.el));
+    await this.leaveAnimation.play();
+    this.el.remove();
   }
 
   async onClick(button: ActionSheetButton) {

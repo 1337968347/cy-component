@@ -15,12 +15,12 @@ export const enterAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => 
     .addElement(baseEl);
 };
 
-export const leaveAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement, startTranslateY: string = 'translateY(0)') => {
+export const leaveAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
   const baseAnimation = createAnimation();
   const backdropAnimation = createAnimation().addElement(baseEl.querySelector('cy-backdrop')).fromTo('opacity', 'var(--opacity)', '0');
   const wrapperAnimation = createAnimation()
     .addElement(baseEl.querySelector('.action-sheet-container'))
-    .fromTo('transform', startTranslateY, 'translateY(100%)');
+    .fromTo('transform', 'translateY(0)', 'translateY(100%)');
 
   return baseAnimation
     .addAnimation([backdropAnimation, wrapperAnimation])
