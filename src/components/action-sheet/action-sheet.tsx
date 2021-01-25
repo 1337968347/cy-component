@@ -3,6 +3,9 @@ import { ActionSheetButton, Animation } from '../../interface';
 import { prepareOverlay } from '../../utils/overlays';
 import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
+import { getTimeGivenProgression } from '../../utils/animation/cubic-bezier';
+import { clamp } from '../../utils/helpers';
+
 @Component({
   tag: 'cy-action-sheet',
   styleUrl: 'action-sheet.scss',
@@ -12,6 +15,7 @@ export class ActionSheet implements ComponentInterface {
   private gesture?: Gesture;
   private enterAnimation: Animation;
   private leaveAnimation: Animation;
+  private lastPull = 0;
   @Element() el: HTMLElement;
   @Prop() overlayIndex: number = 0;
   @Prop() header: string = '';
@@ -45,18 +49,24 @@ export class ActionSheet implements ComponentInterface {
   }
 
   onMove(e: GestureDetail) {
-    const step = Math.min(Math.max((e.currentY - e.startY) / this.el.clientHeight, 0), 1);
+    const step = clamp(0, e.deltaY / screen.height, 1);
     this.leaveAnimation.progressStep(step);
   }
 
   async onEnd(e: GestureDetail) {
     document.body.style.removeProperty('overscroll-behavior');
+
+    this.lastPull = Date.now();
+
     const moveY = e.currentY - e.startY;
-    if (moveY > screen.height / 3) {
+    if (moveY > this.el.querySelector('.drag-container').clientHeight / 3) {
       await this.leaveAnimation.play();
       this.el.remove();
     } else {
-      this.leaveAnimation.progressEnd(0, 0);
+      const step = clamp(0, e.deltaY / screen.height, 1);
+      // .36,.66,.04,1
+      const newStep = getTimeGivenProgression([0, 0], [0.36, 0.66], [0.04, 1], [1, 1], step)[0];
+      this.leaveAnimation.progressEnd(0, newStep);
     }
   }
 
@@ -67,11 +77,16 @@ export class ActionSheet implements ComponentInterface {
 
   @Method()
   async dismiss() {
+    this.leaveAnimation.progressStart(false, 0);
     await this.leaveAnimation.play();
     this.el.remove();
   }
 
   async onClick(button: ActionSheetButton) {
+    // pc拖动后事件
+    if (this.lastPull + 300 > Date.now()) {
+      return;
+    }
     await button.handler();
     this.dismiss();
   }
