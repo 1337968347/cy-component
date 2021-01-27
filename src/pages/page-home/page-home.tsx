@@ -35,7 +35,6 @@ export class PageHome {
           <cy-segment-button value="time">Time</cy-segment-button>
           <cy-segment-button value="checkBox">CheckBox</cy-segment-button>
           <cy-segment-button value="spinner">Spinner</cy-segment-button>
-          <cy-segment-button value="toast">Toast</cy-segment-button>
           <cy-segment-button value="segment">Segment</cy-segment-button>
         </cy-segment>
         <cy-content>
@@ -156,18 +155,6 @@ const RenderShowItem = (showName: string) => {
           <cy-spinner color="dark">dark</cy-spinner>
           <cy-spinner color="light">light</cy-spinner>
         </div>
-      );
-    case 'toast':
-      return (
-        <cy-button
-          expend="block"
-          color="primary"
-          onClick={() => {
-            showToast({ title: '标题' });
-          }}
-        >
-          show Toast
-        </cy-button>
       );
     case 'segment':
       return (
