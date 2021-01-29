@@ -59,7 +59,7 @@ export class ActionSheet implements ComponentInterface {
     this.lastPull = Date.now();
 
     const moveY = e.currentY - e.startY;
-    if (moveY > this.el.querySelector('.drag-container').clientHeight / 3) {
+    if (moveY > this.el.querySelector('.drag-container').clientHeight / 2) {
       await this.leaveAnimation.play();
       this.el.remove();
     } else {

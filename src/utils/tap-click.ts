@@ -23,12 +23,12 @@ export const getActivatableTarget = (ev: any): any => {
     const path = ev.composedPath() as HTMLElement[];
     for (let i = 0; i < path.length - 2; i++) {
       const el = path[i];
-      if (el.classList && el.classList.contains(activateClass)) {
+      if (el.classList && el.classList.contains(ACTIVATEABLE)) {
         return el;
       }
     }
   } else {
-    return ev.target.closest('.' + activateClass);
+    return ev.target.closest('.' + ACTIVATEABLE);
   }
 };
 
@@ -38,9 +38,10 @@ export const getActivatableTarget = (ev: any): any => {
 export const startTapClick = () => {
   let lastTouch = -MOUSE_WAIT * 10;
   // 当前活动的元素
-  let activatableEle;
+  let activatableEle: HTMLElement;
   // 移除涟漪效果的promise
   let activeRipple;
+  let lastActivated = 0;
 
   // Touch Events
   const onTouchStart = ev => {
@@ -81,19 +82,38 @@ export const startTapClick = () => {
       return;
     }
 
-    const { x, y } = pointerCoord(ev);
     // 如果当前有活动的元素。需要取消活动效果进行重新渲染
     if (activatableEle) {
       removeActivated();
     }
 
     if (el) {
-      const rippleEl = getRippleEffect(el);
-      if (rippleEl) {
-        activeRipple = addRipple(rippleEl, x, y);
-      }
+      const { x, y } = pointerCoord(ev);
+      addActivated(el, x, y);
     }
     activatableEle = el;
+  };
+
+  const addActivated = (avtivateEl: HTMLElement, x: number, y: number) => {
+    avtivateEl.classList.add(ACTIVATED);
+    lastActivated = Date.now();
+    const rippleEl = getRippleEffect(avtivateEl);
+    if (rippleEl) {
+      activeRipple = addRipple(rippleEl, x, y);
+    }
+  };
+
+  const removeActivated = () => {
+    removeRipple();
+    const time = CLEAR_STATE_DEFERS - Date.now() + lastActivated;
+    const activateEl = activatableEle;
+    if (time > 0) {
+      setTimeout(() => {
+        activateEl.classList.remove(ACTIVATED);
+      }, CLEAR_STATE_DEFERS);
+    } else {
+      activateEl.classList.remove(ACTIVATED);
+    }
   };
 
   const addRipple = (el, x, y) => {
@@ -125,9 +145,7 @@ export const startTapClick = () => {
         style.top = styleY + 'px';
         style.left = styleX + 'px';
         style.width = style.height = initialSize + 'px';
-        if (type === 'unbounded') {
-          style.borderRadius = '50%';
-        }
+        style.borderRadius = '50%';
         style.setProperty('--final-scale', `${finalScale}`);
         style.setProperty('--translate-end', `${moveX}px, ${moveY}px`);
         const container = el.shadowRoot || el;
@@ -140,10 +158,6 @@ export const startTapClick = () => {
         }, 225 + 100);
       });
     });
-  };
-
-  const removeActivated = () => {
-    removeRipple();
   };
 
   // 执行移除元素的方法
@@ -184,6 +198,7 @@ const PADDING = 10;
 const INITIAL_ORIGIN_SCALE = 0.4;
 const MOUSE_WAIT = 2500;
 
-// fade-out 与uniapp的样式类冲突
 const fideClass = 'fade-out';
-const activateClass = 'activatable';
+const ACTIVATED = 'activated';
+const ACTIVATEABLE = 'activatable';
+const CLEAR_STATE_DEFERS = 200;
