@@ -579,7 +579,6 @@ export const createAnimation = (animationId?: string): Animation => {
 
         setStyleProperty(element, 'animation-iteration-count', iterationsCount);
         setStyleProperty(element, 'animation-play-state', 'paused');
-
         if (toggleAnimationName) {
           setStyleProperty(element, 'animation-name', `${stylesheet.id}-alt`);
         }

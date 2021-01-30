@@ -16,7 +16,7 @@ export class PageHome {
   render() {
     return (
       <Host class="cy-page">
-        <cy-header>
+        <cy-header color="light">
           <h3>欢迎</h3>
         </cy-header>
         <cy-segment

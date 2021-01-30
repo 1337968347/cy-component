@@ -7,7 +7,7 @@
   background-color: var(--cy-color-base);
   color: var(--cy-color-contrast);
   position: relative;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 :host::after {
@@ -20,6 +20,7 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);
   background-repeat: repeat-x;
   content: '';
+  z-index:  11;
 }
 
 .btn-box {

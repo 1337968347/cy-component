@@ -7,6 +7,11 @@
   z-index: 1000;
   touch-action: none;
 }
+
+:host(.overlay-hidden) {
+  display: none;
+}
+
 .action-sheet-container {
   padding: 0 8px;
   height: 100%;

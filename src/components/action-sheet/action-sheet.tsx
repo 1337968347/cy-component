@@ -1,6 +1,6 @@
 import { Component, Element, Prop, h, Host, ComponentInterface, Method } from '@stencil/core';
 import { ActionSheetButton, Animation } from '../../interface';
-import { prepareOverlay } from '../../utils/overlays';
+import { prepareOverlay, present } from '../../utils/overlays';
 import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
 import { getTimeGivenProgression } from '../../utils/animation/cubic-bezier';
@@ -13,7 +13,6 @@ import { clamp } from '../../utils/helpers';
 })
 export class ActionSheet implements ComponentInterface {
   private gesture?: Gesture;
-  private enterAnimation: Animation;
   private leaveAnimation: Animation;
   private lastPull = 0;
   @Element() el: HTMLElement;
@@ -27,7 +26,6 @@ export class ActionSheet implements ComponentInterface {
   }
 
   componentDidLoad() {
-    this.enterAnimation = enterAnimationBuilder(this.el);
     this.leaveAnimation = leaveAnimationBuilder(this.el);
     this.gesture = createGesture({
       el: this.el.querySelector('.drag-container'),
@@ -72,7 +70,8 @@ export class ActionSheet implements ComponentInterface {
 
   @Method()
   async present() {
-    this.enterAnimation.play();
+    this.el.classList.remove('overlay-hidden');
+    present(this, enterAnimationBuilder);
   }
 
   @Method()
