@@ -248,7 +248,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   -webkit-tap-highlight-color: transparent;
   color: var(--cy-text-color, #ffffff);
-  background-color: var(--cy-background-color, #ffffff);
+  background: var(--cy-background-color, #ffffff);
 }
 
 .cy-page {

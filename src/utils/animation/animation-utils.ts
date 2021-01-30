@@ -106,7 +106,7 @@ export const generateKeyframeName = (keyframeRules: string) => {
   if (index < 0) {
     index = (keyframeIds.push(keyframeRules) - 1);
   }
-  return `ion-animation-${index}`;
+  return `cy-animation-${index}`;
 };
 
 export const getStyleContainer = (element: HTMLElement) => {

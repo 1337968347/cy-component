@@ -6,7 +6,7 @@ import { Component, Prop, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class CyButton {
-  @Prop() color: string = '';
+  @Prop() color: string = 'primary';
   @Prop() expend: 'default' | 'full' | 'block' = 'default';
   render() {
     return (

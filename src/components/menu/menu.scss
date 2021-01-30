@@ -1,0 +1,23 @@
+:host {
+  --menu-width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  contain: strict;
+  z-index: 1000;
+  display: none;
+}
+:host(.open-menu) {
+  display: block;
+}
+
+.menu-container {
+  width: var(--menu-width);
+  height: 100%;
+  contain: strict;
+  z-index: 1;
+  position: relative;
+  box-shadow: rgb(0 0 0 / 18%) 4px 0px 16px;
+}

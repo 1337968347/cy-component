@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-
+const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner'];
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.scss',
@@ -13,33 +13,43 @@ export class PageHome {
     this.choose = location.hash.split('#')[1] || 'button';
   }
 
+  switchCom(value) {
+    this.choose = value;
+    location.hash = value;
+    document.querySelector('cy-menu').close();
+  }
+
   render() {
     return (
-      <Host class="cy-page">
-        <cy-header color="light">
-          <h3>欢迎</h3>
-        </cy-header>
-        <cy-segment
-          style={{ height: '35px' }}
-          scrollable={true}
-          color="medium"
-          value={this.choose}
-          onCyChange={e => {
-            this.choose = e.detail;
-            location.hash = e.detail;
-          }}
-        >
-          <cy-segment-button value="button">Button</cy-segment-button>
-          <cy-segment-button value="toggle">Toggle</cy-segment-button>
-          <cy-segment-button value="action-sheet">ActionSheet</cy-segment-button>
-          <cy-segment-button value="time">Time</cy-segment-button>
-          <cy-segment-button value="checkBox">CheckBox</cy-segment-button>
-          <cy-segment-button value="spinner">Spinner</cy-segment-button>
-          <cy-segment-button value="segment">Segment</cy-segment-button>
-        </cy-segment>
-        <cy-content>
-          <div class="container">{RenderShowItem(this.choose)}</div>
-        </cy-content>
+      <Host>
+        <cy-menu>
+          <cy-header color="light">
+            <h3>菜单</h3>
+          </cy-header>
+          <cy-content>
+            {components.map(com => (
+              <cy-item
+                onClick={() => {
+                  this.switchCom(com);
+                }}
+                line
+                button>
+                {com}
+              </cy-item>
+            ))}
+          </cy-content>
+        </cy-menu>
+        <div class="cy-page">
+          <cy-header color="light">
+            <cy-button slot="start" color="light" onClick={openMenu.bind(this)}>
+              =
+            </cy-button>
+            <h3>欢迎</h3>
+          </cy-header>
+          <cy-content>
+            <div class="container">{RenderShowItem(this.choose)}</div>
+          </cy-content>
+        </div>
       </Host>
     );
   }
@@ -69,6 +79,10 @@ const createActionSheet = () => {
   actionSheet.buttons = buttons;
   document.body.appendChild(actionSheet);
   actionSheet.present();
+};
+
+const openMenu = () => {
+  document.querySelector('cy-menu').open();
 };
 
 const RenderShowItem = (showName: string) => {
@@ -109,6 +123,14 @@ const RenderShowItem = (showName: string) => {
           <cy-toggle color="light">light</cy-toggle>
         </div>
       );
+    case 'menu':
+      return (
+        <div>
+          <cy-button color="primary" expend="block" onClick={openMenu.bind(this)}>
+            open Menu
+          </cy-button>
+        </div>
+      );
     case 'action-sheet':
       return (
         <div>
@@ -130,7 +152,7 @@ const RenderShowItem = (showName: string) => {
           <cy-time color="light">light</cy-time>
         </div>
       );
-    case 'checkBox':
+    case 'checkbox':
       return (
         <div>
           <cy-checkbox color="primary">primary</cy-checkbox>

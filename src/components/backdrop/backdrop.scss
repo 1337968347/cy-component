@@ -1,5 +1,5 @@
 :host {
-  --opacity: 0.6;
+  --opacity: 0.2;
   --background: #000000;
   position: absolute;
   inset: 0;
@@ -9,7 +9,6 @@
   bottom: 0;
   cursor: pointer;
   touch-action: none;
-  z-index: 2;
   opacity: var(--opacity, 0.4);
   transform: translateZ(0px);
   contain: strict;

@@ -1,0 +1,170 @@
+:host {
+  --min-height: 48px;
+  margin: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+  text-indent: inherit;
+  text-overflow: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  white-space: inherit;
+  color: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  justify-content: inherit;
+  width: 100%;
+  outline: none;
+  overflow: inherit;
+  box-sizing: border-box;
+  z-index: 1;
+  min-height: var(--min-height);
+}
+
+.item-native {
+  display: flex;
+  position: relative;
+  align-items: inherit;
+  justify-content: inherit;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  overflow: inherit;
+  box-sizing: border-box;
+  z-index: 1;
+  min-height: var(--min-height);
+}
+.item-inner {
+  margin: 0px;
+  display: flex;
+  position: relative;
+  flex: 1 1 0%;
+  flex-direction: inherit;
+  align-items: inherit;
+  align-self: stretch;
+  min-height: inherit;
+  overflow: inherit;
+  box-sizing: border-box;
+}
+
+.input-wrapper {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: inherit;
+  align-items: inherit;
+  align-self: stretch;
+  text-overflow: ellipsis;
+  overflow: inherit;
+  box-sizing: border-box;
+}
+
+.item-highlight {
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  position: absolute;
+  background: var(--cy-color-shade);
+  height: 2px;
+  z-index: 1;
+}
+.input-wrapper {
+  input,
+  select {
+    text-indent: 0em;
+    flex: 1;
+    height: 100%;
+    text-align: right;
+    opacity: 1;
+    appearance: none;
+    background-color: inherit;
+  }
+  select {
+    text-align-last: right;
+    background: transparent;
+    outline: none;
+
+    option {
+      direction: rtl;
+    }
+  }
+
+  textarea {
+    border: none;
+    text-align: right;
+    appearance: none;
+    outline: none;
+    resize: none;
+    font-family: PingFang SC;
+  }
+
+  ::-webkit-input-placeholder {
+    // color: $ftk-text-color-grey;
+    font-weight: 500;
+  }
+  .ftk-label + input,
+  .ftk-label + textarea,
+  .ftk-label + p {
+    flex: 1 1 0%;
+    height: 80%;
+    text-indent: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+    padding-right: 0.5em;
+  }
+  .ftk-label {
+    flex: initial;
+    margin: 11px 0px 10px;
+    flex-direction: column;
+    font-weight: 500;
+    display: block;
+
+    input {
+      text-align: left;
+      font-weight: normal;
+    }
+
+    h1 {
+      margin: 2px 0;
+      font-size: 0.22rem;
+      font-weight: bold;
+    }
+    h2 {
+      margin: 2px 0;
+      font-size: 0.145rem;
+      font-weight: bold;
+    }
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 2px 0;
+      font-size: 0.13rem;
+      font-weight: bold;
+      line-height: normal;
+    }
+
+    p {
+      font-weight: normal;
+      font-size: 0.12rem;
+    }
+  }
+  .ftk-label:only-child {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+  }
+}
+.bottom-line {
+  border-bottom: 1px solid #cccccc;
+}

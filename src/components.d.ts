@@ -34,6 +34,18 @@ export namespace Components {
     interface CyHeader {
         "color": string;
     }
+    interface CyIcon {
+        "name": string;
+    }
+    interface CyItem {
+        "button": boolean;
+        "color": string;
+        "line": boolean;
+    }
+    interface CyMenu {
+        "close": () => Promise<void>;
+        "open": () => Promise<void>;
+    }
     interface CyModal {
     }
     interface CyNav {
@@ -113,6 +125,24 @@ declare global {
     var HTMLCyHeaderElement: {
         prototype: HTMLCyHeaderElement;
         new (): HTMLCyHeaderElement;
+    };
+    interface HTMLCyIconElement extends Components.CyIcon, HTMLStencilElement {
+    }
+    var HTMLCyIconElement: {
+        prototype: HTMLCyIconElement;
+        new (): HTMLCyIconElement;
+    };
+    interface HTMLCyItemElement extends Components.CyItem, HTMLStencilElement {
+    }
+    var HTMLCyItemElement: {
+        prototype: HTMLCyItemElement;
+        new (): HTMLCyItemElement;
+    };
+    interface HTMLCyMenuElement extends Components.CyMenu, HTMLStencilElement {
+    }
+    var HTMLCyMenuElement: {
+        prototype: HTMLCyMenuElement;
+        new (): HTMLCyMenuElement;
     };
     interface HTMLCyModalElement extends Components.CyModal, HTMLStencilElement {
     }
@@ -194,6 +224,9 @@ declare global {
         "cy-checkbox": HTMLCyCheckboxElement;
         "cy-content": HTMLCyContentElement;
         "cy-header": HTMLCyHeaderElement;
+        "cy-icon": HTMLCyIconElement;
+        "cy-item": HTMLCyItemElement;
+        "cy-menu": HTMLCyMenuElement;
         "cy-modal": HTMLCyModalElement;
         "cy-nav": HTMLCyNavElement;
         "cy-refresh": HTMLCyRefreshElement;
@@ -234,6 +267,16 @@ declare namespace LocalJSX {
     }
     interface CyHeader {
         "color"?: string;
+    }
+    interface CyIcon {
+        "name"?: string;
+    }
+    interface CyItem {
+        "button"?: boolean;
+        "color"?: string;
+        "line"?: boolean;
+    }
+    interface CyMenu {
     }
     interface CyModal {
     }
@@ -277,6 +320,9 @@ declare namespace LocalJSX {
         "cy-checkbox": CyCheckbox;
         "cy-content": CyContent;
         "cy-header": CyHeader;
+        "cy-icon": CyIcon;
+        "cy-item": CyItem;
+        "cy-menu": CyMenu;
         "cy-modal": CyModal;
         "cy-nav": CyNav;
         "cy-refresh": CyRefresh;
@@ -302,6 +348,9 @@ declare module "@stencil/core" {
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
+            "cy-icon": LocalJSX.CyIcon & JSXBase.HTMLAttributes<HTMLCyIconElement>;
+            "cy-item": LocalJSX.CyItem & JSXBase.HTMLAttributes<HTMLCyItemElement>;
+            "cy-menu": LocalJSX.CyMenu & JSXBase.HTMLAttributes<HTMLCyMenuElement>;
             "cy-modal": LocalJSX.CyModal & JSXBase.HTMLAttributes<HTMLCyModalElement>;
             "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
