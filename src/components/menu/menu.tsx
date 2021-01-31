@@ -1,4 +1,5 @@
-import { Component, State, h, Method, Host } from '@stencil/core';
+import { Component, Element, State, h, Method, Host } from '@stencil/core';
+import { enterAnimationBuilder } from './animation';
 
 @Component({
   tag: 'cy-menu',
@@ -6,6 +7,7 @@ import { Component, State, h, Method, Host } from '@stencil/core';
   shadow: true,
 })
 export class CyMenu {
+  @Element() el: HTMLElement;
   @State() isOpen: boolean = false;
 
   onBackDropClick() {
@@ -14,7 +16,8 @@ export class CyMenu {
 
   @Method()
   async open() {
-    this.isOpen = true;
+    const enterAni = enterAnimationBuilder(this.el);
+    enterAni.play();
   }
 
   @Method()
@@ -27,8 +30,7 @@ export class CyMenu {
       <Host
         class={{
           'open-menu': this.isOpen,
-        }}
-      >
+        }}>
         <div class="menu-container">
           <slot />
         </div>
