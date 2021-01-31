@@ -24,7 +24,7 @@ export class PageHome {
       <Host>
         <cy-menu>
           <cy-header color="light">
-            <h3>菜单</h3>
+            <h3 class="cy-title">菜单</h3>
           </cy-header>
           <cy-content>
             {components.map(com => (
@@ -34,17 +34,18 @@ export class PageHome {
                 }}
                 line
                 button>
-                {com}
+                <h3>{com}</h3>
               </cy-item>
             ))}
           </cy-content>
         </cy-menu>
         <div class="cy-page">
           <cy-header color="light">
-            <cy-button slot="start" color="light" onClick={openMenu.bind(this)}>
-              =
-            </cy-button>
-            <h3>欢迎</h3>
+            <div onClick={openMenu} class="btn-box activatable" slot="start">
+              <cy-icon name="menu" />
+              <cy-ripple type="unbounded" />
+            </div>
+            <h3 class="cy-title">欢迎</h3>
           </cy-header>
           <cy-content>
             <div class="container">{RenderShowItem(this.choose)}</div>

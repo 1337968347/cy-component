@@ -19,11 +19,11 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);
   background-repeat: repeat-x;
   content: '';
-  z-index:  11;
+  z-index: 11;
 }
 
 .btn-box {
-  width: 50px;
+  max-width: 100px;
   height: 100%;
   display: flex;
   justify-content: center;
