@@ -15,6 +15,7 @@ export class ActionSheet implements ComponentInterface {
   private gesture?: Gesture;
   private leaveAnimation: Animation;
   private lastPull = 0;
+  private canMovey = 0;
   @Element() el: HTMLElement;
   @Prop() overlayIndex: number = 0;
   @Prop() header: string = '';
@@ -44,10 +45,11 @@ export class ActionSheet implements ComponentInterface {
   onStart() {
     document.body.style.overscrollBehavior = 'none';
     this.leaveAnimation.progressStart(true, 0);
+    this.canMovey = this.el.querySelector('.drag-container').clientHeight;
   }
 
   onMove(e: GestureDetail) {
-    const step = clamp(0, e.deltaY / screen.height, 1);
+    const step = clamp(0, e.deltaY / this.canMovey, 1);
     this.leaveAnimation.progressStep(step);
   }
 
@@ -57,7 +59,7 @@ export class ActionSheet implements ComponentInterface {
     this.lastPull = Date.now();
 
     const moveY = e.currentY - e.startY;
-    if (moveY > this.el.querySelector('.drag-container').clientHeight / 2) {
+    if (moveY > this.canMovey / 2) {
       await this.leaveAnimation.play();
       this.el.remove();
     } else {
@@ -102,8 +104,7 @@ export class ActionSheet implements ComponentInterface {
         class="action-sheet-overlay overlay-hidden"
         style={{
           zIndex: `${this.overlayIndex}`,
-        }}
-      >
+        }}>
         <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} />
         <div class={'action-sheet-container ' + this.cssClass}>
           <div class="drag-container">
@@ -115,9 +116,9 @@ export class ActionSheet implements ComponentInterface {
                     class="action-sheet-oper activatable"
                     onClick={() => {
                       this.onClick(button);
-                    }}
-                  >
+                    }}>
                     {button.text}
+                    <cy-ripple />
                   </div>
                 ))}
               </div>
@@ -128,9 +129,9 @@ export class ActionSheet implements ComponentInterface {
                   class="action-sheet-oper activatable"
                   onClick={() => {
                     this.onClick(actionCancel);
-                  }}
-                >
+                  }}>
                   {actionCancel.text}
+                  <cy-ripple />
                 </div>
               </div>
             ) : null}
