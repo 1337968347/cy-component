@@ -49,7 +49,6 @@ export class CyMenu {
 
   onMove(e: GestureDetail) {
     const step = clamp(0, e.deltaX / this.canMoveX, 1);
-    console.log(step);
     this.animation.progressStep(step);
   }
 

@@ -114,9 +114,7 @@ const openCamera = async () => {
       console.error(photo.message);
     }
 
-    // Hide the modal
-    await camera.dismiss();
-    document.querySelector('.container').removeChild(camera);
+    camera.dismiss();
   });
 
   camera.present();
