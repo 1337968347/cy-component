@@ -29,7 +29,7 @@ export class ActionSheet implements ComponentInterface {
   componentDidLoad() {
     this.leaveAnimation = leaveAnimationBuilder(this.el);
     this.gesture = createGesture({
-      el: this.el.querySelector('.drag-container'),
+      el: this.el.querySelector('.action-sheet-title'),
       direction: 'y',
       passive: true,
       canStart: () => {
@@ -54,8 +54,6 @@ export class ActionSheet implements ComponentInterface {
   }
 
   async onEnd(e: GestureDetail) {
-    document.body.style.removeProperty('overscroll-behavior');
-
     this.lastPull = Date.now();
 
     const moveY = e.currentY - e.startY;
@@ -63,7 +61,7 @@ export class ActionSheet implements ComponentInterface {
       await this.leaveAnimation.play();
       this.el.remove();
     } else {
-      const step = clamp(0, e.deltaY / screen.height, 1);
+      const step = clamp(0, e.deltaY / screen.height, 0.9999);
       // .36,.66,.04,1
       const newStep = getTimeGivenProgression([0, 0], [0.36, 0.66], [0.04, 1], [1, 1], step)[0];
       this.leaveAnimation.progressEnd(0, newStep);
@@ -72,7 +70,6 @@ export class ActionSheet implements ComponentInterface {
 
   @Method()
   async present() {
-    this.el.classList.remove('overlay-hidden');
     present(this, enterAnimationBuilder);
   }
 
@@ -109,7 +106,10 @@ export class ActionSheet implements ComponentInterface {
         <div class={'action-sheet-container ' + this.cssClass}>
           <div class="drag-container">
             <div class="action-sheet-group">
-              <div class="action-sheet-title">{this.header}</div>
+              <div class="action-sheet-title">
+                <div class="pull-line"></div>
+              {this.header}
+              </div>
               <div class="action-sheet-opers">
                 {actionSheets.map(button => (
                   <div

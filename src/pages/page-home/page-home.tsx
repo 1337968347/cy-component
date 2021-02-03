@@ -113,7 +113,7 @@ const openCamera = async () => {
     } else if (photo) {
       console.error(photo.message);
     }
-
+    document.body.removeChild(camera);
     camera.dismiss();
   });
 

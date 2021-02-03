@@ -42,11 +42,21 @@
 
 .action-sheet-title {
   text-align: center;
+  font-size: 1.1em;
   font-weight: 400;
   color: #999999;
-  padding: 14px 10px;
+  padding: 10px 10px 14px;
   cursor: move;
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  position: relative;
+}
+
+.pull-line {
+  width: 40px;
+  height: 5px;
+  border-radius: 2.5px;
+  background: var(--cy-border-color);
+  margin: 0 auto 4px;
 }
 .action-sheet-oper {
   padding: 18px;

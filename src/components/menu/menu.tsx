@@ -15,12 +15,13 @@ export class CyMenu {
   private gesture: Gesture;
   private canMoveX: number = 0;
   private animation: Animation;
+  private isOpen: boolean = false;
 
   componentDidLoad() {
     this.gesture = createGesture({
       el: document,
       direction: 'x',
-      threshold: 10,
+      threshold: 15,
       passive: true,
       canStart: this.canStart.bind(this),
       onStart: this.onStart.bind(this),
@@ -28,46 +29,55 @@ export class CyMenu {
       onEnd: this.onEnd.bind(this),
     });
     this.gesture.enable();
+    this.animation = enterAnimationBuilder(this.el);
   }
 
   canStart(e: GestureDetail) {
-    if (e.startX > 20) {
+    if (!this.isOpen && e.startX > 80) {
       return false;
     }
     return true;
   }
 
-  onStart(e: GestureDetail) {
-    if (this.isOpen() !== e.deltaX < 0) {
-      return false;
-    }
-    this.animation = enterAnimationBuilder(this.el);
+  onStart() {
     this.toggleMenuVisiable(true);
     this.canMoveX = this.el.shadowRoot.querySelector('.menu-container').clientWidth;
-    this.animation.progressStart(true, 0);
+    this.animation.progressStart(true, this.isOpen ? 1 : 0);
   }
 
   onMove(e: GestureDetail) {
-    const step = clamp(0, e.deltaX / this.canMoveX, 1);
+    const step = this.getAnimationStep(this.isOpen, e.deltaX);
     this.animation.progressStep(step);
   }
 
   async onEnd(e: GestureDetail) {
-    const moveX = e.currentX - e.startX;
-    const step = clamp(0, e.deltaX / this.canMoveX, 1);
-    const newStep = getTimeGivenProgression([0, 0], [0, 0], [0.2, 1], [1, 1], step)[0];
+    const step = this.getAnimationStep(this.isOpen, e.deltaX, true);
     let playTo: 0 | 1 = 1;
-    if (moveX < this.canMoveX / 2) {
+    if (step < 0.5) {
       playTo = 0;
     }
     this.animation
       .onFinish(
         () => {
+          this.isOpen = playTo === 1;
           this.toggleMenuVisiable(playTo === 1);
         },
         { oneTimeCallback: true },
       )
-      .progressEnd(playTo, newStep);
+      .progressEnd(playTo, step);
+  }
+
+  getAnimationStep(isOpen: boolean, deletaX: number, isOnEnd = false) {
+    // 不能 用 Math.abc
+    const _deletaX = isOpen ? -1 * deletaX : deletaX;
+    let step = clamp(0.0001, _deletaX / this.canMoveX, 0.9999);
+    if (isOpen) {
+      step = 1 - step;
+    }
+    if (!isOnEnd) {
+      return step;
+    }
+    return getTimeGivenProgression([0, 0], [0.4, 0], [0.6, 1], [1, 1], step)[0];
   }
 
   onBackDropClick() {
@@ -77,19 +87,19 @@ export class CyMenu {
   @Method()
   async open() {
     this.toggleMenuVisiable(true);
-    this.animation = enterAnimationBuilder(this.el);
-    this.animation.play();
+    const animation = enterAnimationBuilder(this.el);
+    await animation.play();
+    animation.destroy();
+    this.isOpen = true;
   }
 
   @Method()
   async close() {
-    this.animation = leaveAnimationBuilder(this.el);
-    await this.animation.play();
+    const animation = leaveAnimationBuilder(this.el);
+    await animation.play();
+    animation.destroy();
+    this.isOpen = false;
     this.toggleMenuVisiable(false);
-  }
-
-  isOpen() {
-    return this.el.classList.contains('open-menu');
   }
 
   toggleMenuVisiable(isOpen: boolean) {

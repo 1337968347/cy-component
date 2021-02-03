@@ -13,7 +13,7 @@ export const enterAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => 
 
   return baseAnimation
     .addElement(baseEl)
-    .easing('cubic-bezier(0.0,0.0,0.2,1)')
+    .easing('cubic-bezier(0.4,0.0,0.6,1)')
     .duration(300)
     .addAnimation([backdropAnimation, menuEnterAnimation]);
 };
@@ -30,7 +30,7 @@ export const leaveAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => 
 
   return baseAnimation
     .addElement(baseEl)
-    .easing('cubic-bezier(0.4, 0, 0.6, 1)')
+    .easing('cubic-bezier(0.4, 0.0, 0.6, 1)')
     .duration(300)
     .addAnimation([backdropAnimation, menuEnterAnimation]);
 };

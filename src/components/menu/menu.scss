@@ -19,5 +19,6 @@
   contain: strict;
   z-index: 1;
   position: relative;
+  will-change: transform;
   box-shadow: rgb(0 0 0 / 18%) 4px 0px 16px;
 }
