@@ -29,7 +29,6 @@ export class CyMenu {
       onEnd: this.onEnd.bind(this),
     });
     this.gesture.enable();
-    this.animation = enterAnimationBuilder(this.el);
   }
 
   canStart(e: GestureDetail) {
@@ -42,6 +41,8 @@ export class CyMenu {
   onStart() {
     this.toggleMenuVisiable(true);
     this.canMoveX = this.el.shadowRoot.querySelector('.menu-container').clientWidth;
+    this.destoryAnimation();
+    this.animation = enterAnimationBuilder(this.el);
     this.animation.progressStart(true, this.isOpen ? 1 : 0);
   }
 
@@ -87,19 +88,26 @@ export class CyMenu {
   @Method()
   async open() {
     this.toggleMenuVisiable(true);
-    const animation = enterAnimationBuilder(this.el);
-    await animation.play();
-    animation.destroy();
+    this.destoryAnimation();
+    this.animation = enterAnimationBuilder(this.el);
+    await this.animation.play();
     this.isOpen = true;
   }
 
   @Method()
   async close() {
-    const animation = leaveAnimationBuilder(this.el);
-    await animation.play();
-    animation.destroy();
+    this.destoryAnimation();
+    this.animation = leaveAnimationBuilder(this.el);
+    await this.animation.play();
     this.isOpen = false;
     this.toggleMenuVisiable(false);
+  }
+
+  destoryAnimation() {
+    if (this.animation) {
+      this.animation.destroy();
+      this.animation = null;
+    }
   }
 
   toggleMenuVisiable(isOpen: boolean) {
