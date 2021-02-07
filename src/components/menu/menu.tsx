@@ -1,9 +1,11 @@
 import { Component, Element, h, Method, Host } from '@stencil/core';
 import { Gesture, GestureDetail, Animation } from '../../interface';
-import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
+import { menuAnimationBuilder } from './animation';
 import { createGesture } from '../../utils/gesture';
 import { getTimeGivenProgression } from '../../utils/animation/cubic-bezier';
 import { clamp } from '../../utils/helpers';
+
+const ANIMATIONClASS = "open-menu"
 
 @Component({
   tag: 'cy-menu',
@@ -22,8 +24,9 @@ export class CyMenu {
       el: document,
       direction: 'x',
       threshold: 15,
-      passive: true,
+      blurOnStart: true,
       canStart: this.canStart.bind(this),
+      onWillStart: this.onWillStart.bind(this),
       onStart: this.onStart.bind(this),
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
@@ -38,13 +41,19 @@ export class CyMenu {
     return true;
   }
 
+  onWillStart() {
+    this.beforeAnimation()
+    return this.loadAnimation()
+  }
+
+  beforeAnimation() {
+    this.el.classList.add(ANIMATIONClASS);
+  }
+
   onStart() {
-    this.toggleMenuVisiable(true);
-    this.canMoveX = this.el.shadowRoot.querySelector('.menu-container').clientWidth;
-    this.destoryAnimation();
-    this.animation = enterAnimationBuilder(this.el);
     this.animation.progressStart(true, this.isOpen ? 1 : 0);
   }
+
 
   onMove(e: GestureDetail) {
     const step = this.getAnimationStep(this.isOpen, e.deltaX);
@@ -54,22 +63,29 @@ export class CyMenu {
   async onEnd(e: GestureDetail) {
     const step = this.getAnimationStep(this.isOpen, e.deltaX, true);
     let playTo: 0 | 1 = 1;
+
     if (step < 0.5) {
       playTo = 0;
     }
+
     this.animation
       .onFinish(
         () => {
-          this.isOpen = playTo === 1;
-          this.toggleMenuVisiable(playTo === 1);
+          this.afterAnimation(playTo === 1)
         },
         { oneTimeCallback: true },
       )
       .progressEnd(playTo, step);
   }
 
+  afterAnimation(isOpen: boolean) {
+    this.isOpen = isOpen
+    if (!this.isOpen) {
+      this.el.classList.remove(ANIMATIONClASS)
+    }
+  }
+
   getAnimationStep(isOpen: boolean, deletaX: number, isOnEnd = false) {
-    // 不能 用 Math.abc
     const _deletaX = isOpen ? -1 * deletaX : deletaX;
     let step = clamp(0.0001, _deletaX / this.canMoveX, 0.9999);
     if (isOpen) {
@@ -87,35 +103,47 @@ export class CyMenu {
 
   @Method()
   async open() {
-    this.toggleMenuVisiable(true);
-    this.destoryAnimation();
-    this.animation = enterAnimationBuilder(this.el);
-    await this.animation.play();
-    this.isOpen = true;
+    this._setOpen(true)
   }
 
   @Method()
   async close() {
-    this.destoryAnimation();
-    this.animation = leaveAnimationBuilder(this.el);
-    await this.animation.play();
-    this.isOpen = false;
-    this.toggleMenuVisiable(false);
+    this._setOpen(false)
   }
 
-  destoryAnimation() {
+  private async _setOpen(shouldOpen: boolean) {
+    this.beforeAnimation()
+    await this.loadAnimation()
+    await this.startAnimation(shouldOpen)
+    this.afterAnimation(shouldOpen)
+  }
+
+  private async startAnimation(shouldOpen: boolean): Promise<void> {
+    const isReversed = !shouldOpen;
+
+    const ani = (this.animation as Animation)!
+      .direction((isReversed) ? 'reverse' : 'normal')
+      .onFinish(() => {
+        if (ani.getDirection() === 'reverse') {
+          ani.direction('normal');
+        }
+      });
+
+    await ani.play();
+  }
+
+  private async loadAnimation(): Promise<void> {
+    const width = this.el.shadowRoot.querySelector('.menu-container').clientWidth;;
+    if (width === this.canMoveX && this.animation !== undefined) {
+      return;
+    }
+    this.canMoveX = width;
     if (this.animation) {
       this.animation.destroy();
       this.animation = null;
     }
-  }
-
-  toggleMenuVisiable(isOpen: boolean) {
-    if (isOpen) {
-      this.el.classList.add('open-menu');
-    } else {
-      this.el.classList.remove('open-menu');
-    }
+    this.animation = await menuAnimationBuilder(this.el)
+    this.animation.fill('both');
   }
 
   render() {
