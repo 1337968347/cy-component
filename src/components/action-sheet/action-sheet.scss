@@ -1,4 +1,4 @@
-:host(.action-sheet-overlay) {
+:host {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -6,6 +6,8 @@
   right: 0;
   z-index: 1000;
   touch-action: none;
+  --max-width: 500px;
+  --max-height: 80%;
 }
 
 :host(.overlay-hidden) {
@@ -22,7 +24,17 @@
   flex-direction: column;
   justify-content: flex-end;
   position: absolute;
+  max-width: var(--max-width);
   pointer-events: none;
+  margin: 0 auto;
+}
+
+.drag-container {
+  will-change: transform;
+  touch-action: pan-y;
+  display: flex;
+  flex-direction: column;
+  max-height: var(--max-height);
 }
 
 .action-sheet-group {
@@ -36,7 +48,7 @@
 }
 
 .action-sheet-opers {
-  overflow: auto;
+  overflow-y: overlay;
   flex: 1;
 }
 
@@ -45,19 +57,12 @@
   font-size: 1.1em;
   font-weight: 400;
   color: #999999;
-  padding: 10px 10px 14px;
+  padding: 10px;
   cursor: move;
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   position: relative;
 }
 
-.pull-line {
-  width: 40px;
-  height: 5px;
-  border-radius: 2.5px;
-  background: var(--cy-border-color);
-  margin: 0 auto 4px;
-}
 .action-sheet-oper {
   padding: 18px;
   display: flex;
@@ -66,14 +71,7 @@
   font-size: 20px;
   color: var(--cy-color-primary);
 }
-.drag-container {
-  will-change: transform;
-  touch-action: pan-y;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  max-height: 80%;
-}
+
 .action-sheet-oper:active::after {
   background-color: currentColor;
   opacity: 0.1;
@@ -85,6 +83,7 @@
     opacity: 0.1;
   }
 }
+
 .action-sheet-cancel {
   font-weight: 600;
   flex-shrink: 0;

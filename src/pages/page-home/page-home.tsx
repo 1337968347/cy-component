@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner', 'camera'];
+const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner', 'camera', 'date-time'];
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.scss',
@@ -219,6 +219,12 @@ const RenderShowItem = (showName: string) => {
           <cy-spinner color="danger">danger</cy-spinner>
           <cy-spinner color="dark">dark</cy-spinner>
           <cy-spinner color="light">light</cy-spinner>
+        </div>
+      );
+    case 'date-time':
+      return (
+        <div>
+          <cy-datetime></cy-datetime>
         </div>
       );
     case 'segment':

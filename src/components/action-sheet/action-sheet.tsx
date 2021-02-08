@@ -107,8 +107,7 @@ export class ActionSheet implements ComponentInterface {
           <div class="drag-container">
             <div class="action-sheet-group">
               <div class="action-sheet-title">
-                <div class="pull-line"></div>
-              {this.header}
+                {this.header}
               </div>
               <div class="action-sheet-opers">
                 {actionSheets.map(button => (

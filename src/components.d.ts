@@ -31,6 +31,8 @@ export namespace Components {
     }
     interface CyContent {
     }
+    interface CyDatetime {
+    }
     interface CyHeader {
         "color": string;
     }
@@ -134,6 +136,12 @@ declare global {
     var HTMLCyContentElement: {
         prototype: HTMLCyContentElement;
         new (): HTMLCyContentElement;
+    };
+    interface HTMLCyDatetimeElement extends Components.CyDatetime, HTMLStencilElement {
+    }
+    var HTMLCyDatetimeElement: {
+        prototype: HTMLCyDatetimeElement;
+        new (): HTMLCyDatetimeElement;
     };
     interface HTMLCyHeaderElement extends Components.CyHeader, HTMLStencilElement {
     }
@@ -256,6 +264,7 @@ declare global {
         "cy-button": HTMLCyButtonElement;
         "cy-checkbox": HTMLCyCheckboxElement;
         "cy-content": HTMLCyContentElement;
+        "cy-datetime": HTMLCyDatetimeElement;
         "cy-header": HTMLCyHeaderElement;
         "cy-icon": HTMLCyIconElement;
         "cy-item": HTMLCyItemElement;
@@ -300,6 +309,8 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface CyContent {
+    }
+    interface CyDatetime {
     }
     interface CyHeader {
         "color"?: string;
@@ -372,6 +383,7 @@ declare namespace LocalJSX {
         "cy-button": CyButton;
         "cy-checkbox": CyCheckbox;
         "cy-content": CyContent;
+        "cy-datetime": CyDatetime;
         "cy-header": CyHeader;
         "cy-icon": CyIcon;
         "cy-item": CyItem;
@@ -403,6 +415,7 @@ declare module "@stencil/core" {
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
+            "cy-datetime": LocalJSX.CyDatetime & JSXBase.HTMLAttributes<HTMLCyDatetimeElement>;
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
             "cy-icon": LocalJSX.CyIcon & JSXBase.HTMLAttributes<HTMLCyIconElement>;
             "cy-item": LocalJSX.CyItem & JSXBase.HTMLAttributes<HTMLCyItemElement>;

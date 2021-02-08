@@ -35,7 +35,7 @@ export class CyMenu {
   }
 
   canStart(e: GestureDetail) {
-    if (!this.isOpen && e.startX > 80) {
+    if (!this.isOpen && e.startX > 40) {
       return false;
     }
     return true;
