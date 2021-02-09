@@ -8,10 +8,15 @@ import { getRenderDate } from "./utils"
 })
 export class CyCalendar {
     @State() currentDay = ''
+    @State() currentYear
+    @State() currentMonth
 
     componentWillLoad() {
         const date = new Date()
-        this.currentDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+        this.currentDay = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        this.currentYear = this.getYear()
+        this.currentMonth = this.getMonth()
+
     }
 
     private getYear() {
@@ -22,9 +27,6 @@ export class CyCalendar {
         return parseInt(this.currentDay.split('-')[1])
     }
 
-    private getDate() {
-        return parseInt(this.currentDay.split('-')[2])
-    }
 
     render() {
         const renderYears = () => {
@@ -32,17 +34,21 @@ export class CyCalendar {
             for (let i = 2010; i < 2030; i++) { years.push(i) }
             return years
         }
-        const renderDate = getRenderDate(this.getYear(), this.getMonth())
+        const renderDate = getRenderDate(this.currentYear, this.currentMonth)
         return (
             <Host>
                 <div class="calendar-header">
-                    <select >
+                    <select onChange={(e) => {
+                        this.currentYear = parseInt((e.target as any).value)
+                    }}>
                         {renderYears().map((year) =>
-                            <option selected={this.getYear() == year} value={year}>{year}</option>)}
+                            <option selected={this.currentYear == year} value={year}>{year}</option>)}
                     </select>
-                    <select >
+                    <select onChange={(e) => {
+                        this.currentMonth = parseInt((e.target as any).value)
+                    }}>
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((mouth) =>
-                            <option selected={this.getMonth() + 1 == mouth} value={mouth}>{mouth}</option>)}
+                            <option selected={this.currentMonth == mouth} value={mouth}>{mouth}</option>)}
                     </select>
                 </div>
                 <div class="calendar-content">
@@ -65,7 +71,7 @@ export class CyCalendar {
                                         <td>
                                             <div class={{
                                                 day: true,
-                                                notCurrentMouth: parseInt(day.split('-')[1]) !== this.getMonth(),
+                                                notCurrentMouth: parseInt(day.split('-')[1]) !== this.currentMonth,
                                                 nowDay: day === this.currentDay
                                             }}>
                                                 {day.split('-')[2]}
