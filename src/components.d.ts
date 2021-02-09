@@ -25,13 +25,13 @@ export namespace Components {
         "color": string;
         "expend": 'default' | 'full' | 'block';
     }
+    interface CyCalendar {
+    }
     interface CyCheckbox {
         "checked": boolean;
         "color": string;
     }
     interface CyContent {
-    }
-    interface CyDatetime {
     }
     interface CyHeader {
         "color": string;
@@ -125,6 +125,12 @@ declare global {
         prototype: HTMLCyButtonElement;
         new (): HTMLCyButtonElement;
     };
+    interface HTMLCyCalendarElement extends Components.CyCalendar, HTMLStencilElement {
+    }
+    var HTMLCyCalendarElement: {
+        prototype: HTMLCyCalendarElement;
+        new (): HTMLCyCalendarElement;
+    };
     interface HTMLCyCheckboxElement extends Components.CyCheckbox, HTMLStencilElement {
     }
     var HTMLCyCheckboxElement: {
@@ -136,12 +142,6 @@ declare global {
     var HTMLCyContentElement: {
         prototype: HTMLCyContentElement;
         new (): HTMLCyContentElement;
-    };
-    interface HTMLCyDatetimeElement extends Components.CyDatetime, HTMLStencilElement {
-    }
-    var HTMLCyDatetimeElement: {
-        prototype: HTMLCyDatetimeElement;
-        new (): HTMLCyDatetimeElement;
     };
     interface HTMLCyHeaderElement extends Components.CyHeader, HTMLStencilElement {
     }
@@ -262,9 +262,9 @@ declare global {
         "cy-app": HTMLCyAppElement;
         "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
+        "cy-calendar": HTMLCyCalendarElement;
         "cy-checkbox": HTMLCyCheckboxElement;
         "cy-content": HTMLCyContentElement;
-        "cy-datetime": HTMLCyDatetimeElement;
         "cy-header": HTMLCyHeaderElement;
         "cy-icon": HTMLCyIconElement;
         "cy-item": HTMLCyItemElement;
@@ -304,13 +304,13 @@ declare namespace LocalJSX {
         "color"?: string;
         "expend"?: 'default' | 'full' | 'block';
     }
+    interface CyCalendar {
+    }
     interface CyCheckbox {
         "checked"?: boolean;
         "color"?: string;
     }
     interface CyContent {
-    }
-    interface CyDatetime {
     }
     interface CyHeader {
         "color"?: string;
@@ -381,9 +381,9 @@ declare namespace LocalJSX {
         "cy-app": CyApp;
         "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
+        "cy-calendar": CyCalendar;
         "cy-checkbox": CyCheckbox;
         "cy-content": CyContent;
-        "cy-datetime": CyDatetime;
         "cy-header": CyHeader;
         "cy-icon": CyIcon;
         "cy-item": CyItem;
@@ -413,9 +413,9 @@ declare module "@stencil/core" {
             "cy-app": LocalJSX.CyApp & JSXBase.HTMLAttributes<HTMLCyAppElement>;
             "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
+            "cy-calendar": LocalJSX.CyCalendar & JSXBase.HTMLAttributes<HTMLCyCalendarElement>;
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
-            "cy-datetime": LocalJSX.CyDatetime & JSXBase.HTMLAttributes<HTMLCyDatetimeElement>;
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;
             "cy-icon": LocalJSX.CyIcon & JSXBase.HTMLAttributes<HTMLCyIconElement>;
             "cy-item": LocalJSX.CyItem & JSXBase.HTMLAttributes<HTMLCyItemElement>;

@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner', 'camera', 'date-time'];
+const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner', 'camera', 'calendar'];
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.scss',
@@ -23,21 +23,23 @@ export class PageHome {
     return (
       <Host>
         <cy-menu>
-          <cy-header color="light">
-            <h3 class="cy-title">菜单</h3>
-          </cy-header>
-          <cy-content>
-            {components.map(com => (
-              <cy-item
-                onClick={() => {
-                  this.switchCom(com);
-                }}
-                line
-                button>
-                <h3>{com}</h3>
-              </cy-item>
-            ))}
-          </cy-content>
+          <div class="cy-page">
+            <cy-header color="light">
+              <h3 class="cy-title">菜单</h3>
+            </cy-header>
+            <cy-content>
+              {components.map(com => (
+                <cy-item
+                  onClick={() => {
+                    this.switchCom(com);
+                  }}
+                  line
+                  button>
+                  <h3>{com}</h3>
+                </cy-item>
+              ))}
+            </cy-content>
+          </div>
         </cy-menu>
         <div class="cy-page">
           <cy-header color="light">
@@ -221,10 +223,10 @@ const RenderShowItem = (showName: string) => {
           <cy-spinner color="light">light</cy-spinner>
         </div>
       );
-    case 'date-time':
+    case 'calendar':
       return (
         <div>
-          <cy-datetime></cy-datetime>
+          <cy-calendar></cy-calendar>
         </div>
       );
     case 'segment':
