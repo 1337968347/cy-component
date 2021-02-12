@@ -2,73 +2,10 @@
   display: block;
   padding: 0.5em;
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
+  --max-width: 300px;
+  max-width: var(--max-width);
 }
 
 .calendar-header {
   height: 40px;
-}
-
-select {
-  font-size: 1.3em;
-  border: none;
-  margin: 0 5px;
-  background: transparent;
-}
-
-table {
-  width: 100%;
-}
-
-td {
-  text-align: center;
-  position: relative;
-  vertical-align: middle;
-  padding: 0;
-}
-
-td::before {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-
-td .day {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.day::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  opacity: 0;
-  background: currentColor;
-}
-
-.day:active:before {
-  opacity: 0.3;
-}
-
-@media (any-hover: hover) {
-  .day:hover:before {
-    opacity: 0.3;
-  }
-}
-
-.nowDay {
-  background: var(--cy-color-primary);
-  border: 3px solid var(--cy-color-primary-shade);
-  color: #fff;
-}
-
-.notCurrentMouth {
-  color: rgb(212, 212, 212);
 }

@@ -27,6 +27,12 @@ export namespace Components {
     }
     interface CyCalendar {
     }
+    interface CyCalendarMouth {
+        "currentMonth": number;
+        "currentYear": number;
+        "nextPage": () => Promise<void>;
+        "prevPage": () => Promise<void>;
+    }
     interface CyCheckbox {
         "checked": boolean;
         "color": string;
@@ -130,6 +136,12 @@ declare global {
     var HTMLCyCalendarElement: {
         prototype: HTMLCyCalendarElement;
         new (): HTMLCyCalendarElement;
+    };
+    interface HTMLCyCalendarMouthElement extends Components.CyCalendarMouth, HTMLStencilElement {
+    }
+    var HTMLCyCalendarMouthElement: {
+        prototype: HTMLCyCalendarMouthElement;
+        new (): HTMLCyCalendarMouthElement;
     };
     interface HTMLCyCheckboxElement extends Components.CyCheckbox, HTMLStencilElement {
     }
@@ -263,6 +275,7 @@ declare global {
         "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
         "cy-calendar": HTMLCyCalendarElement;
+        "cy-calendar-mouth": HTMLCyCalendarMouthElement;
         "cy-checkbox": HTMLCyCheckboxElement;
         "cy-content": HTMLCyContentElement;
         "cy-header": HTMLCyHeaderElement;
@@ -305,6 +318,11 @@ declare namespace LocalJSX {
         "expend"?: 'default' | 'full' | 'block';
     }
     interface CyCalendar {
+    }
+    interface CyCalendarMouth {
+        "currentMonth"?: number;
+        "currentYear"?: number;
+        "onChoose"?: (event: CustomEvent<any>) => void;
     }
     interface CyCheckbox {
         "checked"?: boolean;
@@ -382,6 +400,7 @@ declare namespace LocalJSX {
         "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
         "cy-calendar": CyCalendar;
+        "cy-calendar-mouth": CyCalendarMouth;
         "cy-checkbox": CyCheckbox;
         "cy-content": CyContent;
         "cy-header": CyHeader;
@@ -414,6 +433,7 @@ declare module "@stencil/core" {
             "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-calendar": LocalJSX.CyCalendar & JSXBase.HTMLAttributes<HTMLCyCalendarElement>;
+            "cy-calendar-mouth": LocalJSX.CyCalendarMouth & JSXBase.HTMLAttributes<HTMLCyCalendarMouthElement>;
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
             "cy-header": LocalJSX.CyHeader & JSXBase.HTMLAttributes<HTMLCyHeaderElement>;

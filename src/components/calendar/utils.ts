@@ -36,7 +36,6 @@ const getMouthOffset = (year: number, mouth: number, offsetMouth: number) => {
  */
 const getMouseDayOneWeek = (year: number, mouth: number) => {
     const day = new Date(`${year}, ${mouth}, 1`).getDay()
-    console.log(day)
     return day === 0 ? 7 : day
 }
 
@@ -53,11 +52,11 @@ const formatDateArr = (arr: string[]) => {
 }
 
 /**
- * 获取要渲染的日期
+ * 获取要渲染的某个月份
  * @param mouth 
  * @param relaNum 
  */
-export const getRenderDate = (year: number, mouth: number): string[][] => {
+export const getRenderDate = (year: number, mouth: number): number[][][] => {
     year = parseInt(year + '')
     mouth = parseInt(mouth + '')
     // 初始化
@@ -80,18 +79,18 @@ export const getRenderDate = (year: number, mouth: number): string[][] => {
     // 开始填充这个 6 * 7 的日历矩阵
     let i = 0
     while (i < mouthDayOneWeek - 1) {
-        renderDate[i++] = `${prevMouthYear}-${prevMouthMouth}-${prevMouseNum - mouthDayOneWeek + 1 + i}`
+        renderDate[i++] = [prevMouthYear, prevMouthMouth, prevMouseNum - mouthDayOneWeek + 1 + i]
     }
 
     // 这个月份 比如1-31日
     while (tempDay <= currentMouthNum) {
-        renderDate[i++] = `${year}-${mouth}-${tempDay++}`
+        renderDate[i++] = [year, mouth, tempDay++]
     }
     // 渲染下一个月
     tempDay = 1
     const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, mouth, 1)
     while (i < 6 * 7) {
-        renderDate[i++] = `${nextMouthYear}-${nextMouthMouth}-${tempDay++}`
+        renderDate[i++] = [nextMouthYear, nextMouthMouth, tempDay++]
     }
     return formatDateArr(renderDate)
 }
