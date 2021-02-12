@@ -1,6 +1,6 @@
-import { Component, Prop, Event, EventEmitter, h, Method } from '@stencil/core';
-import { calendarComponentInterface } from "../calendar-interface"
-import { getRenderDate } from "../utils"
+import { Component, Prop, Event, EventEmitter, Method, h } from '@stencil/core';
+import { calendarComponentInterface } from "../../../interface"
+import { getRenderMouth } from "../utils"
 
 @Component({
     tag: 'cy-calendar-mouth',
@@ -8,7 +8,6 @@ import { getRenderDate } from "../utils"
 })
 export class CalendarMouth implements calendarComponentInterface {
     @Prop() currentYear: number
-    @Prop() currentMonth: number
     @Event() choose: EventEmitter
 
     @Method()
@@ -21,34 +20,28 @@ export class CalendarMouth implements calendarComponentInterface {
 
     }
 
+    handleClick(chooseMouth: number[]) {
+        this.choose.emit([...chooseMouth])
+    }
+
     render() {
-        const renderDate = getRenderDate(this.currentYear, this.currentMonth)
+        const renderMouths = getRenderMouth(this.currentYear)
         return (
             <table>
-                <thead>
-                    <tr>
-                        <th>一</th>
-                        <th>二</th>
-                        <th>三</th>
-                        <th>四</th>
-                        <th>五</th>
-                        <th>六</th>
-                        <th>日</th>
-                    </tr>
-                </thead>
                 <tbody>
-                    {renderDate.map((week) =>
+                    {renderMouths.map((mouths) =>
                         <tr>
-                            {week.map((day) =>
+                            {mouths.map((mouth) =>
                                 <td>
-                                    <div class={{
-                                        day: true,
-                                        currentMouth: day[1] === this.currentMonth,
-                                        nowDay: day[0] === this.currentYear &&
-                                            day[1] === this.currentMonth &&
-                                            day[2] === new Date().getDate()
-                                    }}>
-                                        {day[2]}
+                                    <div
+                                        onClick={() => { this.handleClick(mouth) }}
+                                        class={{
+                                            'item': true,
+                                            'activatable': true,
+                                            'obvious': mouth[0] === this.currentYear,
+                                        }}>
+                                        {mouth[1]}
+                                        <cy-ripple />
                                     </div>
                                 </td>
                             )}
@@ -56,7 +49,6 @@ export class CalendarMouth implements calendarComponentInterface {
                     )}
                 </tbody>
             </table>
-
         );
     }
 }

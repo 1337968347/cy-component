@@ -43,10 +43,10 @@ const getMouseDayOneWeek = (year: number, mouth: number) => {
  * 将一维日期数组 转换成 6*7 
  * @param arr 
  */
-const formatDateArr = (arr: string[]) => {
+const formatDateArr = (arr: number[], splitNum = 7) => {
     const result = []
-    for (let i = 0; i < arr.length; i += 7) {
-        result.push(arr.slice(i, i + 7))
+    for (let i = 0; i < arr.length; i += splitNum) {
+        result.push(arr.slice(i, i + splitNum))
     }
     return result
 }
@@ -56,11 +56,9 @@ const formatDateArr = (arr: string[]) => {
  * @param mouth 
  * @param relaNum 
  */
-export const getRenderDate = (year: number, mouth: number): number[][][] => {
-    year = parseInt(year + '')
-    mouth = parseInt(mouth + '')
+export const getRenderDay = (year: number, mouth: number): number[][][] => {
     // 初始化
-    const renderDate = new Array(6 * 7)
+    const renderDays: number[][] = new Array(6 * 7)
 
     // 当前月的天数
     const currentMouthNum = getMouseDayNum(year, mouth)
@@ -79,18 +77,37 @@ export const getRenderDate = (year: number, mouth: number): number[][][] => {
     // 开始填充这个 6 * 7 的日历矩阵
     let i = 0
     while (i < mouthDayOneWeek - 1) {
-        renderDate[i++] = [prevMouthYear, prevMouthMouth, prevMouseNum - mouthDayOneWeek + 1 + i]
+        renderDays[i++] = [prevMouthYear, prevMouthMouth, prevMouseNum - mouthDayOneWeek + 1 + i]
     }
 
     // 这个月份 比如1-31日
     while (tempDay <= currentMouthNum) {
-        renderDate[i++] = [year, mouth, tempDay++]
+        renderDays[i++] = [year, mouth, tempDay++]
     }
     // 渲染下一个月
     tempDay = 1
     const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, mouth, 1)
     while (i < 6 * 7) {
-        renderDate[i++] = [nextMouthYear, nextMouthMouth, tempDay++]
+        renderDays[i++] = [nextMouthYear, nextMouthMouth, tempDay++]
     }
-    return formatDateArr(renderDate)
+
+    return formatDateArr(renderDays as [])
+}
+
+
+/**
+ * 获取要渲染的某个月份
+ * @param mouth 
+ * @param relaNum 
+ */
+export const getRenderMouth = (year: number): number[][][] => {
+    const renderMouth: number[][] = []
+    for (let i = 0; i < 12; i++) {
+        renderMouth.push([year, i + 1])
+    }
+    // 下一年的四个月
+    for (let i = 0; i < 4; i++) {
+        renderMouth.push([year + 1, i + 1])
+    }
+    return formatDateArr(renderMouth as [], 4)
 }

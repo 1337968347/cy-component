@@ -8,4 +8,59 @@
 
 .calendar-header {
   height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.calendar-switch {
+  width: fit-content;
+  padding: 5px 8px;
+}
+
+.activatable {
+  position: relative;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+tbody {
+  color: rgb(212, 212, 212)
+}
+
+td {
+  text-align: center;
+  position: relative;
+  vertical-align: middle;
+  padding: 0;
+}
+
+td::before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+
+td .item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (any-hover: hover) {
+  .day:hover:before {
+    opacity: 0.3;
+  }
+}
+
+.obvious {
+  color: #000000;
 }

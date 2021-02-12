@@ -27,8 +27,13 @@ export namespace Components {
     }
     interface CyCalendar {
     }
-    interface CyCalendarMouth {
+    interface CyCalendarDay {
         "currentMonth": number;
+        "currentYear": number;
+        "nextPage": () => Promise<void>;
+        "prevPage": () => Promise<void>;
+    }
+    interface CyCalendarMouth {
         "currentYear": number;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
@@ -136,6 +141,12 @@ declare global {
     var HTMLCyCalendarElement: {
         prototype: HTMLCyCalendarElement;
         new (): HTMLCyCalendarElement;
+    };
+    interface HTMLCyCalendarDayElement extends Components.CyCalendarDay, HTMLStencilElement {
+    }
+    var HTMLCyCalendarDayElement: {
+        prototype: HTMLCyCalendarDayElement;
+        new (): HTMLCyCalendarDayElement;
     };
     interface HTMLCyCalendarMouthElement extends Components.CyCalendarMouth, HTMLStencilElement {
     }
@@ -275,6 +286,7 @@ declare global {
         "cy-backdrop": HTMLCyBackdropElement;
         "cy-button": HTMLCyButtonElement;
         "cy-calendar": HTMLCyCalendarElement;
+        "cy-calendar-day": HTMLCyCalendarDayElement;
         "cy-calendar-mouth": HTMLCyCalendarMouthElement;
         "cy-checkbox": HTMLCyCheckboxElement;
         "cy-content": HTMLCyContentElement;
@@ -319,8 +331,12 @@ declare namespace LocalJSX {
     }
     interface CyCalendar {
     }
-    interface CyCalendarMouth {
+    interface CyCalendarDay {
         "currentMonth"?: number;
+        "currentYear"?: number;
+        "onChoose"?: (event: CustomEvent<any>) => void;
+    }
+    interface CyCalendarMouth {
         "currentYear"?: number;
         "onChoose"?: (event: CustomEvent<any>) => void;
     }
@@ -400,6 +416,7 @@ declare namespace LocalJSX {
         "cy-backdrop": CyBackdrop;
         "cy-button": CyButton;
         "cy-calendar": CyCalendar;
+        "cy-calendar-day": CyCalendarDay;
         "cy-calendar-mouth": CyCalendarMouth;
         "cy-checkbox": CyCheckbox;
         "cy-content": CyContent;
@@ -433,6 +450,7 @@ declare module "@stencil/core" {
             "cy-backdrop": LocalJSX.CyBackdrop & JSXBase.HTMLAttributes<HTMLCyBackdropElement>;
             "cy-button": LocalJSX.CyButton & JSXBase.HTMLAttributes<HTMLCyButtonElement>;
             "cy-calendar": LocalJSX.CyCalendar & JSXBase.HTMLAttributes<HTMLCyCalendarElement>;
+            "cy-calendar-day": LocalJSX.CyCalendarDay & JSXBase.HTMLAttributes<HTMLCyCalendarDayElement>;
             "cy-calendar-mouth": LocalJSX.CyCalendarMouth & JSXBase.HTMLAttributes<HTMLCyCalendarMouthElement>;
             "cy-checkbox": LocalJSX.CyCheckbox & JSXBase.HTMLAttributes<HTMLCyCheckboxElement>;
             "cy-content": LocalJSX.CyContent & JSXBase.HTMLAttributes<HTMLCyContentElement>;
