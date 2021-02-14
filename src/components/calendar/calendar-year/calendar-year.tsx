@@ -1,12 +1,13 @@
 import { Component, Prop, Event, EventEmitter, Method, h } from '@stencil/core';
 import { calendarComponentInterface } from "../../../interface"
-import { getRenderMouth } from "../utils"
+import { getRenderYear } from "../utils"
 
 @Component({
-    tag: 'cy-calendar-mouth',
-    styleUrl: 'calendar-mouth.scss'
+    tag: 'cy-calendar-year',
+    styleUrl: 'calendar-year.scss'
 })
-export class CalendarMouth implements calendarComponentInterface {
+export class CalendarYear implements calendarComponentInterface {
+
     @Prop() currentYear: number
     @Event() choose: EventEmitter
 
@@ -20,33 +21,32 @@ export class CalendarMouth implements calendarComponentInterface {
 
     }
 
-    handleClick(chooseMouth: number[]) {
-        this.choose.emit([...chooseMouth])
+    handleClick(year: number) {
+        this.choose.emit(year)
     }
 
-    private isNow(mouth: number[]) {
+    private isNow(day: number) {
         const dateNow = new Date()
-        return mouth[0] === dateNow.getUTCFullYear() &&
-        mouth[1] === dateNow.getMonth() + 1
+        return day === dateNow.getUTCFullYear()
     }
 
     render() {
-        const renderMouths = getRenderMouth(this.currentYear)
+        const renderYears = getRenderYear(this.currentYear)
         return (
             <table>
                 <tbody>
-                    {renderMouths.map((mouths) =>
+                    {renderYears.map((decade) =>
                         <tr>
-                            {mouths.map((mouth) =>
+                            {decade.map((year) =>
                                 <td>
                                     <div
-                                        onClick={() => { this.handleClick(mouth) }}
+                                        onClick={() => { this.handleClick(year) }}
                                         class={{
                                             'item': true,
-                                            'now': this.isNow(mouth),
-                                            'obvious': mouth[0] === this.currentYear,
+                                            'now': this.isNow(year),
+                                            'obvious': Math.floor(year / 10) === Math.floor(this.currentYear / 10)
                                         }}>
-                                        {mouth[1]}
+                                        {year}
                                     </div>
                                 </td>
                             )}

@@ -23,7 +23,7 @@ export class CalendarMouth implements calendarComponentInterface {
 
     }
 
-    private isNowDay(day: number[]) {
+    private isNow(day: number[]) {
         const dateNow = new Date()
         return day[0] === dateNow.getUTCFullYear() &&
             day[1] === dateNow.getMonth() + 1 &&
@@ -67,12 +67,10 @@ export class CalendarMouth implements calendarComponentInterface {
                                         onClick={(e) => { this.handleClick(e, day) }}
                                         class={{
                                             'item': true,
-                                            'activatable': true,
                                             'obvious': day[1] === this.currentMonth,
-                                            'nowDay': this.isNowDay(day)
+                                            'now': this.isNow(day)
                                         }}>
                                         {day[2]}
-                                        <cy-ripple />
                                     </div>
                                 </td>
                             )}

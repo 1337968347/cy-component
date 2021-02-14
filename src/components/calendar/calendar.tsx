@@ -16,7 +16,7 @@ export class CyCalendar {
 
 
     switchViewMode() {
-        const nextIndex = Math.max(ViewModeEnum.indexOf(this.viewMode) - 1, 1)
+        const nextIndex = Math.max(ViewModeEnum.indexOf(this.viewMode) - 1, 0)
         this.viewMode = ViewModeEnum[nextIndex]
     }
 
@@ -24,6 +24,11 @@ export class CyCalendar {
         this.currentYear = chooseMouth[0]
         this.currentMonth = chooseMouth[1]
         this.viewMode = 'day'
+    }
+
+    handleChooseYear(chooseYear: number) {
+        this.currentYear = chooseYear
+        this.viewMode = 'mouth'
     }
 
     render() {
@@ -40,6 +45,7 @@ export class CyCalendar {
                 <div class="calendar-content">
                     {this.viewMode === "day" ? <cy-calendar-day currentYear={this.currentYear} currentMonth={this.currentMonth} /> : null}
                     {this.viewMode === "mouth" ? <cy-calendar-mouth currentYear={this.currentYear} onChoose={(e) => { this.handleChooseMouth(e.detail) }} /> : null}
+                    {this.viewMode === "year" ? <cy-calendar-year currentYear={this.currentYear} onChoose={(e) => { this.handleChooseYear(e.detail) }} /> : null}
                 </div>
             </Host >
         );

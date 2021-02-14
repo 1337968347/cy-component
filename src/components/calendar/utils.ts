@@ -96,7 +96,7 @@ export const getRenderDay = (year: number, mouth: number): number[][][] => {
 
 
 /**
- * 获取要渲染的某个月份
+ * 获取要渲染的某个月份 1-12月， 以及下一年的1-4月
  * @param mouth 
  * @param relaNum 
  */
@@ -110,4 +110,25 @@ export const getRenderMouth = (year: number): number[][][] => {
         renderMouth.push([year + 1, i + 1])
     }
     return formatDateArr(renderMouth as [], 4)
+}
+
+
+export const getDecadeRange = (year: number) => {
+    const startDecade = Math.floor(year / 10)
+    const endDecade = startDecade + 1
+    return [startDecade * 10, endDecade * 10]
+}
+
+/**
+ * 
+ * @param decade 
+ */
+export const getRenderYear = (decade: number) => {
+    const renderYears = []
+    const [startDecade, endDecade] = getDecadeRange(decade)
+    for (let i = startDecade - 3; i < endDecade + 3; i++) {
+        renderYears.push(i)
+    }
+    return formatDateArr(renderYears, 4)
+
 }
