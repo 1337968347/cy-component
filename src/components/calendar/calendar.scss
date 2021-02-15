@@ -68,21 +68,39 @@ td {
 
 td::before {
   content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+
+td .item {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item::before {
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   position: absolute;
   opacity: 0;
   box-shadow: inset 0 0 5px currentColor;
 }
 
-td:active:before {
+.item:active:before {
   opacity: 0.3;
 }
 
 @media (any-hover: hover) {
-  td:hover:before {
+  .item:hover:before {
     opacity: 0.3;
   }
 }
@@ -94,4 +112,9 @@ td:active:before {
 .now {
   background: var(--cy-color-primary);
   color: #fff;
+}
+
+.choosed {
+  box-shadow: inset 0 0 3px var(--cy-color-primary-shade);
+  border: 2px solid var(--cy-color-primary-shade);
 }

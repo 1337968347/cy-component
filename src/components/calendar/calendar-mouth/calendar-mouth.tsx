@@ -3,8 +3,7 @@ import { calendarComponentInterface } from "../../../interface"
 import { getRenderMouth } from "../utils"
 
 @Component({
-    tag: 'cy-calendar-mouth',
-    styleUrl: 'calendar-mouth.scss'
+    tag: 'cy-calendar-mouth'
 })
 export class CalendarMouth implements calendarComponentInterface {
     @Prop() chooseYear: number
@@ -38,14 +37,15 @@ export class CalendarMouth implements calendarComponentInterface {
                     {renderMouths.map((mouths) =>
                         <tr>
                             {mouths.map((mouth) =>
-                                <td onClick={() => { this.handleClick(mouth) }}
-                                    class={{
-                                        'item': true,
-                                        'now': this.isNow(mouth),
-                                        'obvious': mouth[0] === this.chooseYear,
-                                    }}>
-
-                                    {mouth[1]}
+                                <td>
+                                    <div onClick={() => { this.handleClick(mouth) }}
+                                        class={{
+                                            'item': true,
+                                            'now': this.isNow(mouth),
+                                            'obvious': mouth[0] === this.chooseYear,
+                                        }}>
+                                        {mouth[1]}
+                                    </div>
                                 </td>
                             )}
                         </tr>

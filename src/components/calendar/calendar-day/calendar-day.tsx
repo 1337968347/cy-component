@@ -3,8 +3,7 @@ import { calendarComponentInterface } from "../../../interface"
 import { getRenderDay } from "../utils"
 
 @Component({
-    tag: 'cy-calendar-day',
-    styleUrl: 'calendar-day.scss'
+    tag: 'cy-calendar-day'
 })
 export class CalendarMouth implements calendarComponentInterface {
     @Prop() chooseYear: number
@@ -62,13 +61,15 @@ export class CalendarMouth implements calendarComponentInterface {
                     {renderDays.map((week) =>
                         <tr>
                             {week.map((day) =>
-                                <td onClick={(e) => { this.handleClick(e, day) }}
-                                    class={{
-                                        'item': true,
-                                        'obvious': day[1] === this.chooseMonth,
-                                        'now': this.isNow(day)
-                                    }}>
-                                    {day[2]}
+                                <td>
+                                    <div onClick={(e) => { this.handleClick(e, day) }}
+                                        class={{
+                                            'item': true,
+                                            'obvious': day[1] === this.chooseMonth,
+                                            'now': this.isNow(day)
+                                        }}>
+                                        {day[2]}
+                                    </div>
                                 </td>
                             )}
                         </tr>

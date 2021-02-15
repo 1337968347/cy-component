@@ -3,8 +3,7 @@ import { calendarComponentInterface } from "../../../interface"
 import { getRenderYear } from "../utils"
 
 @Component({
-    tag: 'cy-calendar-year',
-    styleUrl: 'calendar-year.scss'
+    tag: 'cy-calendar-year'
 })
 export class CalendarYear implements calendarComponentInterface {
     @Prop() chooseYear: number
@@ -40,13 +39,15 @@ export class CalendarYear implements calendarComponentInterface {
                     {renderYears.map((decade) =>
                         <tr>
                             {decade.map((year) =>
-                                <td onClick={() => { this.handleClick(year) }}
-                                    class={{
-                                        'item': true,
-                                        'now': this.isNow(year),
-                                        'obvious': Math.floor(year / 10) === Math.floor(this.chooseYear / 10)
-                                    }}>
-                                    {year}
+                                <td>
+                                    <div onClick={() => { this.handleClick(year) }}
+                                        class={{
+                                            'item': true,
+                                            'now': this.isNow(year),
+                                            'obvious': Math.floor(year / 10) === Math.floor(this.chooseYear / 10)
+                                        }}>
+                                        {year}
+                                    </div>
                                 </td>
                             )}
                         </tr>

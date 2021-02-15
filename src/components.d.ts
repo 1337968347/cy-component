@@ -100,21 +100,6 @@ export namespace Components {
     }
     interface PageRoot {
     }
-    interface PwaCamera {
-        "facingMode": string;
-        "handleNoDeviceError": (e?: any) => void;
-        "handlePhoto": (photo: Blob) => void;
-        "noDevicesButtonText": string;
-        "noDevicesText": string;
-    }
-    interface PwaCameraModal {
-        "dismiss": () => Promise<void>;
-        "present": () => Promise<void>;
-    }
-    interface PwaCameraModalInstance {
-        "noDevicesButtonText": string;
-        "noDevicesText": string;
-    }
 }
 declare global {
     interface HTMLCyActionSheetElement extends Components.CyActionSheet, HTMLStencilElement {
@@ -273,24 +258,6 @@ declare global {
         prototype: HTMLPageRootElement;
         new (): HTMLPageRootElement;
     };
-    interface HTMLPwaCameraElement extends Components.PwaCamera, HTMLStencilElement {
-    }
-    var HTMLPwaCameraElement: {
-        prototype: HTMLPwaCameraElement;
-        new (): HTMLPwaCameraElement;
-    };
-    interface HTMLPwaCameraModalElement extends Components.PwaCameraModal, HTMLStencilElement {
-    }
-    var HTMLPwaCameraModalElement: {
-        prototype: HTMLPwaCameraModalElement;
-        new (): HTMLPwaCameraModalElement;
-    };
-    interface HTMLPwaCameraModalInstanceElement extends Components.PwaCameraModalInstance, HTMLStencilElement {
-    }
-    var HTMLPwaCameraModalInstanceElement: {
-        prototype: HTMLPwaCameraModalInstanceElement;
-        new (): HTMLPwaCameraModalInstanceElement;
-    };
     interface HTMLElementTagNameMap {
         "cy-action-sheet": HTMLCyActionSheetElement;
         "cy-app": HTMLCyAppElement;
@@ -318,9 +285,6 @@ declare global {
         "page-home": HTMLPageHomeElement;
         "page-one": HTMLPageOneElement;
         "page-root": HTMLPageRootElement;
-        "pwa-camera": HTMLPwaCameraElement;
-        "pwa-camera-modal": HTMLPwaCameraModalElement;
-        "pwa-camera-modal-instance": HTMLPwaCameraModalInstanceElement;
     }
 }
 declare namespace LocalJSX {
@@ -409,23 +373,6 @@ declare namespace LocalJSX {
     }
     interface PageRoot {
     }
-    interface PwaCamera {
-        "facingMode"?: string;
-        "handleNoDeviceError"?: (e?: any) => void;
-        "handlePhoto"?: (photo: Blob) => void;
-        "noDevicesButtonText"?: string;
-        "noDevicesText"?: string;
-    }
-    interface PwaCameraModal {
-        "onNoDeviceError"?: (event: CustomEvent<any>) => void;
-        "onPhoto"?: (event: CustomEvent<any>) => void;
-    }
-    interface PwaCameraModalInstance {
-        "noDevicesButtonText"?: string;
-        "noDevicesText"?: string;
-        "onNoDeviceError"?: (event: CustomEvent<any>) => void;
-        "onPhoto"?: (event: CustomEvent<any>) => void;
-    }
     interface IntrinsicElements {
         "cy-action-sheet": CyActionSheet;
         "cy-app": CyApp;
@@ -453,9 +400,6 @@ declare namespace LocalJSX {
         "page-home": PageHome;
         "page-one": PageOne;
         "page-root": PageRoot;
-        "pwa-camera": PwaCamera;
-        "pwa-camera-modal": PwaCameraModal;
-        "pwa-camera-modal-instance": PwaCameraModalInstance;
     }
 }
 export { LocalJSX as JSX };
@@ -488,9 +432,6 @@ declare module "@stencil/core" {
             "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-one": LocalJSX.PageOne & JSXBase.HTMLAttributes<HTMLPageOneElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
-            "pwa-camera": LocalJSX.PwaCamera & JSXBase.HTMLAttributes<HTMLPwaCameraElement>;
-            "pwa-camera-modal": LocalJSX.PwaCameraModal & JSXBase.HTMLAttributes<HTMLPwaCameraModalElement>;
-            "pwa-camera-modal-instance": LocalJSX.PwaCameraModalInstance & JSXBase.HTMLAttributes<HTMLPwaCameraModalInstanceElement>;
         }
     }
 }
