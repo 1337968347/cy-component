@@ -26,6 +26,8 @@ export namespace Components {
         "expend": 'default' | 'full' | 'block';
     }
     interface CyCalendar {
+        "nextPage": () => Promise<void>;
+        "prevPage": () => Promise<void>;
     }
     interface CyCalendarDay {
         "chooseMonth": number;

@@ -1,6 +1,6 @@
-import { Component, State, Host, h } from '@stencil/core';
+import { Component, Element, State, Method, Host, h } from '@stencil/core';
 import { ViewMode } from "../../interface"
-import { getDecadeRange } from "./utils"
+import { getDecadeRange, getMouthOffset } from "./utils"
 
 const ViewModeEnum: ViewMode[] = ['year', 'mouth', 'day']
 
@@ -10,6 +10,7 @@ const ViewModeEnum: ViewMode[] = ['year', 'mouth', 'day']
     shadow: true
 })
 export class CyCalendar {
+    @Element() el: HTMLElement;
     // 下标 0： 十年  1： 年  2：月份
     @State() showDate: string[] = []
     @State() viewMode: ViewMode = 'day'
@@ -26,7 +27,6 @@ export class CyCalendar {
     switchViewMode() {
         const nextIndex = Math.max(ViewModeEnum.indexOf(this.viewMode) - 1, 0)
         this.viewMode = ViewModeEnum[nextIndex]
-        console.log(this.showDate)
         if (this.showDate.length > 1) {
             this.showDate.pop()
         }
@@ -46,6 +46,35 @@ export class CyCalendar {
         this.viewMode = 'mouth'
     }
 
+
+    @Method()
+    async prevPage() {
+        const el = this.el.shadowRoot.querySelector('.translate-box').firstChild as any
+        await el.prevPage()
+        if (this.viewMode === "day") {
+            const [prevMouthYear, prevMouthMouth] = getMouthOffset(parseInt(this.showDate[1]), parseInt(this.showDate[2]), -1)
+            this.showDate.pop()
+            this.showDate.pop()
+            this.showDate.push(prevMouthYear + "")
+            this.showDate.push(prevMouthMouth + "")
+            this.showDate = [...this.showDate]
+        }
+    }
+
+    @Method()
+    async nextPage() {
+        const el = this.el.shadowRoot.querySelector('.translate-box').firstChild as any
+        await el.nextPage()
+        if (this.viewMode === "day") {
+            const [nextMouthYear, nextMouthMouth] = getMouthOffset(parseInt(this.showDate[1]), parseInt(this.showDate[2]), 1)
+            this.showDate.pop()
+            this.showDate.pop()
+            this.showDate.push(nextMouthYear + "")
+            this.showDate.push(nextMouthMouth + "")
+            this.showDate = [...this.showDate]
+        }
+    }
+
     render() {
         return (
             <Host>
@@ -56,7 +85,14 @@ export class CyCalendar {
                         {this.showDate[2] ? (<span>{this.showDate[2]}月</span>) : null}
                     </div>
 
-                    <div class="page-nav"></div>
+                    <div class="calendar-page-nav">
+                        <div class="nav-box">
+                            <cy-icon onClick={this.prevPage.bind(this)} class="activatable" name="up" />
+                        </div>
+                        <div class="nav-box">
+                            <cy-icon onClick={this.nextPage.bind(this)} class="activatable" name="down" />
+                        </div>
+                    </div>
                 </div>
                 <div class="calendar-content">
                     <div class="translate-box">

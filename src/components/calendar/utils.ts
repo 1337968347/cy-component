@@ -13,7 +13,7 @@ const getMouseDayNum = (year: number, mouth: number): number => {
  * @param mouth 
  * @param offsetMouth 可以是负数
  */
-const getMouthOffset = (year: number, mouth: number, offsetMouth: number) => {
+export const getMouthOffset = (year: number, mouth: number, offsetMouth: number) => {
     let _mouth = (mouth + 12 + offsetMouth % 12) % 12
     _mouth = _mouth == 0 ? 12 : _mouth
 
@@ -53,45 +53,64 @@ const formatDateArr = (arr: number[], splitNum = 7) => {
 
 /**
  * 获取要渲染的某个月份
+ * 动画上下切页需要，所以需要算三个月的
  * @param mouth 
  * @param relaNum 
  */
 export const getRenderDay = (year: number, mouth: number): number[][][] => {
     // 初始化
-    const renderDays: number[][] = new Array(6 * 7)
+    const renderDays: number[][] = new Array(7 * 15)
+    let tempDay: number = 1
+    let i = 0
 
-    // 当前月的天数
-    const currentMouthNum = getMouseDayNum(year, mouth)
-
-    // 第一行： 需要用上一个月的跟这个月的拼
-    // 上一个月份的年份跟月份
+    const [prevPrevMouthYear, prevPrevMouthMouth] = getMouthOffset(year, mouth, -2)
     const [prevMouthYear, prevMouthMouth] = getMouthOffset(year, mouth, -1)
+    const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, mouth, 1)
+    const [nextNextMouthYear, nextNextMouthMouth] = getMouthOffset(year, mouth, 2)
+
+    // 上上一个月有多少天
+    const prevPrevMouseNum = getMouseDayNum(prevPrevMouthYear, prevPrevMouthMouth)
     // 上一个月有多少天
     const prevMouseNum = getMouseDayNum(prevMouthYear, prevMouthMouth)
+    // 当前月的天数
+    const currentMouthNum = getMouseDayNum(year, mouth)
+    // 下一个月的天数
+    const nextMouthNum = getMouseDayNum(nextMouthYear, nextMouthMouth)
 
+    // -----------------上上一个月的结尾---------------------
     // 这个月周一星期几
-    const mouthDayOneWeek = getMouseDayOneWeek(year, mouth)
-
-    let tempDay = 1
-
-    // 开始填充这个 6 * 7 的日历矩阵
-    let i = 0
-    while (i < mouthDayOneWeek - 1) {
-        renderDays[i++] = [prevMouthYear, prevMouthMouth, prevMouseNum - mouthDayOneWeek + 1 + i]
+    const mouthDayOneWeekNum = getMouseDayOneWeek(prevMouthYear, prevMouthMouth)
+    while (i < mouthDayOneWeekNum - 1) {
+        renderDays[i++] = [prevPrevMouthYear, prevPrevMouthMouth, prevPrevMouseNum - mouthDayOneWeekNum + tempDay++ + 1]
     }
 
+    // ------------------上一个月的-------------------
+    tempDay = 1
+    // 上个月份 比如1-31日
+    while (tempDay <= prevMouseNum) {
+        renderDays[i++] = [prevMouthYear, prevMouthMouth, tempDay++]
+    }
+
+    // ------------------渲染这个月的--------------------
+    tempDay = 1
     // 这个月份 比如1-31日
     while (tempDay <= currentMouthNum) {
         renderDays[i++] = [year, mouth, tempDay++]
     }
-    // 渲染下一个月
+
+    // ------------------渲染下一个月--------------------
     tempDay = 1
-    const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, mouth, 1)
-    while (i < 6 * 7) {
+    // 下个月份 比如1-31日
+    while (tempDay <= nextMouthNum) {
         renderDays[i++] = [nextMouthYear, nextMouthMouth, tempDay++]
     }
 
-    return formatDateArr(renderDays as [])
+    // ------------------渲染下下一个月开头---------------------
+    tempDay = 1
+    while (i < 7 * 15) {
+        renderDays[i++] = [nextNextMouthYear, nextNextMouthMouth, tempDay++]
+    }
+    return formatDateArr(renderDays as [], 7)
 }
 
 

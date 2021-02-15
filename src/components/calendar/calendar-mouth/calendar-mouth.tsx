@@ -32,12 +32,12 @@ export class CalendarMouth implements calendarComponentInterface {
     render() {
         const renderMouths = getRenderMouth(this.chooseYear)
         return (
-            <table>
-                <tbody>
+            <div class="table">
+                <div class="tbody">
                     {renderMouths.map((mouths) =>
-                        <tr>
+                        <div class="tr">
                             {mouths.map((mouth) =>
-                                <td>
+                                <div class="td">
                                     <div onClick={() => { this.handleClick(mouth) }}
                                         class={{
                                             'item': true,
@@ -46,12 +46,12 @@ export class CalendarMouth implements calendarComponentInterface {
                                         }}>
                                         {mouth[1]}
                                     </div>
-                                </td>
+                                </div>
                             )}
-                        </tr>
+                        </div>
                     )}
-                </tbody>
-            </table>
+                </div>
+            </div>
         );
     }
 }

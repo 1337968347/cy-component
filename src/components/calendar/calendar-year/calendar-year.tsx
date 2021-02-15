@@ -34,12 +34,12 @@ export class CalendarYear implements calendarComponentInterface {
     render() {
         const renderYears = getRenderYear(this.chooseYear)
         return (
-            <table>
-                <tbody>
+            <div class="table">
+                <div class="tbody">
                     {renderYears.map((decade) =>
-                        <tr>
+                        <div class="tr">
                             {decade.map((year) =>
-                                <td>
+                                <div class="td">
                                     <div onClick={() => { this.handleClick(year) }}
                                         class={{
                                             'item': true,
@@ -48,12 +48,12 @@ export class CalendarYear implements calendarComponentInterface {
                                         }}>
                                         {year}
                                     </div>
-                                </td>
+                                </div>
                             )}
-                        </tr>
+                        </div>
                     )}
-                </tbody>
-            </table>
+                </div>
+            </div>
         );
     }
 }

@@ -6,9 +6,9 @@ const getSvgUrl = name => {
 
 export const getSvgContent = (name: string): Promise<string> => {
   return new Promise(resolve => {
-    // if (fetchSvgContentMap.has(name)) {
-    //   resolve(fetchSvgContentMap.get(name));
-    // }
+    if (fetchSvgContentMap.has(name)) {
+      resolve(fetchSvgContentMap.get(name));
+    }
 
     if (typeof fetch === 'function') {
       fetch(getSvgUrl(name)).then(res => {
