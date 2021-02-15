@@ -1,6 +1,7 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner', 'camera', 'calendar'];
+const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner',  'calendar'];
+
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.scss',
@@ -88,50 +89,8 @@ const openMenu = () => {
   document.querySelector('cy-menu').open();
 };
 
-const openCamera = async () => {
-  const camera: any = document.createElement('pwa-camera-modal');
-
-  document.body.appendChild(camera);
-
-  await camera.componentOnReady();
-
-  camera.addEventListener('noDeviceError', async e => {
-    console.log('NO DEVICE', e);
-  });
-
-  camera.addEventListener('photo', async e => {
-    const photo = e.detail;
-
-    if (photo && !(photo instanceof Error)) {
-      const url = window.URL.createObjectURL(photo);
-
-      const img: any = document.querySelector('#img') || document.createElement('img');
-      img.src = url;
-      img.id = 'img';
-      img.style.width = '100%';
-      img.parentNode && img.parentNode.removeChild(img);
-
-      document.querySelector('.container').appendChild(img);
-    } else if (photo) {
-      console.error(photo.message);
-    }
-    document.body.removeChild(camera);
-    camera.dismiss();
-  });
-
-  camera.present();
-};
-
 const RenderShowItem = (showName: string) => {
   switch (showName) {
-    case 'camera':
-      return (
-        <div>
-          <cy-button color="primary" expend="block" onClick={openCamera.bind(this)}>
-            Camera
-          </cy-button>
-        </div>
-      );
     case 'button':
       return (
         <div>
