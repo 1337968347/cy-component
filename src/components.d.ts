@@ -28,18 +28,18 @@ export namespace Components {
     interface CyCalendar {
     }
     interface CyCalendarDay {
-        "currentMonth": number;
-        "currentYear": number;
+        "chooseMonth": number;
+        "chooseYear": number;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
     }
     interface CyCalendarMouth {
-        "currentYear": number;
+        "chooseYear": number;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
     }
     interface CyCalendarYear {
-        "currentYear": number;
+        "chooseYear": number;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
     }
@@ -344,16 +344,16 @@ declare namespace LocalJSX {
     interface CyCalendar {
     }
     interface CyCalendarDay {
-        "currentMonth"?: number;
-        "currentYear"?: number;
+        "chooseMonth"?: number;
+        "chooseYear"?: number;
         "onChoose"?: (event: CustomEvent<any>) => void;
     }
     interface CyCalendarMouth {
-        "currentYear"?: number;
+        "chooseYear"?: number;
         "onChoose"?: (event: CustomEvent<any>) => void;
     }
     interface CyCalendarYear {
-        "currentYear"?: number;
+        "chooseYear"?: number;
         "onChoose"?: (event: CustomEvent<any>) => void;
     }
     interface CyCheckbox {

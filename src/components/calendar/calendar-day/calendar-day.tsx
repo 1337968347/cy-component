@@ -7,8 +7,8 @@ import { getRenderDay } from "../utils"
     styleUrl: 'calendar-day.scss'
 })
 export class CalendarMouth implements calendarComponentInterface {
-    @Prop() currentYear: number
-    @Prop() currentMonth: number
+    @Prop() chooseYear: number
+    @Prop() chooseMonth: number
     @Event() choose: EventEmitter
     activateEl: HTMLElement
 
@@ -26,8 +26,8 @@ export class CalendarMouth implements calendarComponentInterface {
     private isNow(day: number[]) {
         const dateNow = new Date()
         return day[0] === dateNow.getUTCFullYear() &&
-            day[1] === dateNow.getMonth() + 1 &&
-            day[2] === dateNow.getDate()
+            day[1] === dateNow.getUTCMonth() + 1 &&
+            day[2] === dateNow.getUTCDate()
     }
 
     handleClick(e: any, day: number[]) {
@@ -44,7 +44,7 @@ export class CalendarMouth implements calendarComponentInterface {
     }
 
     render() {
-        const renderDays = getRenderDay(this.currentYear, this.currentMonth)
+        const renderDays = getRenderDay(this.chooseYear, this.chooseMonth)
         return (
             <table>
                 <thead>
@@ -62,16 +62,13 @@ export class CalendarMouth implements calendarComponentInterface {
                     {renderDays.map((week) =>
                         <tr>
                             {week.map((day) =>
-                                <td>
-                                    <div
-                                        onClick={(e) => { this.handleClick(e, day) }}
-                                        class={{
-                                            'item': true,
-                                            'obvious': day[1] === this.currentMonth,
-                                            'now': this.isNow(day)
-                                        }}>
-                                        {day[2]}
-                                    </div>
+                                <td onClick={(e) => { this.handleClick(e, day) }}
+                                    class={{
+                                        'item': true,
+                                        'obvious': day[1] === this.chooseMonth,
+                                        'now': this.isNow(day)
+                                    }}>
+                                    {day[2]}
                                 </td>
                             )}
                         </tr>

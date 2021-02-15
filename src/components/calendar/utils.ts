@@ -130,5 +130,4 @@ export const getRenderYear = (decade: number) => {
         renderYears.push(i)
     }
     return formatDateArr(renderYears, 4)
-
 }

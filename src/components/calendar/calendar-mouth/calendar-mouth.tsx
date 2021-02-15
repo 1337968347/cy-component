@@ -7,7 +7,7 @@ import { getRenderMouth } from "../utils"
     styleUrl: 'calendar-mouth.scss'
 })
 export class CalendarMouth implements calendarComponentInterface {
-    @Prop() currentYear: number
+    @Prop() chooseYear: number
     @Event() choose: EventEmitter
 
     @Method()
@@ -27,27 +27,25 @@ export class CalendarMouth implements calendarComponentInterface {
     private isNow(mouth: number[]) {
         const dateNow = new Date()
         return mouth[0] === dateNow.getUTCFullYear() &&
-        mouth[1] === dateNow.getMonth() + 1
+            mouth[1] === dateNow.getUTCMonth() + 1
     }
 
     render() {
-        const renderMouths = getRenderMouth(this.currentYear)
+        const renderMouths = getRenderMouth(this.chooseYear)
         return (
             <table>
                 <tbody>
                     {renderMouths.map((mouths) =>
                         <tr>
                             {mouths.map((mouth) =>
-                                <td>
-                                    <div
-                                        onClick={() => { this.handleClick(mouth) }}
-                                        class={{
-                                            'item': true,
-                                            'now': this.isNow(mouth),
-                                            'obvious': mouth[0] === this.currentYear,
-                                        }}>
-                                        {mouth[1]}
-                                    </div>
+                                <td onClick={() => { this.handleClick(mouth) }}
+                                    class={{
+                                        'item': true,
+                                        'now': this.isNow(mouth),
+                                        'obvious': mouth[0] === this.chooseYear,
+                                    }}>
+
+                                    {mouth[1]}
                                 </td>
                             )}
                         </tr>

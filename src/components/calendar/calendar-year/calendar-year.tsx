@@ -7,9 +7,11 @@ import { getRenderYear } from "../utils"
     styleUrl: 'calendar-year.scss'
 })
 export class CalendarYear implements calendarComponentInterface {
-
-    @Prop() currentYear: number
+    @Prop() chooseYear: number
     @Event() choose: EventEmitter
+
+    componentDidLoad() {
+    }
 
     @Method()
     async prevPage() {
@@ -31,23 +33,20 @@ export class CalendarYear implements calendarComponentInterface {
     }
 
     render() {
-        const renderYears = getRenderYear(this.currentYear)
+        const renderYears = getRenderYear(this.chooseYear)
         return (
             <table>
                 <tbody>
                     {renderYears.map((decade) =>
                         <tr>
                             {decade.map((year) =>
-                                <td>
-                                    <div
-                                        onClick={() => { this.handleClick(year) }}
-                                        class={{
-                                            'item': true,
-                                            'now': this.isNow(year),
-                                            'obvious': Math.floor(year / 10) === Math.floor(this.currentYear / 10)
-                                        }}>
-                                        {year}
-                                    </div>
+                                <td onClick={() => { this.handleClick(year) }}
+                                    class={{
+                                        'item': true,
+                                        'now': this.isNow(year),
+                                        'obvious': Math.floor(year / 10) === Math.floor(this.chooseYear / 10)
+                                    }}>
+                                    {year}
                                 </td>
                             )}
                         </tr>
