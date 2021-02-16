@@ -3,9 +3,9 @@ import { calendarComponentInterface } from "../../../interface"
 import { getRenderMouth } from "../utils"
 
 @Component({
-    tag: 'cy-calendar-mouth'
+    tag: 'cy-calendar-month'
 })
-export class CalendarMouth implements calendarComponentInterface {
+export class CalendarMonth implements calendarComponentInterface {
     @Prop() chooseYear: number
     @Event() choose: EventEmitter
 
@@ -23,10 +23,10 @@ export class CalendarMouth implements calendarComponentInterface {
         this.choose.emit([...chooseMouth])
     }
 
-    private isNow(mouth: number[]) {
+    private isNow(month: number[]) {
         const dateNow = new Date()
-        return mouth[0] === dateNow.getUTCFullYear() &&
-            mouth[1] === dateNow.getUTCMonth() + 1
+        return month[0] === dateNow.getUTCFullYear() &&
+            month[1] === dateNow.getUTCMonth() + 1
     }
 
     render() {
@@ -36,15 +36,15 @@ export class CalendarMouth implements calendarComponentInterface {
                 <div class="tbody">
                     {renderMouths.map((mouths) =>
                         <div class="tr">
-                            {mouths.map((mouth) =>
+                            {mouths.map((month) =>
                                 <div class="td">
-                                    <div onClick={() => { this.handleClick(mouth) }}
+                                    <div onClick={() => { this.handleClick(month) }}
                                         class={{
                                             'item': true,
-                                            'now': this.isNow(mouth),
-                                            'obvious': mouth[0] === this.chooseYear,
+                                            'now': this.isNow(month),
+                                            'obvious': month[0] === this.chooseYear,
                                         }}>
-                                        {mouth[1]}
+                                        {month[1]}
                                     </div>
                                 </div>
                             )}

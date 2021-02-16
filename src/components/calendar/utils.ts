@@ -1,29 +1,29 @@
 /**
  * 获取指定月份的天数
  * @param year 
- * @param mouth 
+ * @param month 
  */
-const getMouseDayNum = (year: number, mouth: number): number => {
-    const date = new Date(year, mouth, 0)
+const getMouseDayNum = (year: number, month: number): number => {
+    const date = new Date(year, month, 0)
     return date.getDate()
 }
 
 /**
  * 获取下 relaNum个月的月份数 
- * @param mouth 
+ * @param month 
  * @param offsetMouth 可以是负数
  */
-export const getMouthOffset = (year: number, mouth: number, offsetMouth: number) => {
-    let _mouth = (mouth + 12 + offsetMouth % 12) % 12
+export const getMouthOffset = (year: number, month: number, offsetMouth: number) => {
+    let _mouth = (month + 12 + offsetMouth % 12) % 12
     _mouth = _mouth == 0 ? 12 : _mouth
 
     const offsetYear = offsetMouth > 0 ? Math.floor(offsetMouth / 12) : Math.ceil(offsetMouth / 12)
     let _year = year + offsetYear
-    if (offsetMouth % 12 + mouth >= 12) {
+    if (offsetMouth % 12 + month >= 12) {
         _year++
     }
 
-    if (offsetMouth % 12 + mouth <= 0) {
+    if (offsetMouth % 12 + month <= 0) {
         _year--
     }
     return [_year, _mouth]
@@ -32,10 +32,10 @@ export const getMouthOffset = (year: number, mouth: number, offsetMouth: number)
 /**
  * 获取这个月第一天是周几
  * @param year 
- * @param mouth 
+ * @param month 
  */
-const getMouseDayOneWeek = (year: number, mouth: number) => {
-    const day = new Date(`${year}, ${mouth}, 1`).getDay()
+const getMouseDayOneWeek = (year: number, month: number) => {
+    const day = new Date(`${year}, ${month}, 1`).getDay()
     return day === 0 ? 7 : day
 }
 
@@ -54,26 +54,26 @@ const formatDateArr = (arr: number[], splitNum = 7) => {
 /**
  * 获取要渲染的某个月份
  * 动画上下切页需要，所以需要算三个月的
- * @param mouth 
+ * @param month 
  * @param relaNum 
  */
-export const getRenderDay = (year: number, mouth: number): number[][][] => {
+export const getRenderDay = (year: number, month: number): number[][][] => {
     // 初始化
     const renderDays: number[][] = new Array(7 * 15)
     let tempDay: number = 1
     let i = 0
 
-    const [prevPrevMouthYear, prevPrevMouthMouth] = getMouthOffset(year, mouth, -2)
-    const [prevMouthYear, prevMouthMouth] = getMouthOffset(year, mouth, -1)
-    const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, mouth, 1)
-    const [nextNextMouthYear, nextNextMouthMouth] = getMouthOffset(year, mouth, 2)
+    const [prevPrevMouthYear, prevPrevMouthMouth] = getMouthOffset(year, month, -2)
+    const [prevMouthYear, prevMouthMouth] = getMouthOffset(year, month, -1)
+    const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, month, 1)
+    const [nextNextMouthYear, nextNextMouthMouth] = getMouthOffset(year, month, 2)
 
     // 上上一个月有多少天
     const prevPrevMouseNum = getMouseDayNum(prevPrevMouthYear, prevPrevMouthMouth)
     // 上一个月有多少天
     const prevMouseNum = getMouseDayNum(prevMouthYear, prevMouthMouth)
     // 当前月的天数
-    const currentMouthNum = getMouseDayNum(year, mouth)
+    const currentMouthNum = getMouseDayNum(year, month)
     // 下一个月的天数
     const nextMouthNum = getMouseDayNum(nextMouthYear, nextMouthMouth)
 
@@ -95,7 +95,7 @@ export const getRenderDay = (year: number, mouth: number): number[][][] => {
     tempDay = 1
     // 这个月份 比如1-31日
     while (tempDay <= currentMouthNum) {
-        renderDays[i++] = [year, mouth, tempDay++]
+        renderDays[i++] = [year, month, tempDay++]
     }
 
     // ------------------渲染下一个月--------------------
@@ -116,7 +116,7 @@ export const getRenderDay = (year: number, mouth: number): number[][][] => {
 
 /**
  * 获取要渲染的某个月份 1-12月， 以及下一年的1-4月
- * @param mouth 
+ * @param month 
  * @param relaNum 
  */
 export const getRenderMouth = (year: number): number[][][] => {

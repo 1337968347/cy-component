@@ -5,4 +5,12 @@ export interface calendarComponentInterface extends ComponentInterface {
     prevPage(): Promise<void>
     choose: EventEmitter<any>
 }
-export declare type ViewMode = 'year' | "mouth" | "day"
+
+export interface CalendarDate {
+    decade?: number[];
+    year?: number;
+    month?: number;
+    day?: number
+}
+
+export declare type ViewMode = 'decade' | 'year' | "month" 

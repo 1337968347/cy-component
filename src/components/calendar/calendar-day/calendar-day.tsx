@@ -13,6 +13,7 @@ export class CalendarMouth implements calendarComponentInterface {
     @Watch('chooseMonth')
     handleNav() {
         this.calcTransformY()
+        this.initTransformY()
     }
 
     @State() renderDate: number[][][] = []
@@ -26,32 +27,31 @@ export class CalendarMouth implements calendarComponentInterface {
     }
 
     componentDidLoad() {
-        const transLateEl = this.el.querySelector<HTMLElement>('.translateBox')
-        transLateEl && (transLateEl.style.transform = `translateY(${this.transLateYArr[1]}px)`)
+        this.initTransformY()
     }
 
     /**
      * 计算平移的距离
      */
-    calcTransformY() {
+    private calcTransformY() {
         this.transLateYArr = []
         this.renderDate = getRenderDay(this.chooseYear, this.chooseMonth)
-        const monthOneDayWeek = {}
+        const oneRowHeight = this.el.closest('.translate-box').clientWidth / 7
         this.renderDate.map((week, index) => {
             week.map((day) => {
                 if (day[2] === 1) {
-                    monthOneDayWeek[`${day[0]}-${day[1]}`] = index
+                    this.transLateYArr.push(-1 * index * oneRowHeight)
                 }
             })
         })
-        const oneRowHeight = this.el.closest('.translate-box').clientWidth / 7
-        Object.keys(monthOneDayWeek).map((weekOne) => {
-            this.transLateYArr.push(-1 * monthOneDayWeek[weekOne] * oneRowHeight)
-        })
-        this.transLateYArr = [...this.transLateYArr]
+
+    }
+
+    private initTransformY() {
         const transLateEl = this.el.querySelector<HTMLElement>('.translateBox')
         transLateEl && (transLateEl.style.transform = `translateY(${this.transLateYArr[1]}px)`)
     }
+
 
     @Method()
     async prevPage() {
@@ -63,7 +63,7 @@ export class CalendarMouth implements calendarComponentInterface {
                 transLateEl.style.transform = ""
                 transLateEl.classList.remove('translateAni')
                 resolve()
-            }, 200)
+            }, 700)
         })
     }
 
@@ -77,7 +77,7 @@ export class CalendarMouth implements calendarComponentInterface {
                 transLateEl.style.transform = ""
                 transLateEl.classList.remove('translateAni')
                 resolve()
-            }, 200)
+            }, 700)
         })
     }
 

@@ -1,8 +1,8 @@
 import { Component, Element, State, Method, Host, h } from '@stencil/core';
-import { ViewMode } from "../../interface"
+import { ViewMode, CalendarDate } from "../../interface"
 import { getDecadeRange, getMouthOffset } from "./utils"
 
-const ViewModeEnum: ViewMode[] = ['year', 'mouth', 'day']
+const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month']
 
 @Component({
     tag: 'cy-calendar',
@@ -12,52 +12,55 @@ const ViewModeEnum: ViewMode[] = ['year', 'mouth', 'day']
 export class CyCalendar {
     @Element() el: HTMLElement;
     // 下标 0： 十年  1： 年  2：月份
-    @State() showDate: string[] = []
-    @State() viewMode: ViewMode = 'day'
+    @State() calendarDate: CalendarDate
+    @State() viewMode: ViewMode = 'month'
 
     componentWillLoad() {
         const nowDate = new Date()
         const decadeRange = getDecadeRange(nowDate.getUTCFullYear())
-        this.showDate = [`${decadeRange[0]} - ${decadeRange[1]}`, nowDate.getUTCFullYear() + "", nowDate.getUTCMonth() + 1 + ""]
+        this.calendarDate = {
+            decade: [decadeRange[0], decadeRange[1]],
+            year: nowDate.getUTCFullYear(),
+            month: nowDate.getUTCMonth() + 1
+        }
     }
 
     /**
      * 点击日历左上角
      */
     switchViewMode() {
+        if (this.viewMode !== "decade") {
+            delete this.calendarDate[this.viewMode]
+            this.calendarDate = { ...this.calendarDate }
+        }
         const nextIndex = Math.max(ViewModeEnum.indexOf(this.viewMode) - 1, 0)
         this.viewMode = ViewModeEnum[nextIndex]
-        if (this.showDate.length > 1) {
-            this.showDate.pop()
-        }
     }
 
+    handleChooseDay() { }
+
     handleChooseMouth(chooseMouth: number[]) {
-        this.showDate.pop()
-        this.showDate.push(chooseMouth[0] + "")
-        this.showDate.push(chooseMouth[1] + "")
-        this.viewMode = 'day'
+        this.calendarDate.year = chooseMouth[0]
+        this.calendarDate.month = chooseMouth[1]
+        this.viewMode = 'month'
     }
 
     handleChooseYear(chooseYear: number) {
-        this.showDate.pop()
         const decadeRange = getDecadeRange(chooseYear)
-        this.showDate = [`${decadeRange[0]} - ${decadeRange[1]}`, chooseYear + ""]
-        this.viewMode = 'mouth'
+        this.calendarDate.decade = [decadeRange[0], decadeRange[1]]
+        this.calendarDate.year = chooseYear
+        this.viewMode = 'year'
     }
-
 
     @Method()
     async prevPage() {
         const el = this.el.shadowRoot.querySelector('.translate-box').firstChild as any
         await el.prevPage()
-        if (this.viewMode === "day") {
-            const [prevMouthYear, prevMouthMouth] = getMouthOffset(parseInt(this.showDate[1]), parseInt(this.showDate[2]), -1)
-            this.showDate.pop()
-            this.showDate.pop()
-            this.showDate.push(prevMouthYear + "")
-            this.showDate.push(prevMouthMouth + "")
-            this.showDate = [...this.showDate]
+        if (this.viewMode === "month") {
+            const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1)
+            this.calendarDate.year = prevMouthYear
+            this.calendarDate.month = prevMouthMouth
+            this.calendarDate = { ...this.calendarDate }
         }
     }
 
@@ -65,13 +68,11 @@ export class CyCalendar {
     async nextPage() {
         const el = this.el.shadowRoot.querySelector('.translate-box').firstChild as any
         await el.nextPage()
-        if (this.viewMode === "day") {
-            const [nextMouthYear, nextMouthMouth] = getMouthOffset(parseInt(this.showDate[1]), parseInt(this.showDate[2]), 1)
-            this.showDate.pop()
-            this.showDate.pop()
-            this.showDate.push(nextMouthYear + "")
-            this.showDate.push(nextMouthMouth + "")
-            this.showDate = [...this.showDate]
+        if (this.viewMode === "month") {
+            const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1)
+            this.calendarDate.year = nextMouthYear
+            this.calendarDate.month = nextMouthMouth
+            this.calendarDate = { ...this.calendarDate }
         }
     }
 
@@ -80,9 +81,9 @@ export class CyCalendar {
             <Host>
                 <div class="calendar-header">
                     <div class="calendar-switch activatable" onClick={this.switchViewMode.bind(this)}>
-                        {this.showDate[0] && !this.showDate[1] ? (<span>{this.showDate[0]}</span>) : null}
-                        {this.showDate[1] ? (<span>{this.showDate[1]}年</span>) : null}
-                        {this.showDate[2] ? (<span>{this.showDate[2]}月</span>) : null}
+                        {this.viewMode === "decade" ? (<span>{`${this.calendarDate.decade[0]}-${this.calendarDate.decade[1]}`}</span>) : null}
+                        {this.viewMode === "year" ? (<span>{this.calendarDate.year}年</span>) : null}
+                        {this.viewMode === "month" ? (<span>{this.calendarDate.year}年{this.calendarDate.month}月</span>) : null}
                     </div>
 
                     <div class="calendar-page-nav">
@@ -96,9 +97,9 @@ export class CyCalendar {
                 </div>
                 <div class="calendar-content">
                     <div class="translate-box">
-                        {this.viewMode === "day" ? <cy-calendar-day chooseYear={parseInt(this.showDate[1])} chooseMonth={parseInt(this.showDate[2])} /> : null}
-                        {this.viewMode === "mouth" ? <cy-calendar-mouth chooseYear={parseInt(this.showDate[1])} onChoose={(e) => { this.handleChooseMouth(e.detail) }} /> : null}
-                        {this.viewMode === "year" ? <cy-calendar-year chooseYear={parseInt(this.showDate[0].split('-')[0])} onChoose={(e) => { this.handleChooseYear(e.detail) }} /> : null}
+                        {this.viewMode === "month" ? <cy-calendar-day chooseYear={this.calendarDate.year} chooseMonth={this.calendarDate.month} /> : null}
+                        {this.viewMode === "year" ? <cy-calendar-month chooseYear={this.calendarDate.year} onChoose={(e) => { this.handleChooseMouth(e.detail) }} /> : null}
+                        {this.viewMode === "decade" ? <cy-calendar-year chooseYear={this.calendarDate.decade[0]} onChoose={(e) => { this.handleChooseYear(e.detail) }} /> : null}
                     </div>
                 </div>
             </Host >
