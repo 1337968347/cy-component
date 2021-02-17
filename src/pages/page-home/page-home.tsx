@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle', 'checkbox', 'spinner',  'calendar'];
+const components = ['按钮', '钟表', '日历', '选择器', '滑块', '开关', '单选框', '加载'];
 
 @Component({
   tag: 'page-home',
@@ -8,10 +8,10 @@ const components = ['button', 'menu', 'time', 'action-sheet', 'segment', 'toggle
 })
 export class PageHome {
   @Element() el: HTMLElement;
-  @State() choose: string = 'button';
+  @State() choose: string = '按钮';
 
   componentWillLoad() {
-    this.choose = location.hash.split('#')[1] || 'button';
+    this.choose = decodeURIComponent(location.hash.split('#')[1]) || '按钮';
   }
 
   switchCom(value) {
@@ -91,7 +91,7 @@ const openMenu = () => {
 
 const RenderShowItem = (showName: string) => {
   switch (showName) {
-    case 'button':
+    case '按钮':
       return (
         <div>
           <h3>default</h3>
@@ -113,7 +113,7 @@ const RenderShowItem = (showName: string) => {
           </cy-button>
         </div>
       );
-    case 'toggle':
+    case '开关':
       return (
         <div>
           <h3>一键滑动解锁</h3>
@@ -127,15 +127,7 @@ const RenderShowItem = (showName: string) => {
           <cy-toggle color="light">light</cy-toggle>
         </div>
       );
-    case 'menu':
-      return (
-        <div>
-          <cy-button color="primary" expend="block" onClick={openMenu.bind(this)}>
-            open Menu
-          </cy-button>
-        </div>
-      );
-    case 'action-sheet':
+    case '选择器':
       return (
         <div>
           <cy-button color="primary" expend="block" onClick={createActionSheet.bind(this)}>
@@ -143,7 +135,7 @@ const RenderShowItem = (showName: string) => {
           </cy-button>
         </div>
       );
-    case 'time':
+    case '钟表':
       return (
         <div>
           <cy-time color="primary">primary</cy-time>
@@ -156,7 +148,7 @@ const RenderShowItem = (showName: string) => {
           <cy-time color="light">light</cy-time>
         </div>
       );
-    case 'checkbox':
+    case '单选框':
       return (
         <div>
           <cy-checkbox color="primary">primary</cy-checkbox>
@@ -169,7 +161,7 @@ const RenderShowItem = (showName: string) => {
           <cy-checkbox color="light">light</cy-checkbox>
         </div>
       );
-    case 'spinner':
+    case '加载':
       return (
         <div>
           <cy-spinner color="primary">primary</cy-spinner>
@@ -182,13 +174,13 @@ const RenderShowItem = (showName: string) => {
           <cy-spinner color="light">light</cy-spinner>
         </div>
       );
-    case 'calendar':
+    case '日历':
       return (
         <div>
           <cy-calendar></cy-calendar>
         </div>
       );
-    case 'segment':
+    case '滑块':
       return (
         <div>
           <h3>不可滚动的（可拖动）</h3>
