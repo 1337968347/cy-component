@@ -1,5 +1,6 @@
 :host {
   --min-height: 48px;
+  --highlight-color: var(--cy-color-primary, #3880ff);
   margin: 0px;
   padding-left: 15px;
   padding-right: 15px;
@@ -70,7 +71,7 @@
   right: 0px;
   bottom: 0px;
   position: absolute;
-  background: var(--cy-color-shade);
+  background: var(--highlight-color);
   height: 2px;
   z-index: 1;
 }
@@ -78,4 +79,3 @@
 .bottom-line {
   border-bottom: 1px solid #cccccc;
 }
-

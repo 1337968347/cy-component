@@ -59,14 +59,11 @@ export namespace Components {
     }
     interface CyItem {
         "button": boolean;
-        "color": string;
         "line": boolean;
     }
     interface CyMenu {
         "close": () => Promise<void>;
         "open": () => Promise<void>;
-    }
-    interface CyModal {
     }
     interface CyNav {
         "addCom": () => Promise<void>;
@@ -94,11 +91,6 @@ export namespace Components {
     }
     interface CyToggle {
         "color": string;
-    }
-    interface PageHome {
-    }
-    interface PageOne {
-        "comId": string;
     }
     interface PageRoot {
     }
@@ -188,12 +180,6 @@ declare global {
         prototype: HTMLCyMenuElement;
         new (): HTMLCyMenuElement;
     };
-    interface HTMLCyModalElement extends Components.CyModal, HTMLStencilElement {
-    }
-    var HTMLCyModalElement: {
-        prototype: HTMLCyModalElement;
-        new (): HTMLCyModalElement;
-    };
     interface HTMLCyNavElement extends Components.CyNav, HTMLStencilElement {
     }
     var HTMLCyNavElement: {
@@ -242,18 +228,6 @@ declare global {
         prototype: HTMLCyToggleElement;
         new (): HTMLCyToggleElement;
     };
-    interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
-    }
-    var HTMLPageHomeElement: {
-        prototype: HTMLPageHomeElement;
-        new (): HTMLPageHomeElement;
-    };
-    interface HTMLPageOneElement extends Components.PageOne, HTMLStencilElement {
-    }
-    var HTMLPageOneElement: {
-        prototype: HTMLPageOneElement;
-        new (): HTMLPageOneElement;
-    };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
     var HTMLPageRootElement: {
@@ -275,7 +249,6 @@ declare global {
         "cy-icon": HTMLCyIconElement;
         "cy-item": HTMLCyItemElement;
         "cy-menu": HTMLCyMenuElement;
-        "cy-modal": HTMLCyModalElement;
         "cy-nav": HTMLCyNavElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
@@ -284,8 +257,6 @@ declare global {
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
-        "page-home": HTMLPageHomeElement;
-        "page-one": HTMLPageOneElement;
         "page-root": HTMLPageRootElement;
     }
 }
@@ -336,12 +307,9 @@ declare namespace LocalJSX {
     }
     interface CyItem {
         "button"?: boolean;
-        "color"?: string;
         "line"?: boolean;
     }
     interface CyMenu {
-    }
-    interface CyModal {
     }
     interface CyNav {
     }
@@ -368,11 +336,6 @@ declare namespace LocalJSX {
     interface CyToggle {
         "color"?: string;
     }
-    interface PageHome {
-    }
-    interface PageOne {
-        "comId"?: string;
-    }
     interface PageRoot {
     }
     interface IntrinsicElements {
@@ -390,7 +353,6 @@ declare namespace LocalJSX {
         "cy-icon": CyIcon;
         "cy-item": CyItem;
         "cy-menu": CyMenu;
-        "cy-modal": CyModal;
         "cy-nav": CyNav;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
@@ -399,8 +361,6 @@ declare namespace LocalJSX {
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
-        "page-home": PageHome;
-        "page-one": PageOne;
         "page-root": PageRoot;
     }
 }
@@ -422,7 +382,6 @@ declare module "@stencil/core" {
             "cy-icon": LocalJSX.CyIcon & JSXBase.HTMLAttributes<HTMLCyIconElement>;
             "cy-item": LocalJSX.CyItem & JSXBase.HTMLAttributes<HTMLCyItemElement>;
             "cy-menu": LocalJSX.CyMenu & JSXBase.HTMLAttributes<HTMLCyMenuElement>;
-            "cy-modal": LocalJSX.CyModal & JSXBase.HTMLAttributes<HTMLCyModalElement>;
             "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
@@ -431,8 +390,6 @@ declare module "@stencil/core" {
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
-            "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
-            "page-one": LocalJSX.PageOne & JSXBase.HTMLAttributes<HTMLPageOneElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
         }
     }

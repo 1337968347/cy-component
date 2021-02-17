@@ -12,7 +12,7 @@ export class nav {
   @Method()
   async addCom() {
     const navContainer = this.el.querySelector('.nav-container');
-    const com = document.createElement('page-one');
+    const com = document.createElement('page-one') as any;
     [...navContainer.children]
       .filter((_item, index) => index !== [...navContainer.children].length - 1)
       .forEach(ele => {
@@ -111,8 +111,7 @@ export class nav {
             style={{
               'z-index': id + '',
             }}
-            id={id + ''}
-          ></page-one>
+            id={id + ''}></page-one>
         ))}
       </div>
     );
