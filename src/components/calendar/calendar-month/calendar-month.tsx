@@ -1,23 +1,51 @@
-import { Component, Prop, Event, EventEmitter, Method, h } from '@stencil/core';
+import { Component, Element, Prop, Method, h } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderMouth } from '../utils';
+import { getRenderMouth, TranslateClass } from '../utils';
 
 @Component({
   tag: 'cy-calendar-month',
 })
 export class CalendarMonth implements calendarComponentInterface {
+  @Element() el: HTMLElement;
   @Prop() calendarDate: CalendarDate;
-  @Event() choose: EventEmitter;
+  @Prop() parent: HTMLCyCalendarElement;
   dateNow: Date = new Date();
 
   @Method()
-  async prevPage() {}
+  async prevPage() {
+    return new Promise<void>(resolve => {
+      const transEl = this.el.querySelector<HTMLElement>('.table');
+      transEl.classList.add(TranslateClass);
+      transEl.style.transform = `translateY(-100%)`;
+
+      setTimeout(() => {
+        transEl.classList.remove(TranslateClass);
+        transEl.style.transform = '';
+
+        this.parent.change({ year: this.calendarDate.year - 1 });
+        resolve();
+      }, 800);
+    });
+  }
 
   @Method()
-  async nextPage() {}
+  async nextPage() {
+    return new Promise<void>(resolve => {
+      const transEl = this.el.querySelector<HTMLElement>('.table');
+      transEl.classList.add(TranslateClass);
+      transEl.style.transform = `translateY(100%)`;
+      setTimeout(() => {
+        transEl.classList.remove(TranslateClass);
+        transEl.style.transform = '';
+
+        this.parent.change({ year: this.calendarDate.year + 1 });
+        resolve();
+      }, 800);
+    });
+  }
 
   handleClick(chooseMouth: number[]) {
-    this.choose.emit([...chooseMouth]);
+    this.parent.change({ year: chooseMouth[0], month: chooseMouth[1] }, 'month');
   }
 
   private isNow(month: number[]) {

@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionSheetButton, CalendarDate } from "./interface";
+import { ActionSheetButton, CalendarDate, ViewMode } from "./interface";
 export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
@@ -26,22 +26,26 @@ export namespace Components {
         "expend": 'default' | 'full' | 'block';
     }
     interface CyCalendar {
+        "change": (modifyCalendarDate: CalendarDate, viewMode?: ViewMode) => Promise<void>;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
     }
     interface CyCalendarDay {
         "calendarDate": CalendarDate;
         "nextPage": () => Promise<void>;
+        "parent": HTMLCyCalendarElement;
         "prevPage": () => Promise<void>;
     }
     interface CyCalendarMonth {
         "calendarDate": CalendarDate;
         "nextPage": () => Promise<void>;
+        "parent": HTMLCyCalendarElement;
         "prevPage": () => Promise<void>;
     }
     interface CyCalendarYear {
         "calendarDate": CalendarDate;
         "nextPage": () => Promise<void>;
+        "parent": HTMLCyCalendarElement;
         "prevPage": () => Promise<void>;
     }
     interface CyCheckbox {
@@ -282,14 +286,15 @@ declare namespace LocalJSX {
     interface CyCalendarDay {
         "calendarDate"?: CalendarDate;
         "onChoose"?: (event: CustomEvent<any>) => void;
+        "parent"?: HTMLCyCalendarElement;
     }
     interface CyCalendarMonth {
         "calendarDate"?: CalendarDate;
-        "onChoose"?: (event: CustomEvent<any>) => void;
+        "parent"?: HTMLCyCalendarElement;
     }
     interface CyCalendarYear {
         "calendarDate"?: CalendarDate;
-        "onChoose"?: (event: CustomEvent<any>) => void;
+        "parent"?: HTMLCyCalendarElement;
     }
     interface CyCheckbox {
         "checked"?: boolean;

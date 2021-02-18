@@ -1,17 +1,16 @@
-import {Component, Prop, Event, EventEmitter, Method, h} from '@stencil/core';
-import {calendarComponentInterface, CalendarDate} from '../../../interface';
-import {getRenderYear} from '../utils';
+import { Component, Prop, Element, Method, h } from '@stencil/core';
+import { calendarComponentInterface, CalendarDate } from '../../../interface';
+import { getRenderYear, getDecadeRange } from '../utils';
 
 @Component({
   tag: 'cy-calendar-year',
 })
 export class CalendarYear implements calendarComponentInterface {
+  @Element() el: HTMLElement;
+  @Prop() parent: HTMLCyCalendarElement;
   @Prop() calendarDate: CalendarDate;
-  @Event() choose: EventEmitter;
 
   dateNow: Date = new Date();
-
-  componentDidLoad() {}
 
   @Method()
   async prevPage() {}
@@ -20,7 +19,8 @@ export class CalendarYear implements calendarComponentInterface {
   async nextPage() {}
 
   handleClick(year: number) {
-    this.choose.emit(year);
+    const decadeRange = getDecadeRange(year);
+    this.parent.change({ year: year, decade: [decadeRange[0], decadeRange[1]] }, 'year');
   }
 
   render() {

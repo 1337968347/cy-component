@@ -1,6 +1,6 @@
 import { Component, Prop, State, Element, Event, EventEmitter, h, Method, Watch } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderDay } from '../utils';
+import { getRenderDay, getMouthOffset, TranslateClass } from '../utils';
 
 @Component({
   tag: 'cy-calendar-day',
@@ -8,6 +8,7 @@ import { getRenderDay } from '../utils';
 export class CalendarMouth implements calendarComponentInterface {
   @Element() el: HTMLElement;
   @Prop() calendarDate: CalendarDate;
+  @Prop() parent: HTMLCyCalendarElement;
   dateNow: Date = new Date();
 
   @Watch('calendarDate')
@@ -55,13 +56,17 @@ export class CalendarMouth implements calendarComponentInterface {
   async prevPage() {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
-      transLateEl.classList.add('translateAni');
+      transLateEl.classList.add(TranslateClass);
       transLateEl.style.transform = `translateY(${this.transLateYArr[0]}px)`;
+
       setTimeout(() => {
+        transLateEl.classList.remove(TranslateClass);
         transLateEl.style.transform = '';
-        transLateEl.classList.remove('translateAni');
+
+        const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
+        this.parent.change({ year: prevMouthYear, month: prevMouthMouth });
         resolve();
-      }, 700);
+      }, 800);
     });
   }
 
@@ -69,13 +74,16 @@ export class CalendarMouth implements calendarComponentInterface {
   async nextPage() {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
-      transLateEl.classList.add('translateAni');
+      transLateEl.classList.add(TranslateClass);
       transLateEl.style.transform = `translateY(${this.transLateYArr[2]}px)`;
       setTimeout(() => {
+        transLateEl.classList.remove(TranslateClass);
         transLateEl.style.transform = '';
-        transLateEl.classList.remove('translateAni');
+
+        const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
+        this.parent.change({ year: nextMouthYear, month: nextMouthMouth });
         resolve();
-      }, 700);
+      }, 800);
     });
   }
 

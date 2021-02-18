@@ -1,6 +1,7 @@
 import { Component, Element, State, Method, Host, h } from '@stencil/core';
 import { ViewMode, CalendarDate } from '../../interface';
-import { getDecadeRange, getMouthOffset } from './utils';
+import { getDecadeRange } from './utils';
+// import { nextPageAnimationBuilder, prevPageAnimationBuilder } from './animation';
 
 const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month'];
 
@@ -10,13 +11,18 @@ const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month'];
   shadow: true,
 })
 export class CyCalendar {
-  @Element() el: HTMLElement;
+  @Element() el: HTMLCyCalendarElement;
   // 下标 0： 十年  1： 年  2：月份
   @State() calendarDate: CalendarDate;
   @State() viewMode: ViewMode = 'month';
+  private activeEl: HTMLElement;
 
   componentWillLoad() {
     this.initCalendarDate();
+  }
+
+  componentDidLoad() {
+    this.switchViewMode('month');
   }
 
   /**
@@ -32,62 +38,75 @@ export class CyCalendar {
     };
   }
 
+  getShouldRenderDom() {
+    let willActiveEl;
+    switch (this.viewMode) {
+      case 'decade':
+        willActiveEl = document.createElement('cy-calendar-year');
+        break;
+      case 'year':
+        willActiveEl = document.createElement('cy-calendar-month');
+        break;
+      case 'month':
+        willActiveEl = document.createElement('cy-calendar-day');
+        break;
+      default:
+        break;
+    }
+
+    willActiveEl.parent = this.el;
+    willActiveEl.calendarDate = this.calendarDate;
+    return willActiveEl;
+  }
+
+  switchViewMode(viewMode: ViewMode) {
+    this.viewMode = viewMode;
+    if (this.activeEl) {
+      this.activeEl.remove();
+      this.activeEl = null;
+    }
+    const showEl = this.getShouldRenderDom();
+    const containerEl = this.el.shadowRoot.querySelector<HTMLElement>('.translate-box');
+    containerEl.appendChild(showEl);
+    this.activeEl = showEl;
+  }
+
   /**
    * 点击日历左上角
    */
-  switchViewMode() {
+  backViewMode() {
     if (this.viewMode !== 'decade') {
       delete this.calendarDate[this.viewMode];
       this.calendarDate = { ...this.calendarDate };
     }
     const nextIndex = Math.max(ViewModeEnum.indexOf(this.viewMode) - 1, 0);
-    this.viewMode = ViewModeEnum[nextIndex];
+    this.switchViewMode(ViewModeEnum[nextIndex]);
   }
 
-  handleChooseDay() {}
-
-  handleChooseMouth(chooseMouth: number[]) {
-    this.calendarDate.year = chooseMouth[0];
-    this.calendarDate.month = chooseMouth[1];
-    this.viewMode = 'month';
-  }
-
-  handleChooseYear(chooseYear: number) {
-    const decadeRange = getDecadeRange(chooseYear);
-    this.calendarDate.decade = [decadeRange[0], decadeRange[1]];
-    this.calendarDate.year = chooseYear;
-    this.viewMode = 'year';
+  @Method()
+  async change(modifyCalendarDate: CalendarDate, viewMode?: ViewMode) {
+    this.calendarDate = { ...this.calendarDate, ...modifyCalendarDate };
+    (this.activeEl as any).calendarDate = this.calendarDate;
+    if (viewMode) {
+      this.switchViewMode(viewMode);
+    }
   }
 
   @Method()
   async prevPage() {
-    const el = this.el.shadowRoot.querySelector('.translate-box').firstChild as any;
-    await el.prevPage();
-    if (this.viewMode === 'month') {
-      const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
-      this.calendarDate.year = prevMouthYear;
-      this.calendarDate.month = prevMouthMouth;
-      this.calendarDate = { ...this.calendarDate };
-    }
+    await (this.activeEl as any).prevPage();
   }
 
   @Method()
   async nextPage() {
-    const el = this.el.shadowRoot.querySelector('.translate-box').firstChild as any;
-    await el.nextPage();
-    if (this.viewMode === 'month') {
-      const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
-      this.calendarDate.year = nextMouthYear;
-      this.calendarDate.month = nextMouthMouth;
-      this.calendarDate = { ...this.calendarDate };
-    }
+    await (this.activeEl as any).nextPage();
   }
 
   render() {
     return (
       <Host>
         <div class="calendar-header">
-          <div class="calendar-switch activatable" onClick={this.switchViewMode.bind(this)}>
+          <div class="calendar-switch activatable" onClick={this.backViewMode.bind(this)}>
             {this.viewMode === 'decade' ? <span>{`${this.calendarDate.decade[0]}-${this.calendarDate.decade[1]}`}</span> : null}
             {this.viewMode === 'year' ? <span>{this.calendarDate.year}年</span> : null}
             {this.viewMode === 'month' ? (
@@ -107,25 +126,7 @@ export class CyCalendar {
           </div>
         </div>
         <div class="calendar-content">
-          <div class="translate-box">
-            {this.viewMode === 'month' ? <cy-calendar-day calendarDate={this.calendarDate} /> : null}
-            {this.viewMode === 'year' ? (
-              <cy-calendar-month
-                calendarDate={this.calendarDate}
-                onChoose={e => {
-                  this.handleChooseMouth(e.detail);
-                }}
-              />
-            ) : null}
-            {this.viewMode === 'decade' ? (
-              <cy-calendar-year
-                calendarDate={this.calendarDate}
-                onChoose={e => {
-                  this.handleChooseYear(e.detail);
-                }}
-              />
-            ) : null}
-          </div>
+          <div class="translate-box">{/* container */}</div>
         </div>
       </Host>
     );
