@@ -121,11 +121,16 @@ export const getRenderDay = (year: number, month: number): number[][][] => {
 export const getRenderMouth = (year: number): number[][][] => {
   const renderMouth: number[][] = [];
   for (let i = 0; i < 12; i++) {
+    renderMouth.push([year - 1, i + 1]);
+  }
+  for (let i = 0; i < 12; i++) {
     renderMouth.push([year, i + 1]);
   }
-  // 下一年的四个月
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 12; i++) {
     renderMouth.push([year + 1, i + 1]);
+  }
+  for (let i = 0; i < 4; i++) {
+    renderMouth.push([year + 2, i + 1]);
   }
   return formatDateArr(renderMouth as [], 4);
 };
@@ -133,7 +138,7 @@ export const getRenderMouth = (year: number): number[][][] => {
 export const getDecadeRange = (year: number) => {
   const startDecade = Math.floor(year / 10);
   const endDecade = startDecade + 1;
-  return [startDecade * 10, endDecade * 10];
+  return [startDecade * 10, endDecade * 10 - 1];
 };
 
 /**
@@ -143,7 +148,16 @@ export const getDecadeRange = (year: number) => {
 export const getRenderYear = (decade: number[]) => {
   const renderYears = [];
   const [startDecade, endDecade] = decade;
-  for (let i = startDecade - 3; i < endDecade + 3; i++) {
+  let start = 0;
+  let end = 0;
+  if ((startDecade / 10) % 2 === 0) {
+    start = startDecade - 11;
+    end = endDecade + 15;
+  } else {
+    start = startDecade - 13;
+    end = endDecade + 13;
+  }
+  for (let i = start; i < end; i++) {
     renderYears.push(i);
   }
   return formatDateArr(renderYears, 4);

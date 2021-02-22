@@ -7,49 +7,41 @@ import { getRenderDay, getMouthOffset, TranslateClass } from '../utils';
 })
 export class CalendarMouth implements calendarComponentInterface {
   @Element() el: HTMLElement;
-  @Prop() calendarDate: CalendarDate;
   @Prop() parent: HTMLCyCalendarElement;
   dateNow: Date = new Date();
 
+  @Prop() calendarDate: CalendarDate;
   @Watch('calendarDate')
   handleNav() {
-    this.calcTransformY();
-    this.initTransformY();
+    this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
+    this.setTransformY(1);
   }
 
   @State() renderDate: number[][][] = [];
-  @State() transLateYArr = [];
+  @State() transformY: number = 0;
 
   @Event() choose: EventEmitter;
   activateEl: HTMLElement;
 
   componentWillLoad() {
-    this.calcTransformY();
-  }
-
-  componentDidLoad() {
-    this.initTransformY();
+    this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
+    this.setTransformY(1);
   }
 
   /**
    * 计算平移的距离
    */
-  private calcTransformY() {
-    this.transLateYArr = [];
-    this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
+  private setTransformY(offset: number) {
+    const transLateYArr = [];
     const oneRowHeight = this.el.closest('.translate-box').clientWidth / 7;
     this.renderDate.map((week, index) => {
       week.map(day => {
         if (day[2] === 1) {
-          this.transLateYArr.push(-1 * index * oneRowHeight);
+          transLateYArr.push(-1 * index * oneRowHeight);
         }
       });
     });
-  }
-
-  private initTransformY() {
-    const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
-    transLateEl && (transLateEl.style.transform = `translateY(${this.transLateYArr[1]}px)`);
+    this.transformY = transLateYArr[offset];
   }
 
   @Method()
@@ -57,11 +49,12 @@ export class CalendarMouth implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
       transLateEl.classList.add(TranslateClass);
-      transLateEl.style.transform = `translateY(${this.transLateYArr[0]}px)`;
+      this.setTransformY(0);
 
       setTimeout(() => {
         transLateEl.classList.remove(TranslateClass);
         transLateEl.style.transform = '';
+        this.removeClick();
 
         const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
         this.parent.change({ year: prevMouthYear, month: prevMouthMouth });
@@ -75,10 +68,12 @@ export class CalendarMouth implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
       transLateEl.classList.add(TranslateClass);
-      transLateEl.style.transform = `translateY(${this.transLateYArr[2]}px)`;
+      this.setTransformY(2);
+
       setTimeout(() => {
         transLateEl.classList.remove(TranslateClass);
         transLateEl.style.transform = '';
+        this.removeClick();
 
         const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
         this.parent.change({ year: nextMouthYear, month: nextMouthMouth });
@@ -92,12 +87,16 @@ export class CalendarMouth implements calendarComponentInterface {
   }
 
   handleClick(e: any, day: number[]) {
-    if (this.activateEl) {
-      this.activateEl.classList.remove('choosed');
-    }
+    this.removeClick();
     this.activateEl = e.target;
     this.activateEl.classList.add('choosed');
     this.choose.emit([...day]);
+  }
+
+  removeClick() {
+    if (this.activateEl) {
+      this.activateEl.classList.remove('choosed');
+    }
   }
 
   render() {
@@ -108,8 +107,12 @@ export class CalendarMouth implements calendarComponentInterface {
             <div class="td">{tag}</div>
           ))}
         </div>
-        <div class="tbody">
-          <div class="translateBox">
+        <div class="tbody ">
+          <div
+            class="translateBox"
+            style={{
+              transform: `translateY(${this.transformY}px)`,
+            }}>
             {this.renderDate.map(week => (
               <div class="tr">
                 {week.map(day => (

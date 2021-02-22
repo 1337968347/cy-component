@@ -1,6 +1,6 @@
-import { Component, Prop, Element, Method, h } from '@stencil/core';
+import { Component, Prop, Element, State, Watch, Method, h } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderYear, getDecadeRange } from '../utils';
+import { getRenderYear, getDecadeRange, TranslateClass } from '../utils';
 
 @Component({
   tag: 'cy-calendar-year',
@@ -8,15 +8,71 @@ import { getRenderYear, getDecadeRange } from '../utils';
 export class CalendarYear implements calendarComponentInterface {
   @Element() el: HTMLElement;
   @Prop() parent: HTMLCyCalendarElement;
-  @Prop() calendarDate: CalendarDate;
-
+  @State() transformY: number = 0;
+  @State() renderYears: number[][] = [];
   dateNow: Date = new Date();
 
-  @Method()
-  async prevPage() {}
+  @Prop() calendarDate: CalendarDate;
+  @Watch('calendarDate')
+  handleNav() {
+    this.renderYears = getRenderYear(this.calendarDate.decade);
+    this.setTransformY(1);
+  }
+
+  componentWillLoad() {
+    this.renderYears = getRenderYear(this.calendarDate.decade);
+    this.setTransformY(1);
+  }
+
+  /**
+   * 计算平移的距离
+   */
+  private setTransformY(offset: number) {
+    const transLateYArr = [];
+    const oneRowHeight = this.el.closest('.translate-box').clientWidth / 4;
+    this.renderYears.map((years, index) => {
+      years.map(year => {
+        if (year % 10 === 0) {
+          transLateYArr.push(-1 * index * oneRowHeight);
+        }
+      });
+    });
+    this.transformY = transLateYArr[offset];
+  }
 
   @Method()
-  async nextPage() {}
+  async prevPage() {
+    return new Promise<void>(resolve => {
+      const transEl = this.el.querySelector<HTMLElement>('.translateBox');
+      transEl.classList.add(TranslateClass);
+      this.setTransformY(0);
+
+      setTimeout(() => {
+        transEl.classList.remove(TranslateClass);
+        transEl.style.transform = '';
+
+        this.parent.change({ decade: [this.calendarDate.decade[0] - 10, this.calendarDate.decade[1] - 10] });
+        resolve();
+      }, 800);
+    });
+  }
+
+  @Method()
+  async nextPage() {
+    return new Promise<void>(resolve => {
+      const transEl = this.el.querySelector<HTMLElement>('.translateBox');
+      transEl.classList.add(TranslateClass);
+      this.setTransformY(2);
+
+      setTimeout(() => {
+        transEl.classList.remove(TranslateClass);
+        transEl.style.transform = '';
+
+        this.parent.change({ decade: [this.calendarDate.decade[0] + 10, this.calendarDate.decade[1] + 10] });
+        resolve();
+      }, 800);
+    });
+  }
 
   handleClick(year: number) {
     const decadeRange = getDecadeRange(year);
@@ -24,29 +80,34 @@ export class CalendarYear implements calendarComponentInterface {
   }
 
   render() {
-    const renderYears = getRenderYear(this.calendarDate.decade);
     return (
       <div class="table">
         <div class="tbody">
-          {renderYears.map(decade => (
-            <div class="tr">
-              {decade.map(year => (
-                <div class="td">
-                  <div
-                    onClick={() => {
-                      this.handleClick(year);
-                    }}
-                    class={{
-                      item: true,
-                      now: this.dateNow.getUTCFullYear() === year,
-                      obvious: year >= this.calendarDate.decade[0] && year <= this.calendarDate.decade[1],
-                    }}>
-                    {year}
+          <div
+            class="translateBox"
+            style={{
+              transform: `translateY(${this.transformY}px)`,
+            }}>
+            {this.renderYears.map(decade => (
+              <div class="tr">
+                {decade.map(year => (
+                  <div class="td">
+                    <div
+                      onClick={() => {
+                        this.handleClick(year);
+                      }}
+                      class={{
+                        item: true,
+                        now: this.dateNow.getUTCFullYear() === year,
+                        obvious: year >= this.calendarDate.decade[0] && year <= this.calendarDate.decade[1],
+                      }}>
+                      {year}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ))}
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

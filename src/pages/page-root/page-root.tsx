@@ -11,7 +11,7 @@ export class PageRoot {
   @State() choose: string = '按钮';
 
   componentWillLoad() {
-    this.choose = decodeURIComponent(location.hash.split('#')[1]) || '按钮';
+    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || '按钮';
   }
 
   switchCom(value) {
