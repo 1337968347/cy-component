@@ -47,7 +47,7 @@ export class CalendarMouth implements calendarComponentInterface {
   @Method()
   async prevPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
-      const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
+      const transLateEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transLateEl.classList.add(TranslateClass);
       this.setTransformY(0);
 
@@ -66,7 +66,7 @@ export class CalendarMouth implements calendarComponentInterface {
   @Method()
   async nextPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
-      const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
+      const transLateEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transLateEl.classList.add(TranslateClass);
       this.setTransformY(2);
 
@@ -109,7 +109,7 @@ export class CalendarMouth implements calendarComponentInterface {
         </div>
         <div class="tbody ">
           <div
-            class="translateBox"
+            class="pageNavBox"
             style={{
               transform: `translateY(${this.transformY}px)`,
             }}>

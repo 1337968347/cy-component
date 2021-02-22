@@ -45,7 +45,7 @@ cy-icon {
 }
 
 .calendar-content::before {
-  content: "";
+  content: '';
   width: 100%;
   display: block;
   padding-bottom: 100%;
@@ -78,6 +78,9 @@ cy-icon {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  will-change: transform;
+  transform-origin: center;
+  position: absolute;
 }
 
 .tbody {
@@ -102,11 +105,10 @@ cy-icon {
 }
 
 .td::before {
-  content: "";
+  content: '';
   display: block;
   padding-bottom: 100%;
 }
-
 
 .td .item {
   position: absolute;
@@ -120,7 +122,7 @@ cy-icon {
 }
 
 .item:active:before {
-  content: "";
+  content: '';
   top: 0;
   left: 0;
   bottom: 0;
@@ -132,7 +134,7 @@ cy-icon {
 
 @media (any-hover: hover) {
   .item:hover:before {
-    content: "";
+    content: '';
     top: 0;
     left: 0;
     bottom: 0;

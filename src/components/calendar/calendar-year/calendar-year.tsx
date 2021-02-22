@@ -43,7 +43,7 @@ export class CalendarYear implements calendarComponentInterface {
   @Method()
   async prevPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
-      const transEl = this.el.querySelector<HTMLElement>('.translateBox');
+      const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transEl.classList.add(TranslateClass);
       this.setTransformY(0);
 
@@ -60,7 +60,7 @@ export class CalendarYear implements calendarComponentInterface {
   @Method()
   async nextPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
-      const transEl = this.el.querySelector<HTMLElement>('.translateBox');
+      const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transEl.classList.add(TranslateClass);
       this.setTransformY(2);
 
@@ -84,7 +84,7 @@ export class CalendarYear implements calendarComponentInterface {
       <div class="table">
         <div class="tbody">
           <div
-            class="translateBox"
+            class="pageNavBox"
             style={{
               transform: `translateY(${this.transformY}px)`,
             }}>

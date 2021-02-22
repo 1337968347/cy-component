@@ -1,16 +1,27 @@
 import { AnimationBuilder } from '../../interface';
 import { createAnimation } from '../../utils/animation';
 
-export const nextPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
+export const enterAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
   const baseAnimation = createAnimation();
-  const wrapperAnimation = createAnimation().addElement(baseEl).fromTo('transform', 'translateY(100%)', 'translateY(0)');
 
-  return baseAnimation.addAnimation([wrapperAnimation]).easing('cubic-bezier(.36,.66,.04,1)').duration(400).addElement(baseEl);
+  return baseAnimation
+    .easing('cubic-bezier(.36,.66,.04,1)')
+    .duration(800)
+    .addElement(baseEl.querySelector('.table'))
+    .keyframes([
+      { offset: 0, opacity: '0.01', transform: 'scale(1.1)' },
+      { offset: 1, opacity: '1', transform: 'scale(1)' },
+    ]);
 };
 
-export const prevPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
+export const backAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
   const baseAnimation = createAnimation();
-  const wrapperAnimation = createAnimation().addElement(baseEl).fromTo('transform', 'translateY(0)', 'translateY(100%)');
-
-  return baseAnimation.addAnimation([wrapperAnimation]).easing('cubic-bezier(.36,.66,.04,1)').duration(450).addElement(baseEl);
+  return baseAnimation
+    .easing('cubic-bezier(.36,.66,.04,1)')
+    .duration(800)
+    .addElement(baseEl.querySelector('.table'))
+    .keyframes([
+      { offset: 0, opacity: '1', transform: 'scale(1)' },
+      { offset: 1, opacity: '0.01', transform: 'scale(1.1)' },
+    ]);
 };

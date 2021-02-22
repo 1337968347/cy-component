@@ -1,7 +1,7 @@
 import { Component, Element, State, Method, Host, h } from '@stencil/core';
 import { ViewMode, CalendarDate } from '../../interface';
 import { getDecadeRange } from './utils';
-// import { nextPageAnimationBuilder, prevPageAnimationBuilder } from './animation';
+import { enterAnimationBuilder, backAnimationBuilder } from './animation';
 
 const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month'];
 
@@ -60,15 +60,26 @@ export class CyCalendar {
     return willActiveEl;
   }
 
-  switchViewMode(viewMode: ViewMode) {
+  async switchViewMode(viewMode: ViewMode) {
+    if (this.viewMode === viewMode && this.activeEl) {
+      return;
+    }
     this.viewMode = viewMode;
+    const showEl = this.getShouldRenderDom();
+    const containerEl = this.el.shadowRoot.querySelector<HTMLElement>('.translate-box');
+    containerEl.appendChild(showEl);
+
+    if (this.activeEl) {
+      const aniEnter = enterAnimationBuilder(showEl);
+      const aniback = backAnimationBuilder(this.activeEl);
+      await aniEnter.play();
+      await aniback.play();
+    }
+
     if (this.activeEl) {
       this.activeEl.remove();
       this.activeEl = null;
     }
-    const showEl = this.getShouldRenderDom();
-    const containerEl = this.el.shadowRoot.querySelector<HTMLElement>('.translate-box');
-    containerEl.appendChild(showEl);
     this.activeEl = showEl;
   }
 
