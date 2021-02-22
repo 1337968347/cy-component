@@ -1,8 +1,8 @@
 import { ComponentInterface } from '@stencil/core';
 
 export interface calendarComponentInterface extends ComponentInterface {
-  nextPage(): Promise<void>;
-  prevPage(): Promise<void>;
+  nextPage(animationDuration: number): Promise<void>;
+  prevPage(animationDuration: number): Promise<void>;
 }
 
 export interface CalendarDate {

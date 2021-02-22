@@ -42,7 +42,7 @@ export class CalendarMonth implements calendarComponentInterface {
   }
 
   @Method()
-  async prevPage() {
+  async prevPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.translateBox');
       transEl.classList.add(TranslateClass);
@@ -54,12 +54,12 @@ export class CalendarMonth implements calendarComponentInterface {
 
         this.parent.change({ year: this.calendarDate.year - 1 });
         resolve();
-      }, 800);
+      }, animationDuration);
     });
   }
 
   @Method()
-  async nextPage() {
+  async nextPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.translateBox');
       transEl.classList.add(TranslateClass);
@@ -71,7 +71,7 @@ export class CalendarMonth implements calendarComponentInterface {
 
         this.parent.change({ year: this.calendarDate.year + 1 });
         resolve();
-      }, 800);
+      }, animationDuration);
     });
   }
 

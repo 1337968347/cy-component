@@ -45,7 +45,7 @@ export class CalendarMouth implements calendarComponentInterface {
   }
 
   @Method()
-  async prevPage() {
+  async prevPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
       transLateEl.classList.add(TranslateClass);
@@ -59,12 +59,12 @@ export class CalendarMouth implements calendarComponentInterface {
         const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
         this.parent.change({ year: prevMouthYear, month: prevMouthMouth });
         resolve();
-      }, 800);
+      }, animationDuration);
     });
   }
 
   @Method()
-  async nextPage() {
+  async nextPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.translateBox');
       transLateEl.classList.add(TranslateClass);
@@ -78,7 +78,7 @@ export class CalendarMouth implements calendarComponentInterface {
         const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
         this.parent.change({ year: nextMouthYear, month: nextMouthMouth });
         resolve();
-      }, 800);
+      }, animationDuration);
     });
   }
 

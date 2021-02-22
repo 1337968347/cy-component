@@ -157,7 +157,7 @@ export const getRenderYear = (decade: number[]) => {
     start = startDecade - 13;
     end = endDecade + 13;
   }
-  for (let i = start; i < end; i++) {
+  for (let i = start; i <= end; i++) {
     renderYears.push(i);
   }
   return formatDateArr(renderYears, 4);

@@ -15,6 +15,7 @@ export class CyCalendar {
   // 下标 0： 十年  1： 年  2：月份
   @State() calendarDate: CalendarDate;
   @State() viewMode: ViewMode = 'month';
+  private isAsync: Boolean = false;
   private activeEl: HTMLElement;
 
   componentWillLoad() {
@@ -94,12 +95,22 @@ export class CyCalendar {
 
   @Method()
   async prevPage() {
-    await (this.activeEl as any).prevPage();
+    if (this.isAsync) {
+      return;
+    }
+    this.isAsync = true;
+    await (this.activeEl as any).prevPage(800);
+    this.isAsync = false;
   }
 
   @Method()
   async nextPage() {
-    await (this.activeEl as any).nextPage();
+    if (this.isAsync) {
+      return;
+    }
+    this.isAsync = true;
+    await (this.activeEl as any).nextPage(800);
+    this.isAsync = false;
   }
 
   render() {

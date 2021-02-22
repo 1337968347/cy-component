@@ -32,21 +32,21 @@ export namespace Components {
     }
     interface CyCalendarDay {
         "calendarDate": CalendarDate;
-        "nextPage": () => Promise<void>;
+        "nextPage": (animationDuration?: number) => Promise<void>;
         "parent": HTMLCyCalendarElement;
-        "prevPage": () => Promise<void>;
+        "prevPage": (animationDuration?: number) => Promise<void>;
     }
     interface CyCalendarMonth {
         "calendarDate": CalendarDate;
-        "nextPage": () => Promise<void>;
+        "nextPage": (animationDuration?: number) => Promise<void>;
         "parent": HTMLCyCalendarElement;
-        "prevPage": () => Promise<void>;
+        "prevPage": (animationDuration?: number) => Promise<void>;
     }
     interface CyCalendarYear {
         "calendarDate": CalendarDate;
-        "nextPage": () => Promise<void>;
+        "nextPage": (animationDuration?: number) => Promise<void>;
         "parent": HTMLCyCalendarElement;
-        "prevPage": () => Promise<void>;
+        "prevPage": (animationDuration?: number) => Promise<void>;
     }
     interface CyCheckbox {
         "checked": boolean;

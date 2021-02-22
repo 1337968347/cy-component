@@ -41,7 +41,7 @@ export class CalendarYear implements calendarComponentInterface {
   }
 
   @Method()
-  async prevPage() {
+  async prevPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.translateBox');
       transEl.classList.add(TranslateClass);
@@ -53,12 +53,12 @@ export class CalendarYear implements calendarComponentInterface {
 
         this.parent.change({ decade: [this.calendarDate.decade[0] - 10, this.calendarDate.decade[1] - 10] });
         resolve();
-      }, 800);
+      }, animationDuration);
     });
   }
 
   @Method()
-  async nextPage() {
+  async nextPage(animationDuration: number = 800) {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.translateBox');
       transEl.classList.add(TranslateClass);
@@ -70,7 +70,7 @@ export class CalendarYear implements calendarComponentInterface {
 
         this.parent.change({ decade: [this.calendarDate.decade[0] + 10, this.calendarDate.decade[1] + 10] });
         resolve();
-      }, 800);
+      }, animationDuration);
     });
   }
 
