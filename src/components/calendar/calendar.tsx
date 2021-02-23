@@ -64,22 +64,28 @@ export class CyCalendar {
     if (this.viewMode === viewMode && this.activeEl) {
       return;
     }
+    if (this.isAsync) {
+      return;
+    }
+    this.isAsync = true;
     this.viewMode = viewMode;
+
+    if (this.activeEl) {
+      const aniback = backAnimationBuilder(this.activeEl);
+      await aniback.play();
+      if (this.activeEl) {
+        this.activeEl.remove();
+        this.activeEl = null;
+      }
+    }
     const showEl = this.getShouldRenderDom();
     const containerEl = this.el.shadowRoot.querySelector<HTMLElement>('.translate-box');
     containerEl.appendChild(showEl);
+    await showEl.componentOnReady();
+    const aniEnter = enterAnimationBuilder(showEl);
+    await aniEnter.play();
 
-    if (this.activeEl) {
-      const aniEnter = enterAnimationBuilder(showEl);
-      const aniback = backAnimationBuilder(this.activeEl);
-      await aniEnter.play();
-      await aniback.play();
-    }
-
-    if (this.activeEl) {
-      this.activeEl.remove();
-      this.activeEl = null;
-    }
+    this.isAsync = false;
     this.activeEl = showEl;
   }
 
