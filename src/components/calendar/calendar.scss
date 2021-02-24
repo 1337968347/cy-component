@@ -1,12 +1,13 @@
 :host {
+  --color: var(--cy-color-contrast);
+  --background-color: var(--cy-color-tint);
+  --max-width: 500px;
+  --grey-color: rgba(var(--cy-color-contrast-rgb), 0.4);
   display: block;
+  color: var(--color);
   padding: 0.5em;
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
-  --color: #ffffff;
-  --background-color: #3d3d3d;
-  --max-width: 500px;
   max-width: var(--max-width);
-  color: var(--color);
   background-color: var(--background-color);
   user-select: none;
 }
@@ -60,6 +61,7 @@ cy-icon {
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
 }
 
 .TranslateAni {
@@ -87,12 +89,15 @@ cy-icon {
 }
 
 .tbody {
-  color: grey;
+  color: var(--grey-color);
   overflow: hidden;
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  z-index: -2;
+  background-color: var(--background-color);
 }
 
 .tr {
@@ -107,7 +112,15 @@ cy-icon {
   justify-content: center;
   align-items: center;
   background-color: var(--background-color);
-  margin: 1px;
+  margin: 2px;
+  border: 4px solid transparent;
+  transition: background-color 0.5s, border 0.5s;
+}
+
+@media (any-hover: hover) {
+  .tbody .td:hover {
+    border: 4px solid rgb(255 255 255 / 70%);
+  }
 }
 
 .td::before {
@@ -130,36 +143,12 @@ cy-icon {
 .mouseover-bg {
   display: block;
   position: absolute;
-  background: radial-gradient(rgba(255, 255, 255, 0.8) 5%, transparent 50%);
-  width: 450px;
-  height: 450px;
+  background: radial-gradient(rgba(var(--cy-color-contrast-rgb), 0.5) 5%, transparent 60%);
+  width: 45%;
+  height: 45%;
   border-radius: 50%;
   z-index: -1;
   transform: translate(-50%, -50%);
-}
-
-.item:active:before {
-  content: '';
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  box-shadow: inset 0 0 5px currentColor;
-  opacity: 0.3;
-}
-
-@media (any-hover: hover) {
-  .item:hover:before {
-    content: '';
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    box-shadow: inset 0 0 5px currentColor;
-    opacity: 0.3;
-  }
 }
 
 .obvious {
@@ -167,10 +156,10 @@ cy-icon {
 }
 
 .now {
-  background: var(--cy-color-primary);
+  background: var(--cy-color-shade);
   color: var(--color);
 }
 
 .choosed {
-  border: 2px solid var(--cy-color-primary-shade);
+  border: 4px solid var(--cy-color-shade) !important;
 }

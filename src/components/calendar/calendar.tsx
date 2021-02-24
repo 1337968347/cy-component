@@ -1,4 +1,4 @@
-import { Component, Element, State, Method, Host, h } from '@stencil/core';
+import { Component, Element, Prop, State, Method, Host, Event, EventEmitter, h } from '@stencil/core';
 import { ViewMode, CalendarDate } from '../../interface';
 import { getDecadeRange } from './utils';
 import { enterAnimationBuilder, backAnimationBuilder } from './animation';
@@ -12,9 +12,11 @@ const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month'];
 })
 export class CyCalendar {
   @Element() el: HTMLCyCalendarElement;
+  @Prop() color: string = 'primary';
   // 下标 0： 十年  1： 年  2：月份
   @State() calendarDate: CalendarDate;
   @State() viewMode: ViewMode = 'month';
+  @Event() choose: EventEmitter;
   private isAsync: Boolean = false;
   private activeEl: HTMLElement;
 
@@ -117,7 +119,7 @@ export class CyCalendar {
       return;
     }
     this.isAsync = true;
-    await (this.activeEl as any).prevPage(800);
+    await (this.activeEl as any).prevPage(300);
     this.isAsync = false;
   }
 
@@ -127,13 +129,16 @@ export class CyCalendar {
       return;
     }
     this.isAsync = true;
-    await (this.activeEl as any).nextPage(800);
+    await (this.activeEl as any).nextPage(300);
     this.isAsync = false;
   }
 
   render() {
     return (
-      <Host>
+      <Host
+        class={{
+          [`cy-color-${this.color}`]: true,
+        }}>
         <div class="calendar-header">
           <div class="calendar-switch activatable" onClick={this.backViewMode.bind(this)}>
             {this.viewMode === 'decade' ? <span>{`${this.calendarDate.decade[0]}-${this.calendarDate.decade[1]}`}</span> : null}

@@ -1,4 +1,4 @@
-import { Component, Prop, State, Element, Event, EventEmitter, h, Method, Watch } from '@stencil/core';
+import { Component, Prop, State, Element, h, Method, Watch } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
 import { getRenderDay, getMouthOffset, TranslateClass, addBorder } from '../utils';
 @Component({
@@ -19,7 +19,6 @@ export class CalendarMouth implements calendarComponentInterface {
   @State() renderDate: number[][][] = [];
   @State() transformY: number = 0;
 
-  @Event() choose: EventEmitter;
   activateEl: HTMLElement;
 
   componentWillLoad() {
@@ -89,11 +88,10 @@ export class CalendarMouth implements calendarComponentInterface {
     return day[0] === this.dateNow.getUTCFullYear() && day[1] === this.dateNow.getUTCMonth() + 1 && day[2] === this.dateNow.getUTCDate();
   }
 
-  handleClick(e: any, day: number[]) {
+  handleClick(e: any) {
     this.removeClick();
-    this.activateEl = e.target;
+    this.activateEl = e.target.closest('.td');
     this.activateEl.classList.add('choosed');
-    this.choose.emit([...day]);
   }
 
   removeClick() {
@@ -119,11 +117,12 @@ export class CalendarMouth implements calendarComponentInterface {
             {this.renderDate.map(week => (
               <div class="tr">
                 {week.map(day => (
-                  <div class="td">
+                  <div
+                    class="td"
+                    onClick={e => {
+                      this.handleClick(e);
+                    }}>
                     <div
-                      onClick={e => {
-                        this.handleClick(e, day);
-                      }}
                       class={{
                         item: true,
                         obvious: day[1] === this.calendarDate.month,

@@ -165,18 +165,36 @@ export const getRenderYear = (decade: number[]) => {
 };
 
 export const addBorder = (baseEl: HTMLElement) => {
+  let rect = undefined;
+  let mouseBgEl = undefined;
+  let rmMouseMove = undefined;
   addEventListener(
     baseEl,
-    'mousemove',
-    (e: MouseEvent) => {
-      requestAnimationFrame(() => {
-        const mouseBgEl = baseEl.querySelector<HTMLElement>('.mouseover-bg');
-        mouseBgEl.style.display = 'block';
-        mouseBgEl.style.left = e.offsetX + 'px';
-        mouseBgEl.style.top = e.offsetY + 'px';
-      });
+    'mouseenter',
+    () => {
+      mouseBgEl = baseEl.querySelector<HTMLElement>('.mouseover-bg');
+      rect = baseEl.getBoundingClientRect();
+      mouseBgEl.style.display = 'block';
+      rmMouseMove = addEventListener(
+        baseEl,
+        'mousemove',
+        (e: MouseEvent) => {
+          mouseBgEl.style.left = e.clientX - rect.left + 'px';
+          mouseBgEl.style.top = e.clientY - rect.top + 'px';
+        },
+        {},
+      );
     },
-    { passive: true, capture: false },
+    {},
+  );
+  addEventListener(
+    baseEl,
+    'mouseleave',
+    () => {
+      mouseBgEl.style.display = 'none';
+      rmMouseMove && rmMouseMove();
+    },
+    {},
   );
 };
 

@@ -27,6 +27,7 @@ export namespace Components {
     }
     interface CyCalendar {
         "change": (modifyCalendarDate: CalendarDate, viewMode?: ViewMode) => Promise<void>;
+        "color": string;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
     }
@@ -282,10 +283,11 @@ declare namespace LocalJSX {
         "expend"?: 'default' | 'full' | 'block';
     }
     interface CyCalendar {
+        "color"?: string;
+        "onChoose"?: (event: CustomEvent<any>) => void;
     }
     interface CyCalendarDay {
         "calendarDate"?: CalendarDate;
-        "onChoose"?: (event: CustomEvent<any>) => void;
         "parent"?: HTMLCyCalendarElement;
     }
     interface CyCalendarMonth {

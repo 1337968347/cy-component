@@ -180,7 +180,14 @@ const RenderShowItem = (showName: string) => {
     case '日历':
       return (
         <div>
-          <cy-calendar></cy-calendar>
+          <cy-calendar color="primary"></cy-calendar>
+          <cy-calendar color="secondary"></cy-calendar>
+          <cy-calendar color="tertiary"></cy-calendar>
+          <cy-calendar color="success"></cy-calendar>
+          <cy-calendar color="warning"></cy-calendar>
+          <cy-calendar color="danger"></cy-calendar>
+          <cy-calendar color="dark"></cy-calendar>
+          <cy-calendar color="light"></cy-calendar>
         </div>
       );
     case '滑块':
