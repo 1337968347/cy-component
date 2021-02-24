@@ -64,10 +64,7 @@ export class CyCalendar {
     if (this.viewMode === viewMode && this.activeEl) {
       return;
     }
-    if (this.isAsync) {
-      return;
-    }
-    this.isAsync = true;
+
     this.viewMode = viewMode;
 
     if (this.activeEl) {
@@ -85,20 +82,24 @@ export class CyCalendar {
     const aniEnter = enterAnimationBuilder(showEl);
     await aniEnter.play();
 
-    this.isAsync = false;
     this.activeEl = showEl;
   }
 
   /**
    * 点击日历左上角
    */
-  backViewMode() {
+  async backViewMode() {
+    if (this.isAsync) {
+      return;
+    }
+    this.isAsync = true;
     if (this.viewMode !== 'decade') {
       delete this.calendarDate[this.viewMode];
       this.calendarDate = { ...this.calendarDate };
     }
     const nextIndex = Math.max(ViewModeEnum.indexOf(this.viewMode) - 1, 0);
-    this.switchViewMode(ViewModeEnum[nextIndex]);
+    await this.switchViewMode(ViewModeEnum[nextIndex]);
+    this.isAsync = false;
   }
 
   @Method()

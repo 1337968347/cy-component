@@ -1,3 +1,4 @@
+import { addEventListener } from '../../utils/gesture/listener';
 /**
  * 获取指定月份的天数
  * @param year
@@ -161,6 +162,22 @@ export const getRenderYear = (decade: number[]) => {
     renderYears.push(i);
   }
   return formatDateArr(renderYears, 4);
+};
+
+export const addBorder = (baseEl: HTMLElement) => {
+  addEventListener(
+    baseEl,
+    'mousemove',
+    (e: MouseEvent) => {
+      requestAnimationFrame(() => {
+        const mouseBgEl = baseEl.querySelector<HTMLElement>('.mouseover-bg');
+        mouseBgEl.style.display = 'block';
+        mouseBgEl.style.left = e.offsetX + 'px';
+        mouseBgEl.style.top = e.offsetY + 'px';
+      });
+    },
+    { passive: true, capture: false },
+  );
 };
 
 export const TranslateClass = 'TranslateAni';

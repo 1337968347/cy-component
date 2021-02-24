@@ -3,8 +3,11 @@
   padding: 0.5em;
   box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
   --color: #ffffff;
+  --background-color: #3d3d3d;
   --max-width: 500px;
   max-width: var(--max-width);
+  color: var(--color);
+  background-color: var(--background-color);
   user-select: none;
 }
 
@@ -35,7 +38,7 @@
 }
 
 cy-icon {
-  color: #1f1f1f;
+  color: var(--color);
   font-size: 1.7em;
 }
 
@@ -84,11 +87,12 @@ cy-icon {
 }
 
 .tbody {
-  color: rgb(212, 212, 212);
+  color: grey;
   overflow: hidden;
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .tr {
@@ -102,6 +106,8 @@ cy-icon {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--background-color);
+  margin: 1px;
 }
 
 .td::before {
@@ -119,6 +125,17 @@ cy-icon {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mouseover-bg {
+  display: block;
+  position: absolute;
+  background: radial-gradient(rgba(255, 255, 255, 0.8) 5%, transparent 50%);
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
 }
 
 .item:active:before {
@@ -146,12 +163,12 @@ cy-icon {
 }
 
 .obvious {
-  color: #000000;
+  color: var(--color);
 }
 
 .now {
   background: var(--cy-color-primary);
-  color: #fff;
+  color: var(--color);
 }
 
 .choosed {

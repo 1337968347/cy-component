@@ -1,6 +1,6 @@
 import { Component, Prop, Element, State, Watch, Method, h } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderYear, getDecadeRange, TranslateClass } from '../utils';
+import { getRenderYear, getDecadeRange, TranslateClass, addBorder } from '../utils';
 
 @Component({
   tag: 'cy-calendar-year',
@@ -22,6 +22,10 @@ export class CalendarYear implements calendarComponentInterface {
   componentWillLoad() {
     this.renderYears = getRenderYear(this.calendarDate.decade);
     this.setTransformY(1);
+  }
+
+  componentDidLoad() {
+    addBorder(this.el.querySelector('.tbody'));
   }
 
   /**
@@ -108,6 +112,7 @@ export class CalendarYear implements calendarComponentInterface {
               </div>
             ))}
           </div>
+          <div class="mouseover-bg" style={{ display: 'none' }}></div>
         </div>
       </div>
     );

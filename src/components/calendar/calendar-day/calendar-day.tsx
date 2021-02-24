@@ -1,7 +1,6 @@
 import { Component, Prop, State, Element, Event, EventEmitter, h, Method, Watch } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderDay, getMouthOffset, TranslateClass } from '../utils';
-
+import { getRenderDay, getMouthOffset, TranslateClass, addBorder } from '../utils';
 @Component({
   tag: 'cy-calendar-day',
 })
@@ -26,6 +25,10 @@ export class CalendarMouth implements calendarComponentInterface {
   componentWillLoad() {
     this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
     this.setTransformY(1);
+  }
+
+  componentDidLoad() {
+    addBorder(this.el.querySelector('.tbody'));
   }
 
   /**
@@ -133,6 +136,7 @@ export class CalendarMouth implements calendarComponentInterface {
               </div>
             ))}
           </div>
+          <div class="mouseover-bg" style={{ display: 'none' }}></div>
         </div>
       </div>
     );
