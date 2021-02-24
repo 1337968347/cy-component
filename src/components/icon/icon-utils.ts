@@ -8,6 +8,7 @@ export const getSvgContent = (name: string): Promise<string> => {
   return new Promise(resolve => {
     if (fetchSvgContentMap.has(name)) {
       resolve(fetchSvgContentMap.get(name));
+      return
     }
 
     if (typeof fetch === 'function') {
