@@ -114,12 +114,11 @@ cy-icon {
   background-color: var(--background-color);
   margin: 2px;
   border: 4px solid transparent;
-  transition: background-color 0.5s, border 0.5s;
 }
 
 @media (any-hover: hover) {
   .tbody .td:hover {
-    border: 4px solid rgb(255 255 255 / 70%);
+    border-color: rgb(255 255 255 / 70%);
   }
 }
 

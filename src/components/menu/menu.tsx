@@ -1,11 +1,11 @@
-import { Component, Element, h, Method, Host } from '@stencil/core';
+import { Component, Element, h, State, Method, Listen, Host } from '@stencil/core';
 import { Gesture, GestureDetail, Animation } from '../../interface';
 import { menuAnimationBuilder } from './animation';
 import { createGesture } from '../../utils/gesture';
 import { getTimeGivenProgression } from '../../utils/animation/cubic-bezier';
 import { clamp } from '../../utils/helpers';
 
-const ANIMATIONClASS = "open-menu"
+const ANIMATIONClASS = 'open-menu';
 
 @Component({
   tag: 'cy-menu',
@@ -18,8 +18,10 @@ export class CyMenu {
   private canMoveX: number = 0;
   private animation: Animation;
   private isOpen: boolean = false;
+  @State() isExpend: boolean = false;
 
   componentDidLoad() {
+    this.calcExpend();
     this.gesture = createGesture({
       el: document,
       direction: 'x',
@@ -31,7 +33,16 @@ export class CyMenu {
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
     });
-    this.gesture.enable();
+    this.gesture.enable(!this.isExpend);
+  }
+
+  calcExpend() {
+    const clientWidth = this.el.closest('cy-app').clientWidth;
+    if (clientWidth > 700) {
+      this.isExpend = true;
+      this.isOpen = true;
+      this.el.classList.add(ANIMATIONClASS);
+    }
   }
 
   canStart(e: GestureDetail) {
@@ -42,8 +53,8 @@ export class CyMenu {
   }
 
   onWillStart() {
-    this.beforeAnimation()
-    return this.loadAnimation()
+    this.beforeAnimation();
+    return this.loadAnimation();
   }
 
   beforeAnimation() {
@@ -53,7 +64,6 @@ export class CyMenu {
   onStart() {
     this.animation.progressStart(true, this.isOpen ? 1 : 0);
   }
-
 
   onMove(e: GestureDetail) {
     const step = this.getAnimationStep(this.isOpen, e.deltaX);
@@ -71,7 +81,7 @@ export class CyMenu {
     this.animation
       .onFinish(
         () => {
-          this.afterAnimation(playTo === 1)
+          this.afterAnimation(playTo === 1);
         },
         { oneTimeCallback: true },
       )
@@ -79,9 +89,9 @@ export class CyMenu {
   }
 
   afterAnimation(isOpen: boolean) {
-    this.isOpen = isOpen
+    this.isOpen = isOpen;
     if (!this.isOpen) {
-      this.el.classList.remove(ANIMATIONClASS)
+      this.el.classList.remove(ANIMATIONClASS);
     }
   }
 
@@ -97,43 +107,53 @@ export class CyMenu {
     return getTimeGivenProgression([0, 0], [0.4, 0], [0.6, 1], [1, 1], step)[0];
   }
 
+  @Listen('click', { capture: true })
   onBackDropClick() {
-    this.close();
+    if (!this.isExpend) {
+      this.close();
+    }
   }
 
   @Method()
   async open() {
-    this._setOpen(true)
+    this._setOpen(true);
   }
 
   @Method()
   async close() {
-    this._setOpen(false)
+    this._setOpen(false);
+  }
+
+  @Method()
+  async toggle() {
+    if (this.isOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
   }
 
   private async _setOpen(shouldOpen: boolean) {
-    this.beforeAnimation()
-    await this.loadAnimation()
-    await this.startAnimation(shouldOpen)
-    this.afterAnimation(shouldOpen)
+    this.beforeAnimation();
+    await this.loadAnimation();
+    await this.startAnimation(shouldOpen);
+    this.afterAnimation(shouldOpen);
   }
 
   private async startAnimation(shouldOpen: boolean): Promise<void> {
     const isReversed = !shouldOpen;
 
-    const ani = (this.animation as Animation)!
-      .direction((isReversed) ? 'reverse' : 'normal')
-      .onFinish(() => {
-        if (ani.getDirection() === 'reverse') {
-          ani.direction('normal');
-        }
-      });
+    const ani = (this.animation as Animation)!.direction(isReversed ? 'reverse' : 'normal').onFinish(() => {
+      if (ani.getDirection() === 'reverse') {
+        ani.direction('normal');
+      }
+    });
 
     await ani.play();
   }
 
   private async loadAnimation(): Promise<void> {
-    const width = this.el.shadowRoot.querySelector('.menu-container').clientWidth;;
+    const width = this.el.shadowRoot.querySelector('.menu-container').clientWidth;
     if (width === this.canMoveX && this.animation !== undefined) {
       return;
     }
@@ -142,17 +162,20 @@ export class CyMenu {
       this.animation.destroy();
       this.animation = null;
     }
-    this.animation = await menuAnimationBuilder(this.el)
+    this.animation = await menuAnimationBuilder(this.el);
     this.animation.fill('both');
   }
 
   render() {
     return (
-      <Host>
+      <Host
+        class={{
+          ['expend-menu']: this.isExpend === true,
+        }}>
         <div class="menu-container">
           <slot />
         </div>
-        <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} />
+        {!this.isExpend ? <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} /> : null}
       </Host>
     );
   }

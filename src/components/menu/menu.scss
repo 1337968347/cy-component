@@ -1,5 +1,5 @@
 :host {
-  --menu-width: 300px;
+  --menu-width: 240px;
   position: absolute;
   top: 0;
   left: 0;
@@ -8,11 +8,23 @@
   contain: strict;
   z-index: 1000;
   display: none;
+  user-select: none;
 }
 :host(.open-menu) {
   display: block;
+
+  border-right: 1px solid rgb(0 0 0 / 0.1);
 }
 
+:host(.expend-menu) {
+  height: 100%;
+  display: block;
+
+  position: relative;
+}
+:host(.open-menu.expend-menu) {
+  width: var(--menu-width);
+}
 .menu-container {
   width: var(--menu-width);
   height: 100%;

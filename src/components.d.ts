@@ -68,6 +68,7 @@ export namespace Components {
     interface CyMenu {
         "close": () => Promise<void>;
         "open": () => Promise<void>;
+        "toggle": () => Promise<void>;
     }
     interface CyNav {
         "addCom": () => Promise<void>;

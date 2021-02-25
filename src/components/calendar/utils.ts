@@ -179,8 +179,10 @@ export const addBorder = (baseEl: HTMLElement) => {
         baseEl,
         'mousemove',
         (e: MouseEvent) => {
-          mouseBgEl.style.left = e.clientX - rect.left + 'px';
-          mouseBgEl.style.top = e.clientY - rect.top + 'px';
+          requestAnimationFrame(() => {
+            mouseBgEl.style.left = e.clientX - rect.left + 'px';
+            mouseBgEl.style.top = e.clientY - rect.top + 'px';
+          });
         },
         {},
       );

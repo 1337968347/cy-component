@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['按钮', '钟表', '日历', '选择器', '滑块', '开关', '单选框', '加载'];
+const components = ['button', 'time', 'calendar', 'select', 'segment', 'toggle', 'checkbox', 'loading'];
 
 @Component({
   tag: 'page-root',
@@ -8,53 +8,55 @@ const components = ['按钮', '钟表', '日历', '选择器', '滑块', '开关
 })
 export class PageRoot {
   @Element() el: HTMLElement;
-  @State() choose: string = '按钮';
+  @State() choose: string = 'button';
 
   componentWillLoad() {
-    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || '按钮';
+    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || 'button';
   }
 
   switchCom(value) {
     this.choose = value;
     location.hash = value;
-    document.querySelector('cy-menu').close();
   }
 
   render() {
     return (
       <Host>
         <cy-app>
-          <cy-menu>
-            <div class="cy-page">
+          <div class="menu-content">
+            <cy-menu>
+              <div class="cy-page">
+                <cy-header color="light">
+                  <h3 class="cy-title">菜单</h3>
+                </cy-header>
+                <cy-content>
+                  {components.map(com => (
+                    <cy-item
+                      color={this.choose === 'com' ? 'primary' : ''}
+                      onClick={() => {
+                        this.switchCom(com);
+                      }}
+                      line
+                      button>
+                      <cy-icon style={{ color: 'var(--cy-color-primary)' }} slot="start" name={com}></cy-icon>
+                      <h3>{com}</h3>
+                    </cy-item>
+                  ))}
+                </cy-content>
+              </div>
+            </cy-menu>
+            <div class="menu-page">
               <cy-header color="light">
-                <h3 class="cy-title">菜单</h3>
+                <div onClick={toggleMenu} class="btn-box activatable" slot="start">
+                  <cy-icon name="menu" />
+                  <cy-ripple type="unbounded" />
+                </div>
+                <h3 class="cy-title">{this.choose}</h3>
               </cy-header>
               <cy-content>
-                {components.map(com => (
-                  <cy-item
-                    color={this.choose === 'com' ? 'primary' : ''}
-                    onClick={() => {
-                      this.switchCom(com);
-                    }}
-                    line
-                    button>
-                    <h3>{com}</h3>
-                  </cy-item>
-                ))}
+                <div class="container">{RenderShowItem(this.choose)}</div>
               </cy-content>
             </div>
-          </cy-menu>
-          <div class="cy-page">
-            <cy-header color="light">
-              <div onClick={openMenu} class="btn-box activatable" slot="start">
-                <cy-icon name="menu" />
-                <cy-ripple type="unbounded" />
-              </div>
-              <h3 class="cy-title">{this.choose}</h3>
-            </cy-header>
-            <cy-content>
-              <div class="container">{RenderShowItem(this.choose)}</div>
-            </cy-content>
           </div>
         </cy-app>
       </Host>
@@ -88,13 +90,13 @@ const createActionSheet = () => {
   actionSheet.present();
 };
 
-const openMenu = () => {
-  document.querySelector('cy-menu').open();
+const toggleMenu = () => {
+  document.querySelector('cy-menu').toggle();
 };
 
 const RenderShowItem = (showName: string) => {
   switch (showName) {
-    case '按钮':
+    case 'button':
       return (
         <div>
           <h3>default</h3>
@@ -116,7 +118,7 @@ const RenderShowItem = (showName: string) => {
           </cy-button>
         </div>
       );
-    case '开关':
+    case 'toggle':
       return (
         <div>
           <h3>一键滑动解锁</h3>
@@ -130,15 +132,15 @@ const RenderShowItem = (showName: string) => {
           <cy-toggle color="light">light</cy-toggle>
         </div>
       );
-    case '选择器':
+    case 'select':
       return (
         <div>
           <cy-button color="primary" expend="block" onClick={createActionSheet.bind(this)}>
-            action sheet
+            select
           </cy-button>
         </div>
       );
-    case '钟表':
+    case 'time':
       return (
         <div>
           <cy-time color="primary">primary</cy-time>
@@ -151,7 +153,7 @@ const RenderShowItem = (showName: string) => {
           <cy-time color="light">light</cy-time>
         </div>
       );
-    case '单选框':
+    case 'checkbox':
       return (
         <div>
           <cy-checkbox color="primary">primary</cy-checkbox>
@@ -164,7 +166,7 @@ const RenderShowItem = (showName: string) => {
           <cy-checkbox color="light">light</cy-checkbox>
         </div>
       );
-    case '加载':
+    case 'loading':
       return (
         <div>
           <cy-spinner color="primary">primary</cy-spinner>
@@ -177,7 +179,7 @@ const RenderShowItem = (showName: string) => {
           <cy-spinner color="light">light</cy-spinner>
         </div>
       );
-    case '日历':
+    case 'calendar':
       return (
         <div>
           <cy-calendar color="primary"></cy-calendar>
@@ -190,7 +192,7 @@ const RenderShowItem = (showName: string) => {
           <cy-calendar color="light"></cy-calendar>
         </div>
       );
-    case '滑块':
+    case 'segment':
       return (
         <div>
           <h3>不可滚动的（可拖动）</h3>

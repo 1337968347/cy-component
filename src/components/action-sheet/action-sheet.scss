@@ -6,8 +6,9 @@
   right: 0;
   z-index: 1000;
   touch-action: none;
-  --max-width: 500px;
-  --max-height: 80%;
+  --max-width: 800px;
+  --max-height: 50%;
+  user-select: none;
 }
 
 :host(.overlay-hidden) {

@@ -28,10 +28,14 @@
 
 :host(.button-full) {
   width: 100%;
+  font-size: 1.1em;
+  height: 2.2em;
 }
 
 :host(.button-block) {
   display: block;
+  font-size: 1.1em;
+  height: 2.2em;
 }
 
 :host(.activated) {

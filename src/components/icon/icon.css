@@ -12,4 +12,5 @@
   height: 100%;
   display: block;
   stroke-width: var(--stroke-width);
+  fill: transparent;
 }
