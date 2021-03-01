@@ -59,6 +59,7 @@ export namespace Components {
         "color": string;
     }
     interface CyIcon {
+        "color": string;
         "name": string;
     }
     interface CyItem {
@@ -309,6 +310,7 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface CyIcon {
+        "color"?: string;
         "name"?: string;
     }
     interface CyItem {

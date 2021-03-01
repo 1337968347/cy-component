@@ -85,7 +85,7 @@ export class ActionSheet implements ComponentInterface {
     if (this.lastPull + 300 > Date.now()) {
       return;
     }
-    await button.handler();
+    button.handler && (await button.handler());
     this.dismiss();
   }
 
@@ -106,9 +106,7 @@ export class ActionSheet implements ComponentInterface {
         <div class={'action-sheet-container ' + this.cssClass}>
           <div class="drag-container">
             <div class="action-sheet-group">
-              <div class="action-sheet-title">
-                {this.header}
-              </div>
+              <div class="action-sheet-title">{this.header}</div>
               <div class="action-sheet-opers">
                 {actionSheets.map(button => (
                   <div

@@ -45,8 +45,22 @@
   bottom: 0;
 }
 
+#colorPicker > div > svg > path:nth-child(1) {
+  fill: rgba(var(--cy-color-base-rgb), 0.5);
+  stroke: transparent;
+}
 
-.menu-page{
+#colorPicker > div > svg > path:nth-child(2) {
+  fill: var(--cy-color-shade);
+  stroke: transparent;
+}
+
+#colorPicker > div > svg > path:nth-child(3) {
+  fill: var(--cy-color-shade);
+  stroke: transparent;
+}
+
+.menu-page {
   flex: 1;
   height: 100%;
 }
