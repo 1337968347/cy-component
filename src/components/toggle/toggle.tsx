@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, ComponentInterface, h, Host } from '@stencil/core';
+import { Component, Element, Prop, ComponentInterface, Event, EventEmitter, h, Host } from '@stencil/core';
 import { createGesture, Gesture, GestureDetail } from '../../utils/gesture';
 
 @Component({
@@ -11,7 +11,9 @@ export class toggle implements ComponentInterface {
   private gesture: Gesture;
   private lastDrag: number = 0;
   @Prop() color: string = '';
-  @State() checked: boolean = true;
+  @Prop() gestureEnable: boolean = true;
+  @Prop({ mutable: true }) checked: boolean = false;
+  @Event() cyChange: EventEmitter;
 
   componentDidLoad() {
     this.gesture = createGesture({
@@ -23,7 +25,7 @@ export class toggle implements ComponentInterface {
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
     });
-    this.gesture.enable();
+    this.gesture.enable(this.gestureEnable);
   }
 
   onMove(e: GestureDetail) {
@@ -41,12 +43,15 @@ export class toggle implements ComponentInterface {
     e.event.preventDefault();
     e.event.stopImmediatePropagation();
     this.lastDrag = Date.now();
+    this.cyChange.emit(!!this.checked);
   }
 
-  onClick(ev) {
+  onClick(ev: MouseEvent) {
+    ev.stopImmediatePropagation();
     ev.preventDefault();
     if (this.lastDrag + 300 < Date.now()) {
       this.checked = !!!this.checked;
+      this.cyChange.emit(!!this.checked);
     }
   }
 
@@ -57,8 +62,7 @@ export class toggle implements ComponentInterface {
         class={{
           [`cy-color-${this.color}`]: !!this.color,
           'toggle-checked': this.checked,
-        }}
-      >
+        }}>
         <div class="toggle-bg">
           <div class="toggle-icon-handle"></div>
         </div>

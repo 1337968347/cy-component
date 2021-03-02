@@ -52,6 +52,14 @@ export class PageRoot {
     actionSheet.present();
   }
 
+  themeChange(e: CustomEvent) {
+    if (e.detail) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }
+
   render() {
     return (
       <Host>
@@ -59,7 +67,7 @@ export class PageRoot {
           <div class="menu-content">
             <cy-menu>
               <div class="cy-page">
-                <cy-header color={this.color}>
+                <cy-header>
                   <h3 class="cy-title">菜单</h3>
                 </cy-header>
                 <cy-content>
@@ -67,28 +75,37 @@ export class PageRoot {
                     <cy-item
                       class={{
                         'select-com': this.choose === com,
+                        'menu-item': true,
                       }}
                       onClick={() => {
                         this.switchCom(com);
                       }}
                       button>
-                      <cy-icon color={this.color} slot="start" name={com}></cy-icon>
-                      <h3>{com}</h3>
+                      <cy-icon slot="start" name={com}></cy-icon>
+                      <h3 class="menu-h3">{com}</h3>
                     </cy-item>
                   ))}
                 </cy-content>
               </div>
             </cy-menu>
             <div class="menu-page">
-              <cy-header color={this.color}>
+              <cy-header>
                 <div onClick={this.toggleMenu} class="btn-box activatable" slot="start">
                   <cy-icon name="menu" />
                   <cy-ripple type="unbounded" />
                 </div>
                 <h3 class="cy-title">{this.choose}</h3>
-                <div onClick={this.selectColor.bind(this)} class="btn-box activatable" slot="end">
-                  <cy-icon name="color"  />
-                  <cy-ripple type="unbounded" />
+                <div onClick={this.selectColor.bind(this)} class="btn-box" slot="end">
+                  <div class="btn activatable">
+                    <cy-icon
+                      name="color"
+                      class={{
+                        [`cy-color-${this.color}`]: !!this.color,
+                      }}
+                    />
+                    <cy-ripple type="unbounded" />
+                  </div>
+                  <cy-toggle onCyChange={this.themeChange.bind(this)} color={this.color}></cy-toggle>
                 </div>
               </cy-header>
               <cy-content>

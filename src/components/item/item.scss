@@ -21,7 +21,6 @@
   align-items: center;
   position: relative;
   justify-content: inherit;
-  width: 100%;
   outline: none;
   overflow: inherit;
   box-sizing: border-box;
@@ -64,7 +63,7 @@
   text-overflow: ellipsis;
   overflow: inherit;
   box-sizing: border-box;
-  margin: 0 6px;
+  margin: 0 10px;
 }
 
 .item-highlight {

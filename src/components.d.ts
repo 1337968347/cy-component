@@ -57,7 +57,6 @@ export namespace Components {
     interface CyContent {
     }
     interface CyHeader {
-        "color": string;
     }
     interface CyIcon {
         "color": string;
@@ -97,7 +96,9 @@ export namespace Components {
         "color": string;
     }
     interface CyToggle {
+        "checked": boolean;
         "color": string;
+        "gestureEnable": boolean;
     }
     interface PageRoot {
     }
@@ -309,7 +310,6 @@ declare namespace LocalJSX {
     interface CyContent {
     }
     interface CyHeader {
-        "color"?: string;
     }
     interface CyIcon {
         "color"?: string;
@@ -344,7 +344,10 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface CyToggle {
+        "checked"?: boolean;
         "color"?: string;
+        "gestureEnable"?: boolean;
+        "onCyChange"?: (event: CustomEvent<any>) => void;
     }
     interface PageRoot {
     }

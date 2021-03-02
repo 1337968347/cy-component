@@ -1,5 +1,5 @@
 .container {
-  padding: 10px;
+  padding: 30px 10px 0;
 }
 .card {
   width: 100%;
@@ -26,13 +26,22 @@
 }
 
 .btn-box {
-  width: 50px;
+  min-width: 50px;
   height: 50px;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 2px;
+  .btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  cy-toggle {
+    --size: 35px;
+  }
 }
 
 .menu-content {
@@ -45,10 +54,15 @@
   bottom: 0;
 }
 
-.select-com{
+.menu-item {
+  margin: 3px 0;
 }
 
 .menu-page {
   flex: 1;
   height: 100%;
+}
+
+.menu-h3 {
+  margin: 0.8em 0;
 }
