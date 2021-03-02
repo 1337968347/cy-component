@@ -6,13 +6,13 @@ import { Component, Prop, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class CyButton {
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
   @Prop() expend: 'default' | 'full' | 'block' = 'default';
   render() {
     return (
       <Host
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
           ['button-full']: this.expend === 'full',
           ['button-block']: this.expend === 'block',
           activatable: true,

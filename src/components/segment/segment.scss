@@ -1,17 +1,15 @@
 :host {
   --border-radius: 8px;
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
   border-radius: var(--border-radius);
-  width: 100%;
-  overflow: auto;
   cursor: pointer;
   user-select: none;
-  margin: 0 0 12px;
   background: rgba(var(--cy-color-base-rgb), 0.2);
   box-shadow: 0 0 5px rgba(var(--cy-background-contrast-rgb), 0.16);
 }
 
 :host(.overfrow-scroll) {
   overflow: auto;
+  max-width: 100%;
 }

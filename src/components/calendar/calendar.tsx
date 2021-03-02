@@ -12,7 +12,7 @@ const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month'];
 })
 export class CyCalendar {
   @Element() el: HTMLCyCalendarElement;
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
   // 下标 0： 十年  1： 年  2：月份
   @State() calendarDate: CalendarDate;
   @State() viewMode: ViewMode = 'month';
@@ -137,7 +137,7 @@ export class CyCalendar {
     return (
       <Host
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
         }}>
         <div class="calendar-header">
           <div class="calendar-switch activatable" onClick={this.backViewMode.bind(this)}>

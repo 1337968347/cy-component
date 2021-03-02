@@ -6,13 +6,13 @@ import { Component, Prop, h, Host } from '@stencil/core';
   shadow: true,
 })
 export class header {
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
 
   render() {
     return (
       <Host
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
         }}
       >
         <div class="btn-box">

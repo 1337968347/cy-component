@@ -8,7 +8,7 @@ import { createAnimation } from '../../utils/animation';
 })
 export class CyTime {
   @Element() el: HTMLElement;
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
   @State() step: number;
   baseAnimation: any;
   hourAnimation: any;
@@ -45,7 +45,7 @@ export class CyTime {
     return (
       <Host
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
         }}
       >
         <div class="clock">

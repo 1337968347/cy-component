@@ -39,7 +39,7 @@
 }
 
 .action-sheet-group {
-  background: var(--cy-background-color);
+  background: var(--cy-color-contrast);
   border-radius: 8px;
   overflow: hidden;
   pointer-events: initial;
@@ -70,7 +70,7 @@
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  color: var(--cy-color-primary);
+  color: var(--cy-color-base);
 }
 
 .action-sheet-oper:active::after {

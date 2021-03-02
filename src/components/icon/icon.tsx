@@ -1,12 +1,13 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Host } from '@stencil/core';
 import { getSvgContent } from './icon-utils';
 
 @Component({
   tag: 'cy-icon',
   styleUrl: 'icon.css',
+  shadow: true,
 })
 export class cyIcon {
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
   @Prop() name: string = '';
   @State() svgContent: string = '';
 
@@ -18,12 +19,13 @@ export class cyIcon {
 
   render() {
     return (
-      <div
+      <Host
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
           'svg-container': true,
-        }}
-        innerHTML={this.svgContent}></div>
+        }}>
+        <div innerHTML={this.svgContent}></div>
+      </Host>
     );
   }
 }

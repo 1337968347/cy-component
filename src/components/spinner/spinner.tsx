@@ -6,13 +6,13 @@ import { Component, Prop, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class spinner {
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
 
   render() {
     return (
       <Host
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
         }}
       >
         <svg version="1.1" viewBox="24 24 48 48">

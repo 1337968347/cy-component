@@ -17,6 +17,7 @@ export class ActionSheet implements ComponentInterface {
   private lastPull = 0;
   private canMovey = 0;
   @Element() el: HTMLElement;
+  @Prop() color: string = '';
   @Prop() overlayIndex: number = 0;
   @Prop() header: string = '';
   @Prop() cssClass: string = '';
@@ -98,7 +99,11 @@ export class ActionSheet implements ComponentInterface {
     const actionCancel = this.buttons.find(item => item.role === 'cancel');
     return (
       <Host
-        class="action-sheet-overlay overlay-hidden"
+        class={{
+          [`cy-color-${this.color}`]: !!this.color,
+          'overlay-hidden': true,
+          'action-sheet-overlay': true,
+        }}
         style={{
           zIndex: `${this.overlayIndex}`,
         }}>

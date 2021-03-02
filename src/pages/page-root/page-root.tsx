@@ -27,6 +27,7 @@ export class PageRoot {
   selectColor() {
     const actionSheet = document.createElement('cy-action-sheet');
     actionSheet.header = '选择你偏爱的颜色';
+    actionSheet.color = this.color;
     const buttons = [];
 
     ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'light', 'medium', 'dark'].map(color => {
@@ -58,16 +59,18 @@ export class PageRoot {
           <div class="menu-content">
             <cy-menu>
               <div class="cy-page">
-                <cy-header color="light">
+                <cy-header color={this.color}>
                   <h3 class="cy-title">菜单</h3>
                 </cy-header>
                 <cy-content>
                   {components.map(com => (
                     <cy-item
+                      class={{
+                        'select-com': this.choose === com,
+                      }}
                       onClick={() => {
                         this.switchCom(com);
                       }}
-                      line
                       button>
                       <cy-icon color={this.color} slot="start" name={com}></cy-icon>
                       <h3>{com}</h3>
@@ -77,14 +80,14 @@ export class PageRoot {
               </div>
             </cy-menu>
             <div class="menu-page">
-              <cy-header color="light">
+              <cy-header color={this.color}>
                 <div onClick={this.toggleMenu} class="btn-box activatable" slot="start">
-                  <cy-icon name="menu" color={this.color} />
+                  <cy-icon name="menu" />
                   <cy-ripple type="unbounded" />
                 </div>
                 <h3 class="cy-title">{this.choose}</h3>
                 <div onClick={this.selectColor.bind(this)} class="btn-box activatable" slot="end">
-                  <cy-icon name="color" id="colorPicker" color={this.color} />
+                  <cy-icon name="color"  />
                   <cy-ripple type="unbounded" />
                 </div>
               </cy-header>

@@ -10,8 +10,8 @@ export class segment {
   private gesture: Gesture;
   @Element() el: HTMLElement;
   private currentEl: HTMLCySegmentButtonElement;
-  @Prop() color: string = 'primary';
-  @Prop() value: string = '';
+  @Prop() color: string = '';
+  @Prop({ mutable: true }) value: string = '';
   @Prop() scrollable: boolean = false;
   @Event() cyChange: EventEmitter;
 
@@ -145,7 +145,7 @@ export class segment {
           this.clickSeg(e);
         }}
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
           'overfrow-scroll': this.scrollable,
         }}
       >

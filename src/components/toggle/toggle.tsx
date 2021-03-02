@@ -55,7 +55,7 @@ export class toggle implements ComponentInterface {
       <Host
         onClick={this.onClick.bind(this)}
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
           'toggle-checked': this.checked,
         }}
       >

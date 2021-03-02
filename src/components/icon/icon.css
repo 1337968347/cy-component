@@ -1,15 +1,13 @@
-.svg-container {
+:host {
   display: inline-block;
   width: 1em;
   height: 1em;
-  stroke: var(--cy-color-base, currentColor);
   font-size: 30px;
   --stroke-width: 32px;
 }
-.svg-container svg {
+svg {
   width: 100%;
   height: 100%;
   display: block;
   stroke-width: var(--stroke-width);
-  fill: transparent;
 }

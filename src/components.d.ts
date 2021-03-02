@@ -9,6 +9,7 @@ import { ActionSheetButton, CalendarDate, ViewMode } from "./interface";
 export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
+        "color": string;
         "cssClass": string;
         "dismiss": () => Promise<void>;
         "header": string;
@@ -269,6 +270,7 @@ declare global {
 declare namespace LocalJSX {
     interface CyActionSheet {
         "buttons"?: ActionSheetButton[];
+        "color"?: string;
         "cssClass"?: string;
         "header"?: string;
         "overlayIndex"?: number;

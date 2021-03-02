@@ -6,7 +6,7 @@ import { Component, Prop, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class checkbox {
-  @Prop() color: string = 'primary';
+  @Prop() color: string = '';
   @Prop() checked: boolean = true;
 
   render() {
@@ -16,7 +16,7 @@ export class checkbox {
           this.checked = !!!this.checked;
         }}
         class={{
-          [`cy-color-${this.color}`]: true,
+          [`cy-color-${this.color}`]: !!this.color,
           'cy-checked': this.checked,
         }}
       >
