@@ -22,9 +22,9 @@ export class cyIcon {
       <Host
         class={{
           [`cy-color-${this.color}`]: !!this.color,
-          'svg-container': true,
+          
         }}>
-        <div innerHTML={this.svgContent}></div>
+        <div class="svg-container" innerHTML={this.svgContent}></div>
       </Host>
     );
   }
