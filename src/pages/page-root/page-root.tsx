@@ -8,7 +8,7 @@ const components = ['button', 'time', 'calendar', 'segment', 'toggle', 'checkbox
 })
 export class PageRoot {
   @Element() el: HTMLElement;
-  @State() color = localStorage.getItem('color') || 'promary';
+  @State() color = localStorage.getItem('color') || 'primary';
   @State() choose: string = 'button';
 
   componentWillLoad() {
