@@ -271,6 +271,10 @@ body {
   -webkit-overflow-scrolling: none;
 }
 
+.cy-page-hidden {
+  display: none;
+}
+
 .toast-wrapper {
   position: absolute;
   bottom: 40px;

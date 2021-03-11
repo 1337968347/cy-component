@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'time', 'calendar', 'segment', 'checkbox', 'loading'];
+const components = ['button', 'time', 'calendar', 'segment', 'nav', 'checkbox', 'loading'];
 
 @Component({
   tag: 'page-root',
@@ -89,28 +89,30 @@ export class PageRoot {
               </div>
             </cy-menu>
             <div class="menu-page">
-              <cy-header>
-                <div onClick={this.toggleMenu} class="btn-box activatable" slot="start">
-                  <cy-icon name="menu" />
-                  <cy-ripple type="unbounded" />
-                </div>
-                <h3 class="cy-title">{this.choose}</h3>
-                <div class="btn-box" slot="end">
-                  <div class="btn activatable" onClick={this.selectColor.bind(this)}>
-                    <cy-icon
-                      name="color"
-                      class={{
-                        [`cy-color-${this.color}`]: !!this.color,
-                      }}
-                    />
+              <cy-nav>
+                <cy-header>
+                  <div onClick={this.toggleMenu} class="btn-box activatable" slot="start">
+                    <cy-icon name="menu" />
                     <cy-ripple type="unbounded" />
                   </div>
-                  <cy-toggle onCyChange={this.themeChange.bind(this)} color={this.color}></cy-toggle>
-                </div>
-              </cy-header>
-              <cy-content>
-                <div class="container">{RenderShowItem(this.choose, this.color)}</div>
-              </cy-content>
+                  <h3 class="cy-title">{this.choose}</h3>
+                  <div class="btn-box" slot="end">
+                    <div class="btn activatable" onClick={this.selectColor.bind(this)}>
+                      <cy-icon
+                        name="color"
+                        class={{
+                          [`cy-color-${this.color}`]: !!this.color,
+                        }}
+                      />
+                      <cy-ripple type="unbounded" />
+                    </div>
+                    <cy-toggle onCyChange={this.themeChange.bind(this)} color={this.color}></cy-toggle>
+                  </div>
+                </cy-header>
+                <cy-content>
+                  <div class="container">{RenderShowItem(this.choose, this.color)}</div>
+                </cy-content>
+              </cy-nav>
             </div>
           </div>
         </cy-app>
@@ -129,6 +131,16 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
       return <cy-checkbox color={color}>{color}</cy-checkbox>;
     case 'loading':
       return <cy-spinner color={color}>{color}</cy-spinner>;
+    case 'nav':
+      return (
+        <cy-button
+          onClick={() => {
+            nextPage();
+          }}
+          color={color}>
+          next page
+        </cy-button>
+      );
     case 'calendar':
       return <cy-calendar color={color}>{color}</cy-calendar>;
     case 'segment':
@@ -155,4 +167,8 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
     default:
       return <div></div>;
   }
+};
+
+const nextPage = () => {
+  document.querySelector('cy-nav').push('page-root');
 };

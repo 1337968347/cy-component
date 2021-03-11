@@ -72,8 +72,8 @@ export namespace Components {
         "toggle": () => Promise<void>;
     }
     interface CyNav {
-        "addCom": () => Promise<void>;
         "pop": () => Promise<void>;
+        "push": (componentName: string) => Promise<void>;
     }
     interface CyRefresh {
     }
