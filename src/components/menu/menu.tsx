@@ -18,7 +18,7 @@ export class CyMenu {
   private canMoveX: number = 0;
   private animation: Animation;
   private isOpen: boolean = false;
-  @State() isExpend: boolean = false;
+  @State() isPc: boolean = false;
 
   componentDidLoad() {
     this.calcExpend();
@@ -33,13 +33,13 @@ export class CyMenu {
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
     });
-    this.gesture.enable(!this.isExpend);
+    this.gesture.enable(!this.isPc);
   }
 
   calcExpend() {
     const clientWidth = this.el.closest('cy-app').clientWidth;
     if (clientWidth > 700) {
-      this.isExpend = true;
+      this.isPc = true;
       this.isOpen = true;
       this.el.classList.add(ANIMATIONClASS);
     }
@@ -109,7 +109,7 @@ export class CyMenu {
 
   @Listen('click', { capture: true })
   onBackDropClick() {
-    if (!this.isExpend) {
+    if (!this.isPc) {
       this.close();
     }
   }
@@ -170,12 +170,12 @@ export class CyMenu {
     return (
       <Host
         class={{
-          ['expend-menu']: this.isExpend === true,
+          ['expend-menu']: this.isPc === true,
         }}>
         <div class="menu-container">
           <slot />
         </div>
-        {!this.isExpend ? <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} /> : null}
+        {!this.isPc ? <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} /> : null}
       </Host>
     );
   }

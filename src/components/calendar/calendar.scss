@@ -1,7 +1,7 @@
 :host {
   --color: var(--cy-color-contrast);
   --background-color: var(--cy-color-tint);
-  --max-width: 500px;
+  --max-width: 400px;
   --grey-color: rgba(var(--cy-color-contrast-rgb), 0.4);
   display: block;
   color: var(--color);
@@ -143,8 +143,8 @@ cy-icon {
   display: block;
   position: absolute;
   background: radial-gradient(rgba(var(--cy-color-contrast-rgb), 0.5) 5%, transparent 60%);
-  width: 45%;
-  height: 45%;
+  width: 55%;
+  height: 55%;
   border-radius: 50%;
   z-index: -1;
   transform: translate(-50%, -50%);

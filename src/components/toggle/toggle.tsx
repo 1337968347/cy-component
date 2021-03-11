@@ -20,7 +20,7 @@ export class toggle implements ComponentInterface {
       el: this.el,
       direction: 'x',
       passive: false,
-      maxAngle: 25,
+      maxAngle: 35,
       threshold: 3,
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),

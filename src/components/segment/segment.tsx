@@ -20,7 +20,7 @@ export class segment {
       el: this.el,
       direction: 'x',
       passive: true,
-      maxAngle: 25,
+      maxAngle: 35,
       threshold: 0,
       canStart: this.canStart.bind(this),
       onStart: this.onStart.bind(this),

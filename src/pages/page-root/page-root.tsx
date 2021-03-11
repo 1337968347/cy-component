@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'time', 'calendar', 'segment', 'toggle', 'checkbox', 'loading'];
+const components = ['button', 'time', 'calendar', 'segment', 'checkbox', 'loading'];
 
 @Component({
   tag: 'page-root',
@@ -81,7 +81,7 @@ export class PageRoot {
                         this.switchCom(com);
                       }}
                       button>
-                      <cy-icon slot="start" name={com}></cy-icon>
+                      <cy-icon slot="start" color={this.color} name={com}></cy-icon>
                       <h3 class="menu-h3">{com}</h3>
                     </cy-item>
                   ))}
@@ -95,8 +95,8 @@ export class PageRoot {
                   <cy-ripple type="unbounded" />
                 </div>
                 <h3 class="cy-title">{this.choose}</h3>
-                <div onClick={this.selectColor.bind(this)} class="btn-box" slot="end">
-                  <div class="btn activatable">
+                <div class="btn-box" slot="end">
+                  <div class="btn activatable" onClick={this.selectColor.bind(this)}>
                     <cy-icon
                       name="color"
                       class={{
@@ -123,8 +123,6 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
   switch (comName) {
     case 'button':
       return <cy-button color={color}>{color}</cy-button>;
-    case 'toggle':
-      return <cy-toggle color={color}>{color}</cy-toggle>;
     case 'time':
       return <cy-time color={color}>{color}</cy-time>;
     case 'checkbox':
