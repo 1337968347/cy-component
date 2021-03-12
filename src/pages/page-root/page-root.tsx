@@ -90,28 +90,30 @@ export class PageRoot {
             </cy-menu>
             <div class="menu-page">
               <cy-nav>
-                <cy-header>
-                  <div onClick={this.toggleMenu} class="btn-box activatable" slot="start">
-                    <cy-icon name="menu" />
-                    <cy-ripple type="unbounded" />
-                  </div>
-                  <h3 class="cy-title">{this.choose}</h3>
-                  <div class="btn-box" slot="end">
-                    <div class="btn activatable" onClick={this.selectColor.bind(this)}>
-                      <cy-icon
-                        name="color"
-                        class={{
-                          [`cy-color-${this.color}`]: !!this.color,
-                        }}
-                      />
+                <div class="cy-page">
+                  <cy-header>
+                    <div onClick={this.toggleMenu} class="btn-box activatable" slot="start">
+                      <cy-icon name="menu" />
                       <cy-ripple type="unbounded" />
                     </div>
-                    <cy-toggle onCyChange={this.themeChange.bind(this)} color={this.color}></cy-toggle>
-                  </div>
-                </cy-header>
-                <cy-content>
-                  <div class="container">{RenderShowItem(this.choose, this.color)}</div>
-                </cy-content>
+                    <h3 class="cy-title">{this.choose}</h3>
+                    <div class="btn-box" slot="end">
+                      <div class="btn activatable" onClick={this.selectColor.bind(this)}>
+                        <cy-icon
+                          name="color"
+                          class={{
+                            [`cy-color-${this.color}`]: !!this.color,
+                          }}
+                        />
+                        <cy-ripple type="unbounded" />
+                      </div>
+                      <cy-toggle onCyChange={this.themeChange.bind(this)} color={this.color}></cy-toggle>
+                    </div>
+                  </cy-header>
+                  <cy-content>
+                    <div class="container">{RenderShowItem(this.choose, this.color)}</div>
+                  </cy-content>
+                </div>
               </cy-nav>
             </div>
           </div>
@@ -132,15 +134,21 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
     case 'loading':
       return <cy-spinner color={color}>{color}</cy-spinner>;
     case 'nav':
-      return (
+      return [
         <cy-button
           onClick={() => {
             nextPage();
           }}
           color={color}>
           next page
-        </cy-button>
-      );
+        </cy-button>,
+        <cy-button
+          onClick={() => {
+            back();
+          }}>
+          back
+        </cy-button>,
+      ];
     case 'calendar':
       return <cy-calendar color={color}>{color}</cy-calendar>;
     case 'segment':
@@ -171,4 +179,8 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
 
 const nextPage = () => {
   document.querySelector('cy-nav').push('page-root');
+};
+
+const back = () => {
+  document.querySelector('cy-nav').pop();
 };

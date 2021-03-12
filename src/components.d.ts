@@ -100,6 +100,8 @@ export namespace Components {
         "color": string;
         "gestureEnable": boolean;
     }
+    interface PageHome {
+    }
     interface PageRoot {
     }
 }
@@ -236,6 +238,12 @@ declare global {
         prototype: HTMLCyToggleElement;
         new (): HTMLCyToggleElement;
     };
+    interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
+    }
+    var HTMLPageHomeElement: {
+        prototype: HTMLPageHomeElement;
+        new (): HTMLPageHomeElement;
+    };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
     var HTMLPageRootElement: {
@@ -265,6 +273,7 @@ declare global {
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
+        "page-home": HTMLPageHomeElement;
         "page-root": HTMLPageRootElement;
     }
 }
@@ -349,6 +358,8 @@ declare namespace LocalJSX {
         "gestureEnable"?: boolean;
         "onCyChange"?: (event: CustomEvent<any>) => void;
     }
+    interface PageHome {
+    }
     interface PageRoot {
     }
     interface IntrinsicElements {
@@ -374,6 +385,7 @@ declare namespace LocalJSX {
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
+        "page-home": PageHome;
         "page-root": PageRoot;
     }
 }
@@ -403,6 +415,7 @@ declare module "@stencil/core" {
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
+            "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
         }
     }
