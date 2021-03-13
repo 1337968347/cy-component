@@ -58,6 +58,21 @@
 .menu-page {
   flex: 1;
   height: 100%;
+  position: relative;
+}
+
+.menu-item {
+  cy-icon {
+    color: var(--cy-color-base);
+  }
+}
+
+.select-com {
+  background: var(--cy-color-tint);
+  color: var(--cy-color-contrast);
+  cy-icon {
+    color: var(--cy-color-contrast);
+  }
 }
 
 .menu-h3 {

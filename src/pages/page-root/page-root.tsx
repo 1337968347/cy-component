@@ -1,6 +1,6 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
-const components = ['button', 'time', 'calendar', 'segment', 'nav', 'checkbox', 'loading'];
+const components = ['mobile', 'calendar', 'nav'];
 
 @Component({
   tag: 'page-root',
@@ -73,6 +73,7 @@ export class PageRoot {
                 <cy-content>
                   {components.map(com => (
                     <cy-item
+                      color={this.color}
                       class={{
                         'select-com': this.choose === com,
                         'menu-item': true,
@@ -81,7 +82,7 @@ export class PageRoot {
                         this.switchCom(com);
                       }}
                       button>
-                      <cy-icon slot="start" color={this.color} name={com}></cy-icon>
+                      <cy-icon slot="start" name={com}></cy-icon>
                       <h3 class="menu-h3">{com}</h3>
                     </cy-item>
                   ))}
@@ -125,14 +126,6 @@ export class PageRoot {
 
 const RenderShowItem = (comName: string, color: string = 'primary') => {
   switch (comName) {
-    case 'button':
-      return <cy-button color={color}>{color}</cy-button>;
-    case 'time':
-      return <cy-time color={color}>{color}</cy-time>;
-    case 'checkbox':
-      return <cy-checkbox color={color}>{color}</cy-checkbox>;
-    case 'loading':
-      return <cy-spinner color={color}>{color}</cy-spinner>;
     case 'nav':
       return [
         <cy-button
@@ -151,27 +144,8 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
       ];
     case 'calendar':
       return <cy-calendar color={color}>{color}</cy-calendar>;
-    case 'segment':
-      return (
-        <div>
-          <h3>不可滚动的（可拖动）</h3>
-          <cy-segment color={color} value="大狗子">
-            <cy-segment-button value="大狗子">大狗子</cy-segment-button>
-            <cy-segment-button value="二狗子">二狗子</cy-segment-button>
-            <cy-segment-button value="三狗子">三狗子</cy-segment-button>
-          </cy-segment>
-          <h3>可以滚动的</h3>
-          <cy-segment color={color} value="大狗子" scrollable>
-            <cy-segment-button value="大狗子">大狗子</cy-segment-button>
-            <cy-segment-button value="二狗子">二狗子</cy-segment-button>
-            <cy-segment-button value="三狗子">三狗子</cy-segment-button>
-            <cy-segment-button value="四狗子">四狗子</cy-segment-button>
-            <cy-segment-button value="五狗子">五狗子</cy-segment-button>
-            <cy-segment-button value="六狗子">六狗子</cy-segment-button>
-            <cy-segment-button value="七狗子">七狗子</cy-segment-button>
-          </cy-segment>
-        </div>
-      );
+    case 'mobile':
+      return <page-mobile color={color}></page-mobile>;
     default:
       return <div></div>;
   }

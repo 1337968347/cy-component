@@ -6,13 +6,18 @@ import { Component, Prop, State, h, Host } from '@stencil/core';
   shadow: true,
 })
 export class item {
+  @Prop() color: string;
   @Prop() button: boolean = false;
   @Prop() line: boolean = false;
   @State() isFocus: boolean = false;
 
   render() {
     return (
-      <Host class="activatable">
+      <Host
+        class={{
+          activatable: true,
+          [`cy-color-${this.color}`]: !!this.color,
+        }}>
         <div
           class={{
             'item-native': true,
