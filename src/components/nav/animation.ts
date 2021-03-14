@@ -9,7 +9,7 @@ export const enterAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => 
       { offset: 1, opacity: '1', transform: 'translateY(0)' },
     ])
     .easing('cubic-bezier(.42,0,1,1)')
-    .duration(150)
+    .duration(250)
     .addElement(baseEl);
 };
 
@@ -21,6 +21,6 @@ export const leaveAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => 
       { offset: 1, opacity: '0', transform: 'translateY(10%)' },
     ])
     .easing('cubic-bezier(0,0,.58,1)')
-    .duration(150)
+    .duration(250)
     .addElement(baseEl);
 };

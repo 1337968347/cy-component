@@ -3,34 +3,36 @@ import { enterAnimationBuilder, leaveAnimationBuilder } from './animation';
 @Component({
   tag: 'cy-nav',
   styleUrl: 'nav.scss',
+  shadow: true,
 })
 export class nav {
   @Element() el: HTMLElement;
   @State() lastId = 0;
-  private navContainer: HTMLElement;
-
-  componentDidLoad() {
-    this.navContainer = this.el.querySelector<HTMLElement>('.nav-container')
-  }
 
   @Method()
   async push(componentName: string) {
     const comEl = document.createElement(componentName);
-    this.navContainer.appendChild(comEl);
+    comEl.classList.add('cy-page');
+
+    this.el.appendChild(comEl);
     const aniEnter = enterAnimationBuilder(comEl);
     await aniEnter.play();
-    this.onlyLastOnePageShow(this.navContainer);
+
+    this.showLastNumPage(this.el, 1);
   }
 
   @Method()
   async pop() {
-    const childEls = Array.from(this.navContainer.children);
+    const childEls = Array.from(this.el.children);
     if (childEls.length > 1) {
       const popPageEL = childEls[childEls.length - 1];
+      this.showLastNumPage(this.el, 2);
+
       const aniLeave = leaveAnimationBuilder(popPageEL);
       await aniLeave.play();
       popPageEL.remove();
-      this.onlyLastOnePageShow(this.navContainer);
+
+      this.showLastNumPage(this.el, 1);
     }
   }
 
@@ -38,14 +40,15 @@ export class nav {
    * only show last page show
    * @param navContainerEl
    */
-  onlyLastOnePageShow(navContainerEl: HTMLElement, showNum: number = 1) {
+  showLastNumPage(navContainerEl: HTMLElement, showNum: number = 1) {
     const childEls = Array.from(navContainerEl.children);
-    childEls
-      .filter((_item, index) => index - showNum > childEls.length)
-      .map(pageEl => {
+    childEls.map((pageEl, index) => {
+      if (index + showNum > childEls.length - 1) {
+        pageEl.classList.remove('cy-page-hidden');
+      } else {
         pageEl.classList.add('cy-page-hidden');
-      });
-    childEls[childEls.length - 1].classList.remove('cy-page-hidden');
+      }
+    });
   }
 
   render() {
