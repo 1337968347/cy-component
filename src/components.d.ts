@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionSheetButton, CalendarDate, ViewMode } from "./interface";
+import { ActionSheetButton, CalendarDate, CalendarViewMode } from "./interface";
 export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
@@ -27,7 +27,7 @@ export namespace Components {
         "expend": 'default' | 'full' | 'block';
     }
     interface CyCalendar {
-        "change": (modifyCalendarDate: CalendarDate, viewMode?: ViewMode) => Promise<void>;
+        "change": (modifyCalendarDate: CalendarDate, viewMode?: CalendarViewMode) => Promise<void>;
         "color": string;
         "nextPage": () => Promise<void>;
         "prevPage": () => Promise<void>;
@@ -100,6 +100,10 @@ export namespace Components {
         "checked": boolean;
         "color": string;
         "gestureEnable": boolean;
+    }
+    interface NavPageone {
+    }
+    interface NavPagetwo {
     }
     interface PageMobile {
         "color": string;
@@ -240,6 +244,18 @@ declare global {
         prototype: HTMLCyToggleElement;
         new (): HTMLCyToggleElement;
     };
+    interface HTMLNavPageoneElement extends Components.NavPageone, HTMLStencilElement {
+    }
+    var HTMLNavPageoneElement: {
+        prototype: HTMLNavPageoneElement;
+        new (): HTMLNavPageoneElement;
+    };
+    interface HTMLNavPagetwoElement extends Components.NavPagetwo, HTMLStencilElement {
+    }
+    var HTMLNavPagetwoElement: {
+        prototype: HTMLNavPagetwoElement;
+        new (): HTMLNavPagetwoElement;
+    };
     interface HTMLPageMobileElement extends Components.PageMobile, HTMLStencilElement {
     }
     var HTMLPageMobileElement: {
@@ -275,6 +291,8 @@ declare global {
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
+        "nav-pageone": HTMLNavPageoneElement;
+        "nav-pagetwo": HTMLNavPagetwoElement;
         "page-mobile": HTMLPageMobileElement;
         "page-root": HTMLPageRootElement;
     }
@@ -361,6 +379,10 @@ declare namespace LocalJSX {
         "gestureEnable"?: boolean;
         "onCyChange"?: (event: CustomEvent<any>) => void;
     }
+    interface NavPageone {
+    }
+    interface NavPagetwo {
+    }
     interface PageMobile {
         "color"?: string;
     }
@@ -389,6 +411,8 @@ declare namespace LocalJSX {
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
+        "nav-pageone": NavPageone;
+        "nav-pagetwo": NavPagetwo;
         "page-mobile": PageMobile;
         "page-root": PageRoot;
     }
@@ -419,6 +443,8 @@ declare module "@stencil/core" {
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
+            "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
+            "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-mobile": LocalJSX.PageMobile & JSXBase.HTMLAttributes<HTMLPageMobileElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
         }

@@ -20,8 +20,11 @@ export class CyMenu {
   private isOpen: boolean = false;
   @State() isPc: boolean = false;
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.calcExpend();
+  }
+
+  componentDidLoad() {
     this.gesture = createGesture({
       el: document,
       direction: 'x',
@@ -37,8 +40,7 @@ export class CyMenu {
   }
 
   calcExpend() {
-    const clientWidth = this.el.closest('cy-app').clientWidth;
-    if (clientWidth > 700) {
+    if (screen.availWidth > 700) {
       this.isPc = true;
       this.isOpen = true;
       this.el.classList.add(ANIMATIONClASS);

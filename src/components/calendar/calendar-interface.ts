@@ -12,4 +12,4 @@ export interface CalendarDate {
   day?: number;
 }
 
-export declare type ViewMode = 'decade' | 'year' | 'month';
+export declare type CalendarViewMode = 'decade' | 'year' | 'month';

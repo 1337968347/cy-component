@@ -1,9 +1,9 @@
 import { Component, Element, Prop, State, Method, Host, Event, EventEmitter, h } from '@stencil/core';
-import { ViewMode, CalendarDate } from '../../interface';
+import { CalendarViewMode, CalendarDate } from '../../interface';
 import { getDecadeRange } from './utils';
 import { enterAnimationBuilder, backAnimationBuilder } from './animation';
 
-const ViewModeEnum: ViewMode[] = ['decade', 'year', 'month'];
+const ViewModeEnum: CalendarViewMode[] = ['decade', 'year', 'month'];
 
 @Component({
   tag: 'cy-calendar',
@@ -15,7 +15,7 @@ export class CyCalendar {
   @Prop() color: string = '';
   // 下标 0： 十年  1： 年  2：月份
   @State() calendarDate: CalendarDate;
-  @State() viewMode: ViewMode = 'month';
+  @State() viewMode: CalendarViewMode = 'month';
   @Event() choose: EventEmitter;
   private isAsync: Boolean = false;
   private activeEl: HTMLElement;
@@ -62,7 +62,7 @@ export class CyCalendar {
     return willActiveEl;
   }
 
-  async switchViewMode(viewMode: ViewMode) {
+  async switchViewMode(viewMode: CalendarViewMode) {
     if (this.viewMode === viewMode && this.activeEl) {
       return;
     }
@@ -105,7 +105,7 @@ export class CyCalendar {
   }
 
   @Method()
-  async change(modifyCalendarDate: CalendarDate, viewMode?: ViewMode) {
+  async change(modifyCalendarDate: CalendarDate, viewMode?: CalendarViewMode) {
     this.calendarDate = { ...this.calendarDate, ...modifyCalendarDate };
     (this.activeEl as any).calendarDate = this.calendarDate;
     if (viewMode) {

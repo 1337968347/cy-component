@@ -1,5 +1,8 @@
 import { Component, State, Host, Element, h } from '@stencil/core';
 import { showToast } from '../../utils/toast';
+import { configManager } from '../../utils/config';
+import { Color, ViewMode } from '../../interface';
+
 const components = ['mobile', 'calendar', 'nav'];
 
 @Component({
@@ -8,7 +11,8 @@ const components = ['mobile', 'calendar', 'nav'];
 })
 export class PageRoot {
   @Element() el: HTMLElement;
-  @State() color = localStorage.getItem('color') || 'primary';
+  @State() color = configManager.getPreferColor();
+  @State() viewMode: ViewMode = configManager.getViewMode();
   @State() choose: string = 'button';
 
   componentWillLoad() {
@@ -30,14 +34,14 @@ export class PageRoot {
     actionSheet.color = this.color;
     const buttons = [];
 
-    ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'light', 'medium', 'dark'].map(color => {
+    ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'light', 'medium', 'dark'].map((color: Color) => {
       const title = `${color}`;
       buttons.push({
         text: title,
         handler: () => {
           showToast({ title: color });
           this.color = color;
-          localStorage.setItem('color', color);
+          configManager.setPreferColor(color);
         },
       });
     });
@@ -54,10 +58,11 @@ export class PageRoot {
 
   themeChange(e: CustomEvent) {
     if (e.detail) {
-      document.body.classList.add('dark-theme');
+      this.viewMode = 'dark';
     } else {
-      document.body.classList.remove('dark-theme');
+      this.viewMode = 'light';
     }
+    configManager.setViewMode(this.viewMode);
   }
 
   render() {
@@ -80,8 +85,7 @@ export class PageRoot {
                       }}
                       onClick={() => {
                         this.switchCom(com);
-                      }}
-                      button>
+                      }}>
                       <cy-icon slot="start" name={com}></cy-icon>
                       <h3 class="menu-h3">{com}</h3>
                     </cy-item>
@@ -108,12 +112,10 @@ export class PageRoot {
                         />
                         <cy-ripple type="unbounded" />
                       </div>
-                      <cy-toggle onCyChange={this.themeChange.bind(this)} color={this.color}></cy-toggle>
+                      <cy-toggle onCyChange={this.themeChange.bind(this)} checked={this.viewMode === 'dark'} color={this.color}></cy-toggle>
                     </div>
                   </cy-header>
-                  <cy-content>
-                    <div class="container">{RenderShowItem(this.choose, this.color)}</div>
-                  </cy-content>
+                  <cy-content>{RenderShowItem(this.choose, this.color)}</cy-content>
                 </div>
               </cy-nav>
             </div>
@@ -127,21 +129,17 @@ export class PageRoot {
 const RenderShowItem = (comName: string, color: string = 'primary') => {
   switch (comName) {
     case 'nav':
-      return [
-        <cy-button
-          onClick={() => {
-            nextPage();
-          }}
-          color={color}>
-          next page
-        </cy-button>,
-        <cy-button
-          onClick={() => {
-            back();
-          }}>
-          back
-        </cy-button>,
-      ];
+      return (
+        <cy-nav>
+          <cy-button
+            onClick={() => {
+              nextPage();
+            }}
+            color={color}>
+            next page
+          </cy-button>
+        </cy-nav>
+      );
     case 'calendar':
       return <cy-calendar color={color}>{color}</cy-calendar>;
     case 'mobile':
@@ -152,9 +150,5 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
 };
 
 const nextPage = () => {
-  document.querySelector('cy-nav').push('page-root');
-};
-
-const back = () => {
-  document.querySelector('cy-nav').pop();
+  document.querySelector('cy-nav').push('nav-pageone');
 };
