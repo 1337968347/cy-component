@@ -3,7 +3,7 @@ import { showToast } from '../../utils/toast';
 import { configManager } from '../../utils/config';
 import { Color, ViewMode } from '../../interface';
 
-const components = ['mobile', 'calendar', 'nav'];
+const components = ['mobile', 'calendar', 'nav', 'data-screen'];
 
 @Component({
   tag: 'page-root',
@@ -30,7 +30,7 @@ export class PageRoot {
 
   selectColor() {
     const actionSheet = document.createElement('cy-action-sheet');
-    actionSheet.header = '选择你偏爱的颜色';
+    actionSheet.header = '选择主题颜色';
     actionSheet.color = this.color;
     const buttons = [];
 
@@ -144,6 +144,19 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
       return <cy-calendar color={color}>{color}</cy-calendar>;
     case 'mobile':
       return <page-mobile color={color}></page-mobile>;
+    case 'data-screen':
+      return (
+        <div>
+          <h3>使用stencil ionic搭建的数据可视化系统</h3>
+          <cy-button
+            color={color}
+            onClick={() => {
+              location.href = 'https://1337968347.github.io/DataScreen/';
+            }}>
+            jump
+          </cy-button>
+        </div>
+      );
     default:
       return <div></div>;
   }
