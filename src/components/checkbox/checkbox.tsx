@@ -7,7 +7,7 @@ import { Component, Prop, Host, h } from '@stencil/core';
 })
 export class checkbox {
   @Prop() color: string = '';
-  @Prop() checked: boolean = true;
+  @Prop({ mutable: true }) checked: boolean = true;
 
   render() {
     return (
@@ -18,8 +18,7 @@ export class checkbox {
         class={{
           [`cy-color-${this.color}`]: !!this.color,
           'cy-checked': this.checked,
-        }}
-      >
+        }}>
         <svg version="1.1" viewBox="0 0 64 64">
           <rect
             x="0"
