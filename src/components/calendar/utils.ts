@@ -1,4 +1,3 @@
-import { addEventListener } from '../../utils/gesture/listener';
 /**
  * 获取指定月份的天数
  * @param year
@@ -162,42 +161,6 @@ export const getRenderYear = (decade: number[]) => {
     renderYears.push(i);
   }
   return formatDateArr(renderYears, 4);
-};
-
-export const addBorder = (baseEl: HTMLElement) => {
-  let rect = undefined;
-  let mouseBgEl = undefined;
-  let rmMouseMove = undefined;
-  addEventListener(
-    baseEl,
-    'mouseenter',
-    () => {
-      mouseBgEl = baseEl.querySelector<HTMLElement>('.mouseover-bg');
-      rect = baseEl.getBoundingClientRect();
-      mouseBgEl.style.display = 'block';
-      rmMouseMove = addEventListener(
-        baseEl,
-        'mousemove',
-        (e: MouseEvent) => {
-          requestAnimationFrame(() => {
-            mouseBgEl.style.left = e.clientX - rect.left + 'px';
-            mouseBgEl.style.top = e.clientY - rect.top + 'px';
-          });
-        },
-        {},
-      );
-    },
-    {},
-  );
-  addEventListener(
-    baseEl,
-    'mouseleave',
-    () => {
-      mouseBgEl.style.display = 'none';
-      rmMouseMove && rmMouseMove();
-    },
-    {},
-  );
 };
 
 export const TranslateClass = 'TranslateAni';

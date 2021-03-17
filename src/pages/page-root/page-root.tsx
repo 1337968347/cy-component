@@ -142,9 +142,9 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
       );
     case 'calendar':
       return (
-        <div style={{ 'text-align': 'center' }}>
-          <cy-time color={color}></cy-time>
+        <div>
           <cy-calendar color={color}>{color}</cy-calendar>
+          <cy-time color={color}></cy-time>
         </div>
       );
     case 'mobile':

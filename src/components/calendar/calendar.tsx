@@ -140,6 +140,9 @@ export class CyCalendar {
           [`cy-color-${this.color}`]: !!this.color,
         }}>
         <div class="calendar-header">
+          <div class="nav-box">
+            <cy-icon onClick={this.prevPage.bind(this)} class="activatable" name="up" />
+          </div>
           <div class="calendar-switch activatable" onClick={this.backViewMode.bind(this)}>
             {this.viewMode === 'decade' ? <span>{`${this.calendarDate.decade[0]}-${this.calendarDate.decade[1]}`}</span> : null}
             {this.viewMode === 'year' ? <span>{this.calendarDate.year}年</span> : null}
@@ -149,14 +152,8 @@ export class CyCalendar {
               </span>
             ) : null}
           </div>
-
-          <div class="calendar-page-nav">
-            <div class="nav-box">
-              <cy-icon onClick={this.prevPage.bind(this)} class="activatable" name="up" />
-            </div>
-            <div class="nav-box">
-              <cy-icon onClick={this.nextPage.bind(this)} class="activatable" name="down" />
-            </div>
+          <div class="nav-box">
+            <cy-icon onClick={this.nextPage.bind(this)} class="activatable" name="down" />
           </div>
         </div>
         <div class="calendar-content">

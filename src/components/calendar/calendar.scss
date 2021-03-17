@@ -1,19 +1,21 @@
 :host {
-  --color: var(--cy-color-contrast);
-  --background-color: var(--cy-color-tint);
-  --max-width: 400px;
-  --grey-color: rgba(var(--cy-color-contrast-rgb), 0.4);
+  --color: var(--cy-color-primary);
+  --size: 300px;
+  --grey-color: rgba(var(--cy-color-base-rgb), 0.5);
   display: block;
+  --background-color: var(--cy-color-contrast);
   color: var(--color);
   padding: 0.5em;
-  box-shadow: 0 4px 10px 0 rgb(0 0 0 / 10%);
-  max-width: var(--max-width);
-  background-color: var(--background-color);
+  box-shadow: 0 4px 5px 0 rgb(0 0 0 / 5%);
+  width: var(--size);
   user-select: none;
+  margin: 10px;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .calendar-header {
-  height: 50px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,23 +26,19 @@
   padding: 5px 8px;
 }
 
-.calendar-page-nav {
-  width: 28.5%;
-  display: flex;
-  align-items: center;
-}
-
-.calendar-page-nav .nav-box {
-  height: 100%;
-  flex: 1;
+.nav-box {
+  width: 1.8em;
+  height: 1.8em;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 10px calc(var(--size) / 6) calc(var(--size) / 5) rgb(var(--cy-color-base-rgb), 0.06);
 }
 
 cy-icon {
   color: var(--color);
-  font-size: 1.7em;
+  font-size: 1.3em;
 }
 
 .calendar-content {
@@ -97,7 +95,9 @@ cy-icon {
   overflow: hidden;
   position: relative;
   z-index: -2;
-  background-color: var(--background-color);
+}
+.table .tr:first-of-type {
+  color: var(--grey-color);
 }
 
 .tr {
@@ -107,13 +107,13 @@ cy-icon {
 .td {
   flex: 1;
   position: relative;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-color);
-  margin: 2px;
-  border: 4px solid transparent;
+  border-radius: 30%;
+  overflow: hidden;
+  margin: 5px;
+  border: 2px solid transparent;
 }
 
 @media (any-hover: hover) {
@@ -139,26 +139,15 @@ cy-icon {
   align-items: center;
 }
 
-.mouseover-bg {
-  display: block;
-  position: absolute;
-  background: radial-gradient(rgba(var(--cy-color-contrast-rgb), 0.5) 5%, transparent 60%);
-  width: 55%;
-  height: 55%;
-  border-radius: 50%;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-}
-
 .obvious {
   color: var(--color);
 }
 
 .now {
-  background: var(--cy-color-shade);
-  color: var(--color);
+  background: var(--cy-color-primary);
+  color: var(--cy-color-contrast);
 }
 
 .choosed {
-  border: 4px solid var(--cy-color-shade) !important;
+  border: 2px solid var(--grey-color) !important;
 }
