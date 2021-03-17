@@ -3,7 +3,7 @@ import { showToast } from '../../utils/toast';
 import { configManager } from '../../utils/config';
 import { Color, ViewMode } from '../../interface';
 
-const components = ['mobile', 'calendar', 'nav', 'data-screen'];
+const components = ['mobile', 'calendar', 'nav', 'data-screen', 'animation'];
 
 @Component({
   tag: 'page-root',
@@ -141,7 +141,12 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
         </cy-nav>
       );
     case 'calendar':
-      return <cy-calendar color={color}>{color}</cy-calendar>;
+      return (
+        <div style={{ 'text-align': 'center' }}>
+          <cy-time color={color}></cy-time>
+          <cy-calendar color={color}>{color}</cy-calendar>
+        </div>
+      );
     case 'mobile':
       return <page-mobile color={color}></page-mobile>;
     case 'data-screen':
