@@ -9,36 +9,16 @@ export class CalendarMonth implements calendarComponentInterface {
   @Element() el: HTMLElement;
   @Prop() parent: HTMLCyCalendarElement;
   @State() renderMouths: number[][][] = [];
-  @State() transformY: number = 0;
   dateNow: Date = new Date();
 
   @Prop() calendarDate: CalendarDate;
   @Watch('calendarDate')
   handleNav() {
     this.renderMouths = getRenderMouth(this.calendarDate.year);
-    this.setTransformY(1);
   }
 
   componentWillLoad() {
     this.renderMouths = getRenderMouth(this.calendarDate.year);
-    this.setTransformY(1);
-  }
-
-  /**
-   * 计算平移的距离
-   */
-  private setTransformY(offset: number) {
-    const transLateYArr = [];
-    const oneRowHeight = this.el.closest('.translate-box').clientWidth / 4;
-    this.renderMouths.map((years, index) => {
-      years.map(year => {
-        if (year[1] === 1) {
-          transLateYArr.push(-1 * index * oneRowHeight);
-        }
-      });
-    });
-
-    this.transformY = transLateYArr[offset];
   }
 
   @Method()
@@ -46,7 +26,6 @@ export class CalendarMonth implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transEl.classList.add(TranslateClass);
-      this.setTransformY(0);
 
       setTimeout(() => {
         transEl.classList.remove(TranslateClass);
@@ -63,7 +42,6 @@ export class CalendarMonth implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transEl.classList.add(TranslateClass);
-      this.setTransformY(2);
 
       setTimeout(() => {
         transEl.classList.remove(TranslateClass);
@@ -87,11 +65,7 @@ export class CalendarMonth implements calendarComponentInterface {
     return (
       <div class="table">
         <div class="tbody">
-          <div
-            class="pageNavBox"
-            style={{
-              transform: `translateY(${this.transformY}px)`,
-            }}>
+          <div class="pageNavBox">
             {this.renderMouths.map(mouths => (
               <div class="tr">
                 {mouths.map(month => (

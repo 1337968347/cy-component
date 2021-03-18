@@ -13,33 +13,13 @@ export class CalendarMouth implements calendarComponentInterface {
   @Watch('calendarDate')
   handleNav() {
     this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
-    this.setTransformY(1);
   }
-
   @State() renderDate: number[][][] = [];
-  @State() transformY: number = 0;
 
   activateEl: HTMLElement;
 
   componentWillLoad() {
     this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
-    this.setTransformY(1);
-  }
-
-  /**
-   * 计算平移的距离
-   */
-  private setTransformY(offset: number) {
-    const transLateYArr = [];
-    const oneRowHeight = this.el.closest('.translate-box').clientWidth / 7;
-    this.renderDate.map((week, index) => {
-      week.map(day => {
-        if (day[2] === 1) {
-          transLateYArr.push(-1 * index * oneRowHeight);
-        }
-      });
-    });
-    this.transformY = transLateYArr[offset];
   }
 
   @Method()
@@ -47,7 +27,6 @@ export class CalendarMouth implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transLateEl.classList.add(TranslateClass);
-      this.setTransformY(0);
 
       setTimeout(() => {
         transLateEl.classList.remove(TranslateClass);
@@ -66,7 +45,6 @@ export class CalendarMouth implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transLateEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transLateEl.classList.add(TranslateClass);
-      this.setTransformY(2);
 
       setTimeout(() => {
         transLateEl.classList.remove(TranslateClass);
@@ -105,11 +83,7 @@ export class CalendarMouth implements calendarComponentInterface {
           ))}
         </div>
         <div class="tbody ">
-          <div
-            class="pageNavBox"
-            style={{
-              transform: `translateY(${this.transformY}px)`,
-            }}>
+          <div class="pageNavBox">
             {this.renderDate.map(week => (
               <div class="tr">
                 {week.map(day => (

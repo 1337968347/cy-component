@@ -63,32 +63,20 @@ export const getRenderDay = (year: number, month: number): number[][][] => {
   let tempDay: number = 1;
   let i = 0;
 
-  const [prevPrevMouthYear, prevPrevMouthMouth] = getMouthOffset(year, month, -2);
   const [prevMouthYear, prevMouthMouth] = getMouthOffset(year, month, -1);
   const [nextMouthYear, nextMouthMouth] = getMouthOffset(year, month, 1);
-  const [nextNextMouthYear, nextNextMouthMouth] = getMouthOffset(year, month, 2);
 
   // 上上一个月有多少天
-  const prevPrevMouseNum = getMouseDayNum(prevPrevMouthYear, prevPrevMouthMouth);
   // 上一个月有多少天
   const prevMouseNum = getMouseDayNum(prevMouthYear, prevMouthMouth);
   // 当前月的天数
   const currentMouthNum = getMouseDayNum(year, month);
-  // 下一个月的天数
-  const nextMouthNum = getMouseDayNum(nextMouthYear, nextMouthMouth);
 
-  // -----------------上上一个月的结尾---------------------
+  // -----------------上一个月的结尾---------------------
   // 这个月周一星期几
-  const mouthDayOneWeekNum = getMouseDayOneWeek(prevMouthYear, prevMouthMouth);
+  const mouthDayOneWeekNum = getMouseDayOneWeek(year, month);
   while (i < mouthDayOneWeekNum - 1) {
-    renderDays[i++] = [prevPrevMouthYear, prevPrevMouthMouth, prevPrevMouseNum - mouthDayOneWeekNum + tempDay++ + 1];
-  }
-
-  // ------------------上一个月的-------------------
-  tempDay = 1;
-  // 上个月份 比如1-31日
-  while (tempDay <= prevMouseNum) {
-    renderDays[i++] = [prevMouthYear, prevMouthMouth, tempDay++];
+    renderDays[i++] = [prevMouthYear, prevMouthMouth, prevMouseNum - mouthDayOneWeekNum + tempDay++ + 1];
   }
 
   // ------------------渲染这个月的--------------------
@@ -98,18 +86,12 @@ export const getRenderDay = (year: number, month: number): number[][][] => {
     renderDays[i++] = [year, month, tempDay++];
   }
 
-  // ------------------渲染下一个月--------------------
+  // ------------------渲染下一个月开头---------------------
   tempDay = 1;
-  // 下个月份 比如1-31日
-  while (tempDay <= nextMouthNum) {
+  while (i < 7 * 6) {
     renderDays[i++] = [nextMouthYear, nextMouthMouth, tempDay++];
   }
 
-  // ------------------渲染下下一个月开头---------------------
-  tempDay = 1;
-  while (i < 7 * 15) {
-    renderDays[i++] = [nextNextMouthYear, nextNextMouthMouth, tempDay++];
-  }
   return formatDateArr(renderDays as [], 7);
 };
 
@@ -121,16 +103,10 @@ export const getRenderDay = (year: number, month: number): number[][][] => {
 export const getRenderMouth = (year: number): number[][][] => {
   const renderMouth: number[][] = [];
   for (let i = 0; i < 12; i++) {
-    renderMouth.push([year - 1, i + 1]);
-  }
-  for (let i = 0; i < 12; i++) {
     renderMouth.push([year, i + 1]);
   }
-  for (let i = 0; i < 12; i++) {
-    renderMouth.push([year + 1, i + 1]);
-  }
   for (let i = 0; i < 4; i++) {
-    renderMouth.push([year + 2, i + 1]);
+    renderMouth.push([year + 1, i + 1]);
   }
   return formatDateArr(renderMouth as [], 4);
 };
@@ -151,11 +127,11 @@ export const getRenderYear = (decade: number[]) => {
   let start = 0;
   let end = 0;
   if ((startDecade / 10) % 2 === 0) {
-    start = startDecade - 11;
-    end = endDecade + 15;
+    start = startDecade - 3;
+    end = endDecade + 3;
   } else {
-    start = startDecade - 13;
-    end = endDecade + 13;
+    start = startDecade - 6;
+    end = endDecade + 2;
   }
   for (let i = start; i <= end; i++) {
     renderYears.push(i);

@@ -18,11 +18,6 @@ export class CyMenu {
   private canMoveX: number = 0;
   private animation: Animation;
   private isOpen: boolean = false;
-  @State() isPc: boolean = false;
-
-  componentWillLoad() {
-    this.calcExpend();
-  }
 
   componentDidLoad() {
     this.gesture = createGesture({
@@ -36,15 +31,7 @@ export class CyMenu {
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
     });
-    this.gesture.enable(!this.isPc);
-  }
-
-  calcExpend() {
-    if (screen.availWidth > 700) {
-      this.isPc = true;
-      this.isOpen = true;
-      this.el.classList.add(ANIMATIONClASS);
-    }
+    this.gesture.enable(true);
   }
 
   canStart(e: GestureDetail) {
@@ -111,9 +98,7 @@ export class CyMenu {
 
   @Listen('click', { capture: true })
   onBackDropClick() {
-    if (!this.isPc) {
-      this.close();
-    }
+    this.close();
   }
 
   @Method()
@@ -170,14 +155,11 @@ export class CyMenu {
 
   render() {
     return (
-      <Host
-        class={{
-          ['expend-menu']: this.isPc === true,
-        }}>
+      <Host>
         <div class="menu-container">
           <slot />
         </div>
-        {!this.isPc ? <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} /> : null}
+        <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} />
       </Host>
     );
   }

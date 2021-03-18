@@ -8,7 +8,6 @@ import { getRenderYear, getDecadeRange, TranslateClass } from '../utils';
 export class CalendarYear implements calendarComponentInterface {
   @Element() el: HTMLElement;
   @Prop() parent: HTMLCyCalendarElement;
-  @State() transformY: number = 0;
   @State() renderYears: number[][] = [];
   dateNow: Date = new Date();
 
@@ -16,28 +15,10 @@ export class CalendarYear implements calendarComponentInterface {
   @Watch('calendarDate')
   handleNav() {
     this.renderYears = getRenderYear(this.calendarDate.decade);
-    this.setTransformY(1);
   }
 
   componentWillLoad() {
     this.renderYears = getRenderYear(this.calendarDate.decade);
-    this.setTransformY(1);
-  }
-
-  /**
-   * 计算平移的距离
-   */
-  private setTransformY(offset: number) {
-    const transLateYArr = [];
-    const oneRowHeight = this.el.closest('.translate-box').clientWidth / 4;
-    this.renderYears.map((years, index) => {
-      years.map(year => {
-        if (year % 10 === 0) {
-          transLateYArr.push(-1 * index * oneRowHeight);
-        }
-      });
-    });
-    this.transformY = transLateYArr[offset];
   }
 
   @Method()
@@ -45,7 +26,6 @@ export class CalendarYear implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transEl.classList.add(TranslateClass);
-      this.setTransformY(0);
 
       setTimeout(() => {
         transEl.classList.remove(TranslateClass);
@@ -62,7 +42,6 @@ export class CalendarYear implements calendarComponentInterface {
     return new Promise<void>(resolve => {
       const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
       transEl.classList.add(TranslateClass);
-      this.setTransformY(2);
 
       setTimeout(() => {
         transEl.classList.remove(TranslateClass);
@@ -83,11 +62,7 @@ export class CalendarYear implements calendarComponentInterface {
     return (
       <div class="table">
         <div class="tbody">
-          <div
-            class="pageNavBox"
-            style={{
-              transform: `translateY(${this.transformY}px)`,
-            }}>
+          <div class="pageNavBox">
             {this.renderYears.map(decade => (
               <div class="tr">
                 {decade.map(year => (
