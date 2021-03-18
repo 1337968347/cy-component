@@ -141,7 +141,7 @@ export class CyCalendar {
         }}>
         <div class="calendar-header">
           <div class="nav-box">
-            <cy-icon onClick={this.prevPage.bind(this)} class="activatable" name="up" />
+            <cy-icon onClick={this.prevPage.bind(this)} class="activatable" name="left" />
           </div>
           <div class="calendar-switch activatable" onClick={this.backViewMode.bind(this)}>
             {this.viewMode === 'decade' ? <span>{`${this.calendarDate.decade[0]}-${this.calendarDate.decade[1]}`}</span> : null}
@@ -153,7 +153,7 @@ export class CyCalendar {
             ) : null}
           </div>
           <div class="nav-box">
-            <cy-icon onClick={this.nextPage.bind(this)} class="activatable" name="down" />
+            <cy-icon onClick={this.nextPage.bind(this)} class="activatable" name="right" />
           </div>
         </div>
         <div class="calendar-content">

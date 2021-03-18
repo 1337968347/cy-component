@@ -6,7 +6,7 @@
   --background-color: var(--cy-color-contrast);
   color: var(--color);
   padding: 0.5em;
-  box-shadow: 0 4px 5px 0 rgb(0 0 0 / 5%);
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 15%);
   width: var(--size);
   user-select: none;
   margin: 10px;
@@ -27,18 +27,18 @@
 }
 
 .nav-box {
-  width: 1.8em;
-  height: 1.8em;
+  width: 1.7em;
+  height: 1.7em;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 0 10px calc(var(--size) / 6) calc(var(--size) / 5) rgb(var(--cy-color-base-rgb), 0.06);
+  box-shadow: 0 0 3px 0 rgb(0 0 0 / 15%)
 }
 
 cy-icon {
   color: var(--color);
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 .calendar-content {
@@ -146,6 +146,7 @@ cy-icon {
 .now {
   background: var(--cy-color-primary);
   color: var(--cy-color-contrast);
+  box-shadow: 0 0 3px 0 rgb(0 0 0 / 15%);
 }
 
 .choosed {
