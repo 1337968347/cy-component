@@ -34,7 +34,7 @@ export namespace Components {
     }
     interface CyCalendarDay {
         "calendarDate": CalendarDate;
-        "nextPage": (animationDuration?: number) => Promise<void>;
+        "nextPage": () => Promise<void>;
         "parent": HTMLCyCalendarElement;
         "prevPage": (animationDuration?: number) => Promise<void>;
     }

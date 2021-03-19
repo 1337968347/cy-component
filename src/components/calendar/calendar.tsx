@@ -1,7 +1,7 @@
 import { Component, Element, Prop, State, Method, Host, Event, EventEmitter, h } from '@stencil/core';
 import { CalendarViewMode, CalendarDate } from '../../interface';
 import { getDecadeRange } from './utils';
-import { enterAnimationBuilder, backAnimationBuilder } from './animation';
+import { enterAnimationBuilder, backAnimationBuilder,nextPageAnimationBuilder } from './animation';
 
 const ViewModeEnum: CalendarViewMode[] = ['decade', 'year', 'month'];
 
@@ -129,7 +129,10 @@ export class CyCalendar {
       return;
     }
     this.isAsync = true;
-    await (this.activeEl as any).nextPage(300);
+    const nextAnimation = nextPageAnimationBuilder(this.el.shadowRoot.querySelector('.pageNavBox'))
+    await nextAnimation.play()
+    await (this.activeEl as any).nextPage();
+    
     this.isAsync = false;
   }
 

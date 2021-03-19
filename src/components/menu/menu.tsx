@@ -1,4 +1,4 @@
-import { Component, Element, h, State, Method, Listen, Host } from '@stencil/core';
+import { Component, Element, h, Method, Listen, Host } from '@stencil/core';
 import { Gesture, GestureDetail, Animation } from '../../interface';
 import { menuAnimationBuilder } from './animation';
 import { createGesture } from '../../utils/gesture';

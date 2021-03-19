@@ -1,4 +1,4 @@
-import { Component, Prop, State, Element, h, Method, Watch } from '@stencil/core';
+import { Component, Prop, Element, h, Method } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
 import { getRenderDay, getMouthOffset, TranslateClass } from '../utils';
 @Component({
@@ -10,17 +10,8 @@ export class CalendarMouth implements calendarComponentInterface {
   dateNow: Date = new Date();
 
   @Prop() calendarDate: CalendarDate;
-  @Watch('calendarDate')
-  handleNav() {
-    this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
-  }
-  @State() renderDate: number[][][] = [];
 
   activateEl: HTMLElement;
-
-  componentWillLoad() {
-    this.renderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
-  }
 
   @Method()
   async prevPage(animationDuration: number = 800) {
@@ -41,21 +32,10 @@ export class CalendarMouth implements calendarComponentInterface {
   }
 
   @Method()
-  async nextPage(animationDuration: number = 800) {
-    return new Promise<void>(resolve => {
-      const transLateEl = this.el.querySelector<HTMLElement>('.pageNavBox');
-      transLateEl.classList.add(TranslateClass);
-
-      setTimeout(() => {
-        transLateEl.classList.remove(TranslateClass);
-        transLateEl.style.transform = '';
-        this.removeClick();
-
-        const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
-        this.parent.change({ year: nextMouthYear, month: nextMouthMouth });
-        resolve();
-      }, animationDuration);
-    });
+  async nextPage() {
+    this.removeClick();
+    const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
+    this.parent.change({ year: nextMouthYear, month: nextMouthMouth });
   }
 
   private isNow(day: number[]) {
@@ -75,6 +55,39 @@ export class CalendarMouth implements calendarComponentInterface {
   }
 
   render() {
+    const currentRenderDate = getRenderDay(this.calendarDate.year, this.calendarDate.month);
+    const [nextMouthYear, nextMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, 1);
+    const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
+    const prevRenderDate = getRenderDay(prevMouthYear, prevMouthMouth);
+    const nextRenderDate = getRenderDay(nextMouthYear, nextMouthMouth);
+
+    const getRenderDayTable = (renderDate: number[][][]) => {
+      return (
+        <div>
+          {renderDate.map(week => (
+            <div class="tr">
+              {week.map(day => (
+                <div
+                  class="td"
+                  onClick={e => {
+                    this.handleClick(e);
+                  }}>
+                  <div
+                    class={{
+                      item: true,
+                      obvious: day[1] === this.calendarDate.month,
+                      now: this.isNow(day),
+                    }}>
+                    {day[2]}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+    };
+
     return (
       <div class="table">
         <div class="tr">
@@ -84,26 +97,15 @@ export class CalendarMouth implements calendarComponentInterface {
         </div>
         <div class="tbody ">
           <div class="pageNavBox">
-            {this.renderDate.map(week => (
-              <div class="tr">
-                {week.map(day => (
-                  <div
-                    class="td"
-                    onClick={e => {
-                      this.handleClick(e);
-                    }}>
-                    <div
-                      class={{
-                        item: true,
-                        obvious: day[1] === this.calendarDate.month,
-                        now: this.isNow(day),
-                      }}>
-                      {day[2]}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+            <div class="prev" style={{ display: 'none' }}>
+              {getRenderDayTable(prevRenderDate)}
+            </div>
+            <div class="current" style={{ display: 'block' }}>
+              {getRenderDayTable(currentRenderDate)}
+            </div>
+            <div class="next" style={{ display: 'none' }}>
+              {getRenderDayTable(nextRenderDate)}
+            </div>
           </div>
         </div>
       </div>

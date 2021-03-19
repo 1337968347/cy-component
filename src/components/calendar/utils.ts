@@ -59,7 +59,7 @@ const formatDateArr = (arr: number[], splitNum = 7) => {
  */
 export const getRenderDay = (year: number, month: number): number[][][] => {
   // 初始化
-  const renderDays: number[][] = new Array(7 * 15);
+  const renderDays: number[][] = new Array(7 * 6);
   let tempDay: number = 1;
   let i = 0;
 
