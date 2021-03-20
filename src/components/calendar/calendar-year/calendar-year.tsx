@@ -1,6 +1,6 @@
-import { Component, Prop, Element, State, Watch, Method, h } from '@stencil/core';
+import { Component, Prop, Element, State, Method, h } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderYear, getDecadeRange, TranslateClass } from '../utils';
+import { getRenderYear, getDecadeRange } from '../utils';
 
 @Component({
   tag: 'cy-calendar-year',
@@ -12,45 +12,15 @@ export class CalendarYear implements calendarComponentInterface {
   dateNow: Date = new Date();
 
   @Prop() calendarDate: CalendarDate;
-  @Watch('calendarDate')
-  handleNav() {
-    this.renderYears = getRenderYear(this.calendarDate.decade);
-  }
 
-  componentWillLoad() {
-    this.renderYears = getRenderYear(this.calendarDate.decade);
+  @Method()
+  async prevPage() {
+    this.parent.change({ decade: [this.calendarDate.decade[0] - 10, this.calendarDate.decade[1] - 10] });
   }
 
   @Method()
-  async prevPage(animationDuration: number = 800) {
-    return new Promise<void>(resolve => {
-      const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
-      transEl.classList.add(TranslateClass);
-
-      setTimeout(() => {
-        transEl.classList.remove(TranslateClass);
-        transEl.style.transform = '';
-
-        this.parent.change({ decade: [this.calendarDate.decade[0] - 10, this.calendarDate.decade[1] - 10] });
-        resolve();
-      }, animationDuration);
-    });
-  }
-
-  @Method()
-  async nextPage(animationDuration: number = 800) {
-    return new Promise<void>(resolve => {
-      const transEl = this.el.querySelector<HTMLElement>('.pageNavBox');
-      transEl.classList.add(TranslateClass);
-
-      setTimeout(() => {
-        transEl.classList.remove(TranslateClass);
-        transEl.style.transform = '';
-
-        this.parent.change({ decade: [this.calendarDate.decade[0] + 10, this.calendarDate.decade[1] + 10] });
-        resolve();
-      }, animationDuration);
-    });
+  async nextPage() {
+    this.parent.change({ decade: [this.calendarDate.decade[0] + 10, this.calendarDate.decade[1] + 10] });
   }
 
   handleClick(year: number) {
@@ -59,29 +29,43 @@ export class CalendarYear implements calendarComponentInterface {
   }
 
   render() {
+    const getRenderTable = (renderYears: number[][], tableName: string) => {
+      return (
+        <div class={tableName}>
+          {renderYears.map(decade => (
+            <div class="tr">
+              {decade.map(year => (
+                <div class="td">
+                  <div
+                    onClick={() => {
+                      this.handleClick(year);
+                    }}
+                    class={{
+                      item: true,
+                      now: this.dateNow.getUTCFullYear() === year,
+                      obvious: year >= this.calendarDate.decade[0] && year <= this.calendarDate.decade[1] && tableName === 'current',
+                    }}>
+                    {year}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    const currentRenderDate = getRenderYear(this.calendarDate.decade);
+    const prevRenderDate = getRenderYear([this.calendarDate.decade[0] - 10, this.calendarDate.decade[1] - 10]);
+    const nextRenderDate = getRenderYear([this.calendarDate.decade[0] + 10, this.calendarDate.decade[1] + 10]);
+
     return (
       <div class="table">
-        <div class="tbody">
+        <div class="tbody ">
           <div class="pageNavBox">
-            {this.renderYears.map(decade => (
-              <div class="tr">
-                {decade.map(year => (
-                  <div class="td">
-                    <div
-                      onClick={() => {
-                        this.handleClick(year);
-                      }}
-                      class={{
-                        item: true,
-                        now: this.dateNow.getUTCFullYear() === year,
-                        obvious: year >= this.calendarDate.decade[0] && year <= this.calendarDate.decade[1],
-                      }}>
-                      {year}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+            {getRenderTable(prevRenderDate, 'prev')}
+            {getRenderTable(currentRenderDate, 'current')}
+            {getRenderTable(nextRenderDate, 'next')}
           </div>
         </div>
       </div>

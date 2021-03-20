@@ -1,15 +1,14 @@
 :host {
   --color: var(--cy-color-base);
-  --size: 300px;
-  --grey-color: rgba(var(--cy-color-base-rgb), 0.5);
+  --grey-color: rgba(var(--cy-color-base-rgb), 0.3);
   display: block;
   --background-color: var(--cy-color-contrast);
   color: var(--color);
   padding: 0.5em;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 15%);
-  width: var(--size);
   user-select: none;
   margin: 10px;
+  max-width: 400px;
   border-radius: 15px;
   overflow: hidden;
 }
@@ -33,7 +32,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 0 0 3px 0 rgb(0 0 0 / 15%);
+  box-shadow: 0 0 3px 0 rgb(0 0 0 / 30%);
 }
 
 cy-icon {
@@ -62,17 +61,14 @@ cy-icon {
   overflow: hidden;
 }
 
-.TranslateAni {
-  transition: transform 200ms ease-in-out;
-}
-
 .activatable {
   position: relative;
   overflow: hidden;
 }
 
 .activated {
-  color: #9b9b9b;
+  color: var(--grey-color);
+  transform: scale(0.95);
 }
 
 .table {
@@ -96,6 +92,7 @@ cy-icon {
   position: relative;
   z-index: -2;
 }
+
 .table .tr:first-of-type {
   color: var(--grey-color);
 }
@@ -110,14 +107,11 @@ cy-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30%;
-  overflow: hidden;
   margin: 5px;
-  border: 2px solid transparent;
 }
 
 @media (any-hover: hover) {
-  .tbody .td:hover {
+  .tbody .td .item:hover {
     border-color: rgb(255 255 255 / 70%);
   }
 }
@@ -129,14 +123,16 @@ cy-icon {
 }
 
 .td .item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 50px;
+  max-height: 50px;
+  border: 2px solid transparent;
+  border-radius: 30%;
+  overflow: hidden;
 }
 
 .obvious {
@@ -165,11 +161,17 @@ cy-icon {
   display: none;
 }
 
+.animation-show {
+  display: block;
+}
+
 .pageNavBox {
   width: 100%;
   height: 100%;
 }
 
 .choosed {
-  border: 2px solid var(--grey-color) !important;
+  .item {
+    border: 2px solid var(--grey-color) !important;
+  }
 }

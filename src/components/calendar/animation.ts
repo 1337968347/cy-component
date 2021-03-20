@@ -1,6 +1,8 @@
 import { AnimationBuilder } from '../../interface';
 import { createAnimation } from '../../utils/animation';
 
+const ANIMATIONSHOWCLASS = 'animation-show';
+
 export const enterAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
   const baseAnimation = createAnimation();
   return baseAnimation
@@ -35,14 +37,36 @@ export const nextPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) 
       { offset: 1, transform: 'translateX(-100%)' },
     ]);
 
-  const nextEl = baseEl.querySelector<HTMLElement>('.next');
-  nextEl.style.display = 'block';
   const enterAnimation = createAnimation()
-    .addElement(nextEl)
+    .addElement(baseEl.querySelector<HTMLElement>('.next'))
     .keyframes([
       { offset: 0, transform: 'translateX(100%)' },
       { offset: 1, transform: 'translateX(0)' },
+    ])
+    .beforeAddClass(ANIMATIONSHOWCLASS)
+    .afterRemoveClass(ANIMATIONSHOWCLASS);
+
+  return baseAnimation.easing('ease-in-out').duration(400).fill('none').addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
+};
+
+export const prevPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
+  const baseAnimation = createAnimation();
+
+  const leaveAnimation = createAnimation()
+    .addElement(baseEl.querySelector('.current'))
+    .keyframes([
+      { offset: 0, transform: 'translateX(0)' },
+      { offset: 1, transform: 'translateX(100%)' },
     ]);
 
-  return baseAnimation.easing('ease-in').duration(150).addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
+  const enterAnimation = createAnimation()
+    .addElement(baseEl.querySelector<HTMLElement>('.prev'))
+    .keyframes([
+      { offset: 0, transform: 'translateX(-100%)' },
+      { offset: 1, transform: 'translateX(0%)' },
+    ])
+    .beforeAddClass(ANIMATIONSHOWCLASS)
+    .afterRemoveClass(ANIMATIONSHOWCLASS);
+
+  return baseAnimation.easing('ease-in-out').duration(400).fill('none').addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
 };

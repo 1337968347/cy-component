@@ -1,6 +1,6 @@
 import { Component, Prop, Element, h, Method } from '@stencil/core';
 import { calendarComponentInterface, CalendarDate } from '../../../interface';
-import { getRenderDay, getMouthOffset, TranslateClass } from '../utils';
+import { getRenderDay, getMouthOffset } from '../utils';
 @Component({
   tag: 'cy-calendar-day',
 })
@@ -14,21 +14,10 @@ export class CalendarMouth implements calendarComponentInterface {
   activateEl: HTMLElement;
 
   @Method()
-  async prevPage(animationDuration: number = 800) {
-    return new Promise<void>(resolve => {
-      const transLateEl = this.el.querySelector<HTMLElement>('.pageNavBox');
-      transLateEl.classList.add(TranslateClass);
-
-      setTimeout(() => {
-        transLateEl.classList.remove(TranslateClass);
-        transLateEl.style.transform = '';
-        this.removeClick();
-
-        const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
-        this.parent.change({ year: prevMouthYear, month: prevMouthMouth });
-        resolve();
-      }, animationDuration);
-    });
+  async prevPage() {
+    this.removeClick();
+    const [prevMouthYear, prevMouthMouth] = getMouthOffset(this.calendarDate.year, this.calendarDate.month, -1);
+    this.parent.change({ year: prevMouthYear, month: prevMouthMouth });
   }
 
   @Method()
@@ -61,9 +50,9 @@ export class CalendarMouth implements calendarComponentInterface {
     const prevRenderDate = getRenderDay(prevMouthYear, prevMouthMouth);
     const nextRenderDate = getRenderDay(nextMouthYear, nextMouthMouth);
 
-    const getRenderDayTable = (renderDate: number[][][]) => {
+    const getRenderDayTable = (renderDate: number[][][], tableName: string) => {
       return (
-        <div>
+        <div class={tableName}>
           {renderDate.map(week => (
             <div class="tr">
               {week.map(day => (
@@ -75,7 +64,7 @@ export class CalendarMouth implements calendarComponentInterface {
                   <div
                     class={{
                       item: true,
-                      obvious: day[1] === this.calendarDate.month,
+                      obvious: day[1] === this.calendarDate.month && tableName === 'current',
                       now: this.isNow(day),
                     }}>
                     {day[2]}
@@ -97,15 +86,9 @@ export class CalendarMouth implements calendarComponentInterface {
         </div>
         <div class="tbody ">
           <div class="pageNavBox">
-            <div class="prev" style={{ display: 'none' }}>
-              {getRenderDayTable(prevRenderDate)}
-            </div>
-            <div class="current" style={{ display: 'block' }}>
-              {getRenderDayTable(currentRenderDate)}
-            </div>
-            <div class="next" style={{ display: 'none' }}>
-              {getRenderDayTable(nextRenderDate)}
-            </div>
+            {getRenderDayTable(prevRenderDate, 'prev')}
+            {getRenderDayTable(currentRenderDate, 'current')}
+            {getRenderDayTable(nextRenderDate, 'next')}
           </div>
         </div>
       </div>

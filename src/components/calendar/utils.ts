@@ -138,5 +138,3 @@ export const getRenderYear = (decade: number[]) => {
   }
   return formatDateArr(renderYears, 4);
 };
-
-export const TranslateClass = 'TranslateAni';
