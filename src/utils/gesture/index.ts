@@ -195,7 +195,9 @@ export const createGesture = (config: GestureConfig): Gesture => {
       }
       pointerEvents.enable(enable);
     },
-    destroy: () => {},
+    destroy: () => {
+      pointerEvents.destory()
+    },
   };
 };
 

@@ -70,6 +70,7 @@ export namespace Components {
     interface CyMenu {
         "close": () => Promise<void>;
         "open": () => Promise<void>;
+        "side": 'left' | 'right';
         "toggle": () => Promise<void>;
     }
     interface CyNav {
@@ -350,6 +351,7 @@ declare namespace LocalJSX {
         "line"?: boolean;
     }
     interface CyMenu {
+        "side"?: 'left' | 'right';
     }
     interface CyNav {
     }

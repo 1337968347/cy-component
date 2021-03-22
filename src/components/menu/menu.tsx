@@ -1,4 +1,4 @@
-import { Component, Element, h, Method, Listen, Host } from '@stencil/core';
+import { Component, Prop, Element, h, Method, Listen, Host } from '@stencil/core';
 import { Gesture, GestureDetail, Animation } from '../../interface';
 import { menuAnimationBuilder } from './animation';
 import { createGesture } from '../../utils/gesture';
@@ -7,24 +7,25 @@ import { clamp } from '../../utils/helpers';
 
 const ANIMATIONClASS = 'open-menu';
 
+// drawer
 @Component({
   tag: 'cy-menu',
   styleUrl: 'menu.scss',
   shadow: true,
 })
 export class CyMenu {
+  @Prop() side: 'left' | 'right' = 'left';
   @Element() el: HTMLElement;
   private gesture: Gesture;
   private canMoveX: number = 0;
   private animation: Animation;
   private isOpen: boolean = false;
 
-  componentDidLoad() {
+  connectedCallback() {
     this.gesture = createGesture({
       el: document,
       direction: 'x',
       threshold: 15,
-      blurOnStart: true,
       canStart: this.canStart.bind(this),
       onWillStart: this.onWillStart.bind(this),
       onStart: this.onStart.bind(this),
@@ -34,8 +35,15 @@ export class CyMenu {
     this.gesture.enable(true);
   }
 
+  disconnectedCallback() {
+    this.gesture.destroy();
+    this.animation.destroy();
+    this.gesture = undefined;
+  }
+
   canStart(e: GestureDetail) {
-    if (!this.isOpen && e.startX > 40) {
+    const offsetSideLen = this.side === 'left' ? e.startX : window.innerWidth - e.startX;
+    if (!this.isOpen && offsetSideLen > 40) {
       return false;
     }
     return true;
@@ -85,7 +93,8 @@ export class CyMenu {
   }
 
   getAnimationStep(isOpen: boolean, deletaX: number, isOnEnd = false) {
-    const _deletaX = isOpen ? -1 * deletaX : deletaX;
+    let _deletaX = isOpen ? -1 * deletaX : deletaX;
+    _deletaX = this.side === 'left' ? _deletaX : -1 * _deletaX;
     let step = clamp(0.0001, _deletaX / this.canMoveX, 0.9999);
     if (isOpen) {
       step = 1 - step;
@@ -149,14 +158,18 @@ export class CyMenu {
       this.animation.destroy();
       this.animation = null;
     }
-    this.animation = await menuAnimationBuilder(this.el);
+    this.animation = await menuAnimationBuilder(this.el, this.side);
     this.animation.fill('both');
   }
 
   render() {
     return (
       <Host>
-        <div class="menu-container">
+        <div
+          class={{
+            'menu-container': true,
+            'menu-right': this.side === 'right',
+          }}>
           <slot />
         </div>
         <cy-backdrop onBackDrop={this.onBackDropClick.bind(this)} />

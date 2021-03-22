@@ -13,10 +13,10 @@ export class PageRoot {
   @Element() el: HTMLElement;
   @State() color = configManager.getPreferColor();
   @State() viewMode: ViewMode = configManager.getViewMode();
-  @State() choose: string = 'button';
+  @State() choose: string = 'mobile';
 
   componentWillLoad() {
-    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || 'button';
+    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || 'mobile';
   }
 
   switchCom(value) {
