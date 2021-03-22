@@ -14,13 +14,13 @@ export const createConfigMananger = () => {
     config = JSON.parse(configStr) as CyConfig;
   } catch (error) {
     config = {
-      preferColor: 'primary',
+      preferColor: 'danger',
       viewMode: 'light',
     };
   }
 
   const getPreferColor = () => {
-    return config.preferColor || 'primary';
+    return config.preferColor || 'danger';
   };
 
   const getViewMode = () => {

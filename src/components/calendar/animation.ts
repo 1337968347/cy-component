@@ -46,7 +46,7 @@ export const nextPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) 
     .beforeAddClass(ANIMATIONSHOWCLASS)
     .afterRemoveClass(ANIMATIONSHOWCLASS);
 
-  return baseAnimation.easing('ease-in-out').duration(400).fill('none').addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
+  return baseAnimation.easing('ease-in-out').duration(200).fill('none').addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
 };
 
 export const prevPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
@@ -68,5 +68,5 @@ export const prevPageAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) 
     .beforeAddClass(ANIMATIONSHOWCLASS)
     .afterRemoveClass(ANIMATIONSHOWCLASS);
 
-  return baseAnimation.easing('ease-in-out').duration(400).fill('none').addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
+  return baseAnimation.easing('ease-in-out').duration(200).fill('none').addElement(baseEl).addAnimation([leaveAnimation, enterAnimation]);
 };
