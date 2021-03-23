@@ -16,7 +16,7 @@ export class PageRoot {
   @State() choose: string = 'mobile';
 
   componentWillLoad() {
-    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || 'mobile';
+    this.choose = (location.hash.split('#')[1] && decodeURIComponent(location.hash.split('#')[1])) || 'calendar';
   }
 
   switchCom(value) {
@@ -152,7 +152,6 @@ const RenderShowItem = (comName: string, color: string = 'primary') => {
     case 'data-screen':
       return (
         <div>
-          <h3>使用stencil ionic搭建的数据可视化系统</h3>
           <cy-button
             color={color}
             onClick={() => {

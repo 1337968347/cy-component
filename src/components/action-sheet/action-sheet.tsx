@@ -33,9 +33,6 @@ export class ActionSheet implements ComponentInterface {
       el: this.el.querySelector('.action-sheet-title'),
       direction: 'y',
       passive: true,
-      canStart: () => {
-        return this.el.querySelector('.action-sheet-opers').scrollTop === 0;
-      },
       onStart: this.onStart.bind(this),
       onMove: this.onMove.bind(this),
       onEnd: this.onEnd.bind(this),
