@@ -13,6 +13,7 @@
 .inner-scroll {
   overflow-x: hidden;
   overflow-y: auto;
+  touch-action: pan-y;
   height: 100%;
 }
 
