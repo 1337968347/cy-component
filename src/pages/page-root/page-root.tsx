@@ -101,16 +101,7 @@ const RenderShowItem = (comName: string) => {
     case 'setting':
       return <page-setting />;
     case 'data-screen':
-      return (
-        <div>
-          <cy-button
-            onClick={() => {
-              location.href = 'https://1337968347.github.io/DataScreen/';
-            }}>
-            jump
-          </cy-button>
-        </div>
-      );
+      return <page-datascreen></page-datascreen>;
     case 'virtual-list':
       return <page-virtual></page-virtual>;
 
