@@ -104,6 +104,10 @@ export namespace Components {
         "color": string;
         "gestureEnable": boolean;
     }
+    interface CyVirtualScroll {
+        "itemRenderFn": (cell: any, itemIndex: Number) => HTMLElement;
+        "items": any[];
+    }
     interface NavPageone {
     }
     interface NavPagetwo {
@@ -258,6 +262,12 @@ declare global {
         prototype: HTMLCyToggleElement;
         new (): HTMLCyToggleElement;
     };
+    interface HTMLCyVirtualScrollElement extends Components.CyVirtualScroll, HTMLStencilElement {
+    }
+    var HTMLCyVirtualScrollElement: {
+        prototype: HTMLCyVirtualScrollElement;
+        new (): HTMLCyVirtualScrollElement;
+    };
     interface HTMLNavPageoneElement extends Components.NavPageone, HTMLStencilElement {
     }
     var HTMLNavPageoneElement: {
@@ -324,6 +334,7 @@ declare global {
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
+        "cy-virtual-scroll": HTMLCyVirtualScrollElement;
         "nav-pageone": HTMLNavPageoneElement;
         "nav-pagetwo": HTMLNavPagetwoElement;
         "page-calendar": HTMLPageCalendarElement;
@@ -418,6 +429,10 @@ declare namespace LocalJSX {
         "gestureEnable"?: boolean;
         "onCyChange"?: (event: CustomEvent<any>) => void;
     }
+    interface CyVirtualScroll {
+        "itemRenderFn"?: (cell: any, itemIndex: Number) => HTMLElement;
+        "items"?: any[];
+    }
     interface NavPageone {
     }
     interface NavPagetwo {
@@ -456,6 +471,7 @@ declare namespace LocalJSX {
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
+        "cy-virtual-scroll": CyVirtualScroll;
         "nav-pageone": NavPageone;
         "nav-pagetwo": NavPagetwo;
         "page-calendar": PageCalendar;
@@ -492,6 +508,7 @@ declare module "@stencil/core" {
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
+            "cy-virtual-scroll": LocalJSX.CyVirtualScroll & JSXBase.HTMLAttributes<HTMLCyVirtualScrollElement>;
             "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;

@@ -38,7 +38,7 @@ const menus: Menu[] = [
 export class PageRoot {
   @Element() el: HTMLElement;
   @State() color: Color = configManager.getPreferColor();
-  @State() choose: Menu = menus[4];
+  @State() choose: Menu = menus[3];
 
   switchCom(value) {
     this.choose = value;
@@ -111,11 +111,10 @@ const RenderShowItem = (comName: string) => {
           </cy-button>
         </div>
       );
+    case 'virtual-list':
+      return <page-virtual></page-virtual>;
+
     default:
       return <div></div>;
   }
-};
-
-const nextPage = () => {
-  document.querySelector('cy-nav').push('nav-pageone');
 };
