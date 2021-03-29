@@ -73,6 +73,8 @@ export namespace Components {
         "side": 'left' | 'right';
         "toggle": () => Promise<void>;
     }
+    interface CyMenuButton {
+    }
     interface CyNav {
         "pop": () => Promise<void>;
         "push": (componentName: string) => Promise<void>;
@@ -106,10 +108,15 @@ export namespace Components {
     }
     interface NavPagetwo {
     }
-    interface PageMobile {
-        "color": string;
+    interface PageCalendar {
+    }
+    interface PageNav {
     }
     interface PageRoot {
+    }
+    interface PageSetting {
+    }
+    interface PageVirtual {
     }
 }
 declare global {
@@ -197,6 +204,12 @@ declare global {
         prototype: HTMLCyMenuElement;
         new (): HTMLCyMenuElement;
     };
+    interface HTMLCyMenuButtonElement extends Components.CyMenuButton, HTMLStencilElement {
+    }
+    var HTMLCyMenuButtonElement: {
+        prototype: HTMLCyMenuButtonElement;
+        new (): HTMLCyMenuButtonElement;
+    };
     interface HTMLCyNavElement extends Components.CyNav, HTMLStencilElement {
     }
     var HTMLCyNavElement: {
@@ -257,17 +270,35 @@ declare global {
         prototype: HTMLNavPagetwoElement;
         new (): HTMLNavPagetwoElement;
     };
-    interface HTMLPageMobileElement extends Components.PageMobile, HTMLStencilElement {
+    interface HTMLPageCalendarElement extends Components.PageCalendar, HTMLStencilElement {
     }
-    var HTMLPageMobileElement: {
-        prototype: HTMLPageMobileElement;
-        new (): HTMLPageMobileElement;
+    var HTMLPageCalendarElement: {
+        prototype: HTMLPageCalendarElement;
+        new (): HTMLPageCalendarElement;
+    };
+    interface HTMLPageNavElement extends Components.PageNav, HTMLStencilElement {
+    }
+    var HTMLPageNavElement: {
+        prototype: HTMLPageNavElement;
+        new (): HTMLPageNavElement;
     };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
     var HTMLPageRootElement: {
         prototype: HTMLPageRootElement;
         new (): HTMLPageRootElement;
+    };
+    interface HTMLPageSettingElement extends Components.PageSetting, HTMLStencilElement {
+    }
+    var HTMLPageSettingElement: {
+        prototype: HTMLPageSettingElement;
+        new (): HTMLPageSettingElement;
+    };
+    interface HTMLPageVirtualElement extends Components.PageVirtual, HTMLStencilElement {
+    }
+    var HTMLPageVirtualElement: {
+        prototype: HTMLPageVirtualElement;
+        new (): HTMLPageVirtualElement;
     };
     interface HTMLElementTagNameMap {
         "cy-action-sheet": HTMLCyActionSheetElement;
@@ -284,6 +315,7 @@ declare global {
         "cy-icon": HTMLCyIconElement;
         "cy-item": HTMLCyItemElement;
         "cy-menu": HTMLCyMenuElement;
+        "cy-menu-button": HTMLCyMenuButtonElement;
         "cy-nav": HTMLCyNavElement;
         "cy-refresh": HTMLCyRefreshElement;
         "cy-ripple": HTMLCyRippleElement;
@@ -294,8 +326,11 @@ declare global {
         "cy-toggle": HTMLCyToggleElement;
         "nav-pageone": HTMLNavPageoneElement;
         "nav-pagetwo": HTMLNavPagetwoElement;
-        "page-mobile": HTMLPageMobileElement;
+        "page-calendar": HTMLPageCalendarElement;
+        "page-nav": HTMLPageNavElement;
         "page-root": HTMLPageRootElement;
+        "page-setting": HTMLPageSettingElement;
+        "page-virtual": HTMLPageVirtualElement;
     }
 }
 declare namespace LocalJSX {
@@ -353,6 +388,8 @@ declare namespace LocalJSX {
     interface CyMenu {
         "side"?: 'left' | 'right';
     }
+    interface CyMenuButton {
+    }
     interface CyNav {
     }
     interface CyRefresh {
@@ -385,10 +422,15 @@ declare namespace LocalJSX {
     }
     interface NavPagetwo {
     }
-    interface PageMobile {
-        "color"?: string;
+    interface PageCalendar {
+    }
+    interface PageNav {
     }
     interface PageRoot {
+    }
+    interface PageSetting {
+    }
+    interface PageVirtual {
     }
     interface IntrinsicElements {
         "cy-action-sheet": CyActionSheet;
@@ -405,6 +447,7 @@ declare namespace LocalJSX {
         "cy-icon": CyIcon;
         "cy-item": CyItem;
         "cy-menu": CyMenu;
+        "cy-menu-button": CyMenuButton;
         "cy-nav": CyNav;
         "cy-refresh": CyRefresh;
         "cy-ripple": CyRipple;
@@ -415,8 +458,11 @@ declare namespace LocalJSX {
         "cy-toggle": CyToggle;
         "nav-pageone": NavPageone;
         "nav-pagetwo": NavPagetwo;
-        "page-mobile": PageMobile;
+        "page-calendar": PageCalendar;
+        "page-nav": PageNav;
         "page-root": PageRoot;
+        "page-setting": PageSetting;
+        "page-virtual": PageVirtual;
     }
 }
 export { LocalJSX as JSX };
@@ -437,6 +483,7 @@ declare module "@stencil/core" {
             "cy-icon": LocalJSX.CyIcon & JSXBase.HTMLAttributes<HTMLCyIconElement>;
             "cy-item": LocalJSX.CyItem & JSXBase.HTMLAttributes<HTMLCyItemElement>;
             "cy-menu": LocalJSX.CyMenu & JSXBase.HTMLAttributes<HTMLCyMenuElement>;
+            "cy-menu-button": LocalJSX.CyMenuButton & JSXBase.HTMLAttributes<HTMLCyMenuButtonElement>;
             "cy-nav": LocalJSX.CyNav & JSXBase.HTMLAttributes<HTMLCyNavElement>;
             "cy-refresh": LocalJSX.CyRefresh & JSXBase.HTMLAttributes<HTMLCyRefreshElement>;
             "cy-ripple": LocalJSX.CyRipple & JSXBase.HTMLAttributes<HTMLCyRippleElement>;
@@ -447,8 +494,11 @@ declare module "@stencil/core" {
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
             "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
-            "page-mobile": LocalJSX.PageMobile & JSXBase.HTMLAttributes<HTMLPageMobileElement>;
+            "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;
+            "page-nav": LocalJSX.PageNav & JSXBase.HTMLAttributes<HTMLPageNavElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
+            "page-setting": LocalJSX.PageSetting & JSXBase.HTMLAttributes<HTMLPageSettingElement>;
+            "page-virtual": LocalJSX.PageVirtual & JSXBase.HTMLAttributes<HTMLPageVirtualElement>;
         }
     }
 }
