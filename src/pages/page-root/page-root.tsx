@@ -38,7 +38,7 @@ const menus: Menu[] = [
 export class PageRoot {
   @Element() el: HTMLElement;
   @State() color: Color = configManager.getPreferColor();
-  @State() choose: Menu = menus[3];
+  @State() choose: Menu = menus[2];
 
   switchCom(value) {
     this.choose = value;
