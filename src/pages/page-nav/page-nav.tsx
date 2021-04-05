@@ -15,15 +15,17 @@ export class PageNav {
   render() {
     return (
       <cy-nav>
-        <cy-header>
-          <cy-menu-button class="btn-box" slot="start" />
-          <h3 class="cy-title">导航</h3>
-        </cy-header>
-        <cy-content>
-          <cy-button color={this.color} onClick={this.nextPage.bind(this)}>
-            jump
-          </cy-button>
-        </cy-content>
+        <div class="cy-page">
+          <cy-header>
+            <cy-menu-button class="btn-box" slot="start" />
+            <h3 class="cy-title">导航</h3>
+          </cy-header>
+          <cy-content>
+            <cy-button color={this.color} onClick={this.nextPage.bind(this)}>
+              jump
+            </cy-button>
+          </cy-content>
+        </div>
       </cy-nav>
     );
   }

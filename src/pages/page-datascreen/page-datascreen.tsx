@@ -21,7 +21,9 @@ export class PageDatascreen {
       .renderDottedLine()
       .renderGradient()
       .renderImage()
-      .renderTitle();
+      .renderTitle()
+      .renderRotate()
+      .renderStars();
   }
 
   render() {

@@ -24,40 +24,46 @@ const createCanvasCtx = (canvasEl: HTMLCanvasElement) => {
   };
 
   const renderPalette = () => {
+    ctx.save();
+    ctx.translate(220, 0);
     for (var i = 0; i < 36; i++) {
       for (var j = 0; j < 36; j++) {
         ctx.save();
         ctx.fillStyle = 'rgb(' + Math.floor(255 - 7.083 * i) + ',' + Math.floor(255 - 7.083 * j) + ',0)';
-        ctx.translate(250 + j * 6, i * 6);
+        ctx.translate(j * 6, i * 6);
         ctx.fillRect(0, 0, 6, 6);
         ctx.restore();
       }
     }
+    ctx.restore();
     return _ctxOper;
   };
 
   const renderCircle = () => {
+    ctx.save();
+    ctx.translate(0, 150);
     for (var i = 0; i < 36; i++) {
       for (var j = 0; j < 36; j++) {
         ctx.save();
         ctx.fillStyle = 'rgb(' + Math.floor(255 - 7.083 * i) + ',' + Math.floor(255 - 7.083 * j) + ',0)';
         ctx.beginPath();
-        ctx.translate(j * 6, 250 + i * 6);
+        ctx.translate(j * 6, i * 6);
         ctx.arc(0, 0, 3, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
     }
+    ctx.restore();
     return _ctxOper;
   };
 
   const renderDottedLine = () => {
     let offset = 0;
     const draw = () => {
-      ctx.clearRect(295, 295, 110, 110);
+      ctx.clearRect(265, 265, 110, 110);
       ctx.setLineDash([20, 20]);
       ctx.lineDashOffset = offset;
-      ctx.strokeRect(300, 300, 100, 100);
+      ctx.strokeRect(270, 270, 100, 100);
     };
 
     const task = () => {
@@ -113,9 +119,61 @@ const createCanvasCtx = (canvasEl: HTMLCanvasElement) => {
     ctx.fillStyle = 'red';
     ctx.font = '20px Times New Roman';
     ctx.fillText('渐变', 550, 30);
+    return _ctxOper;
   };
 
-  //   const renderXy = () => {};
+  const renderRotate = () => {
+    ctx.save();
+    ctx.translate(500, 300);
+    for (let i = 0; i < 6; i++) {
+      ctx.save();
+      ctx.fillStyle = `rgba(${51 * i},${255 - 51 * i},255)`;
+      for (let j = 0; j < i * 6; j++) {
+        ctx.rotate((Math.PI * 2) / (i * 6));
+        ctx.beginPath();
+        ctx.arc(0, i * 12.5, 5, 0, Math.PI * 2, true);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+    ctx.restore();
+    return _ctxOper;
+  };
+
+  const renderStars = () => {
+    ctx.save();
+    ctx.translate(0, 400);
+    ctx.fillStyle = '#232256';
+    ctx.fillRect(0, 0, 800, 300);
+
+    const renderStar = (r: number) => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(r, 0);
+      for (var i = 0; i < 9; i++) {
+        ctx.rotate(Math.PI / 5);
+        if (i % 2 == 0) {
+          ctx.lineTo((r / 0.525731) * 0.200811, 0);
+        } else {
+          ctx.lineTo(r, 0);
+        }
+      }
+
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    };
+
+    for (let i = 0; i < 200; i++) {
+      ctx.save();
+      ctx.fillStyle = '#fff';
+      ctx.translate( Math.floor(Math.random() * 800), Math.floor(Math.random() * 300));
+      renderStar(Math.floor(Math.random() * 6) + 3);
+      ctx.restore();
+    }
+
+    ctx.restore();
+  };
 
   return (_ctxOper = {
     renderLike,
@@ -125,6 +183,8 @@ const createCanvasCtx = (canvasEl: HTMLCanvasElement) => {
     renderGradient,
     renderImage,
     renderTitle,
+    renderRotate,
+    renderStars,
     ctx,
   });
 };
