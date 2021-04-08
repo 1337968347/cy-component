@@ -1,7 +1,26 @@
 .cy-page {
   canvas {
-    border: 1px solid #cccccc;
-    margin: 10px;
-    margin-left: 50px;
+    margin: 5%;
+  }
+
+  .game-contral {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .direction {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    cy-button{
+      width: 55px;
+      height: 40px;
+    }
+
+    cy-button + cy-button {
+      margin-left: 15%;
+    }
   }
 }

@@ -18,7 +18,7 @@ const menus: Menu[] = [
     icon: 'nav',
   },
   {
-    title: '可视化',
+    title: 'canvas',
     path: 'data-screen',
     icon: 'data-screen',
   },
