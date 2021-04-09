@@ -9,25 +9,11 @@ export const createRetroSnaker = (canvasEl: HTMLCanvasElement, cSize: number) =>
   const cWidth = canvasEl.width;
   const cHeight = canvasEl.height;
   let snake = createSnake(ctx, cellSize, gameX, gameY);
-  let gameMainTimerId;
+  let raf;
 
   const renderGird = () => {
-    ctx.clearRect(0, 0, cWidth, cHeight);
     ctx.save();
-    ctx.strokeStyle = '#cccccc';
-    ctx.lineWidth = 1;
-    for (let i = 0; i <= gameX; i++) {
-      ctx.beginPath();
-      ctx.moveTo(i * cellSize, 0);
-      ctx.lineTo(i * cellSize, cHeight);
-      ctx.stroke();
-    }
-    for (let i = 0; i <= gameY; i++) {
-      ctx.beginPath();
-      ctx.moveTo(0, i * cellSize);
-      ctx.lineTo(cWidth, i * cellSize);
-      ctx.stroke();
-    }
+    ctx.clearRect(0, 0, cWidth, cHeight);
     ctx.restore();
   };
 
@@ -36,31 +22,28 @@ export const createRetroSnaker = (canvasEl: HTMLCanvasElement, cSize: number) =>
     snake.move();
     snake.attemptEat();
     snake.draw();
+    raf = requestAnimationFrame(draw);
   };
 
   const start = () => {
-    clearInterval(gameMainTimerId);
-    gameMainTimerId = setInterval(() => {
-      draw();
-    }, 300);
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(draw);
   };
 
   const destory = () => {
-    ctx.clearRect(0, 0, cWidth, cHeight);
     renderGird();
-    clearInterval(gameMainTimerId);
-    gameMainTimerId = undefined;
+    cancelAnimationFrame(raf);
+    raf = undefined;
     snake = createSnake(ctx, cellSize, gameX, gameY);
   };
 
   const pause = () => {
-    clearInterval(gameMainTimerId);
-    gameMainTimerId = undefined;
-
+    cancelAnimationFrame(raf);
+    raf = undefined;
   };
 
   const turn = (direction: Direction) => {
-    if (gameMainTimerId === undefined) return;
+    if (raf === undefined) return;
     snake.turn(direction);
   };
 

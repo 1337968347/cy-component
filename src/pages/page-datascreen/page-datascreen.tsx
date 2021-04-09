@@ -14,9 +14,9 @@ export class PageDatascreen {
 
   componentDidLoad() {
     const canvasEl = this.el.querySelector<HTMLCanvasElement>('#canvas');
-    canvasEl.width = this.el.querySelector('cy-content').clientWidth * 0.95;
+    canvasEl.width = this.el.querySelector('cy-content').clientWidth * 0.9;
     canvasEl.height = canvasEl.width;
-    this.gameController = createRetroSnaker(canvasEl, 20);
+    this.gameController = createRetroSnaker(canvasEl, 5);
   }
 
   render() {

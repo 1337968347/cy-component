@@ -1,6 +1,7 @@
 .cy-page {
   canvas {
     margin: 5%;
+    border: 1px solid #cccccc;
   }
 
   .game-contral {
@@ -14,7 +15,7 @@
     flex-direction: row;
     justify-content: center;
 
-    cy-button{
+    cy-button {
       width: 55px;
       height: 40px;
     }
