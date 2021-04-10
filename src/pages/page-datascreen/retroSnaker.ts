@@ -3,21 +3,22 @@ export const createRetroSnaker = (canvasEl: HTMLCanvasElement, canvasBgEl: HTMLC
   const ctx = canvasEl.getContext('2d');
   const ctxBg = canvasBgEl.getContext('2d');
   const cellSize = cSize;
-  let gameX = Math.floor(canvasEl.width / cellSize);
-  let gameY = Math.floor(canvasEl.height / cellSize);
-  canvasEl.width = gameX * cellSize;
-  canvasEl.height = gameY * cellSize;
-  let cWidth = canvasEl.width;
-  let cHeight = canvasEl.height;
+  let gameX, gameY, cWidth, cHeight;
   let snake = createSnake(ctx, cellSize, gameX, gameY);
   let gameMainTimerId;
 
   const initCanvasSize = () => {
-    
+    gameX = Math.floor(canvasEl.width / cellSize);
+    gameY = Math.floor(canvasEl.height / cellSize);
+    canvasEl.width = gameX * cellSize;
+    canvasEl.height = gameY * cellSize;
+    cWidth = canvasEl.width;
+    cHeight = canvasEl.height;
+    canvasBgEl.width = cWidth;
+    canvasBgEl.height = cHeight;
   };
 
   const renderGird = () => {
-    ctxBg.clearRect(0, 0, cWidth, cHeight);
     ctxBg.strokeStyle = '#cccccc';
     ctxBg.lineWidth = 1;
     for (let i = 0; i <= gameX; i++) {
@@ -35,12 +36,6 @@ export const createRetroSnaker = (canvasEl: HTMLCanvasElement, canvasBgEl: HTMLC
     ctx.restore();
   };
 
-  const draw = () => {
-    snake.move();
-    snake.attemptEat();
-    snake.draw();
-  };
-
   const start = (speed: number) => {
     clearInterval(gameMainTimerId);
     gameMainTimerId = setInterval(() => {
@@ -49,7 +44,7 @@ export const createRetroSnaker = (canvasEl: HTMLCanvasElement, canvasBgEl: HTMLC
   };
 
   const destory = () => {
-    renderGird();
+    ctx.clearRect(0, 0, cWidth, cHeight);
     clearInterval(gameMainTimerId);
     gameMainTimerId = undefined;
     snake = createSnake(ctx, cellSize, gameX, gameY);
@@ -65,26 +60,16 @@ export const createRetroSnaker = (canvasEl: HTMLCanvasElement, canvasBgEl: HTMLC
     snake.turn(direction);
   };
 
-  document.onkeydown = function (ev) {
-    switch (ev.code) {
-      case 'ArrowDown':
-        snake.turn(180);
-        break;
-      case 'ArrowUp':
-        snake.turn(0);
-        break;
-      case 'ArrowLeft':
-        snake.turn(240);
-        break;
-      case 'ArrowRight':
-        snake.turn(90);
-        break;
-      default:
-        break;
-    }
+  const draw = () => {
+    ctx.clearRect(0, 0, cWidth, cHeight);
+    snake.move();
+    snake.attemptEat();
+    snake.draw();
   };
 
+  initCanvasSize();
   renderGird();
+
   return { start, turn, pause, destory };
 };
 
