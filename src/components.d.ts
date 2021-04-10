@@ -87,11 +87,11 @@ export namespace Components {
     interface CySegment {
         "color": string;
         "scrollable": boolean;
-        "value": string;
+        "value": any;
     }
     interface CySegmentButton {
         "update": () => Promise<void>;
-        "value": string;
+        "value": any;
     }
     interface CySpinner {
         "color": string;
@@ -421,10 +421,10 @@ declare namespace LocalJSX {
         "color"?: string;
         "onCyChange"?: (event: CustomEvent<any>) => void;
         "scrollable"?: boolean;
-        "value"?: string;
+        "value"?: any;
     }
     interface CySegmentButton {
-        "value"?: string;
+        "value"?: any;
     }
     interface CySpinner {
         "color"?: string;

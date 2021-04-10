@@ -1,15 +1,22 @@
 :host {
   --border-radius: 8px;
-  display: inline-flex;
-  flex-wrap: nowrap;
   border-radius: var(--border-radius);
   cursor: pointer;
   user-select: none;
+  display: block;
   background: rgba(var(--cy-color-base-rgb), 0.2);
   box-shadow: 0 0 5px rgba(var(--cy-background-contrast-rgb), 0.16);
 }
 
-:host(.overfrow-scroll) {
+.segment-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.overfrow-scroll {
   overflow: auto;
+  display: inline-flex;
+  flex-wrap: nowrap;
   max-width: 100%;
 }

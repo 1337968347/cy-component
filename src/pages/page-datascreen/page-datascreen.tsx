@@ -11,12 +11,18 @@ export class PageDatascreen {
   @Element() el: HTMLElement;
   gameController: any;
   @State() color: Color = configManager.getPreferColor();
+  @State() speed: number = 300;
 
   componentDidLoad() {
     const canvasEl = this.el.querySelector<HTMLCanvasElement>('#canvas');
-    canvasEl.width = this.el.querySelector('cy-content').clientWidth * 0.9;
+    const canvasBgEl = this.el.querySelector<HTMLCanvasElement>('#canvasbg');
+    canvasEl.width = Math.min(this.el.querySelector('cy-content').clientWidth, this.el.querySelector('cy-content').clientHeight) * 0.8;
     canvasEl.height = canvasEl.width;
-    this.gameController = createRetroSnaker(canvasEl, 5);
+    this.gameController = createRetroSnaker(canvasEl, canvasBgEl, canvasEl.width / 20);
+  }
+
+  playGames() {
+    this.gameController.start(this.speed);
   }
 
   render() {
@@ -27,28 +33,37 @@ export class PageDatascreen {
           <h3 class="cy-title">canvas</h3>
         </cy-header>
         <cy-content>
-          <canvas id="canvas"></canvas>
+          <div class="canvas-box">
+            <canvas id="canvas"></canvas>
+            <canvas id="canvasbg"></canvas>
+          </div>
           <div class="contral">
-            <div class="game-contral">
-              <cy-button
-                onClick={() => {
-                  this.gameController.start();
-                }}>
-                play
-              </cy-button>
+            <cy-segment
+              color={this.color}
+              value={this.speed}
+              onCyChange={e => {
+                this.speed = e.detail;
+                this.playGames();
+              }}>
+              <cy-segment-button value={400}>慢</cy-segment-button>
+              <cy-segment-button value={300}>中</cy-segment-button>
+              <cy-segment-button value={180}>快</cy-segment-button>
+            </cy-segment>
 
+            <div class="game-contral">
+              <cy-button onClick={this.playGames.bind(this)}>开始</cy-button>
               <cy-button
                 onClick={() => {
                   this.gameController.pause();
                 }}>
-                pause
+                暂停
               </cy-button>
 
               <cy-button
                 onClick={() => {
                   this.gameController.destory();
                 }}>
-                destory
+                结束
               </cy-button>
             </div>
 

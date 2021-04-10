@@ -8,7 +8,7 @@ import { Component, Element, h, Prop, Host, State, Method } from '@stencil/core'
 export class SegmentButton {
   private segmentEl = null;
   @Element() el: HTMLElement;
-  @Prop() value: string = '';
+  @Prop() value: any = '';
   @State() check: boolean = false;
 
   componentWillLoad() {

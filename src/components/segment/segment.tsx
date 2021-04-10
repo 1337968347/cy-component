@@ -11,7 +11,7 @@ export class segment {
   @Element() el: HTMLElement;
   private currentEl: HTMLCySegmentButtonElement;
   @Prop() color: string = '';
-  @Prop({ mutable: true }) value: string = '';
+  @Prop({ mutable: true }) value: any = '';
   @Prop() scrollable: boolean = false;
   @Event() cyChange: EventEmitter;
 
@@ -146,10 +146,14 @@ export class segment {
         }}
         class={{
           [`cy-color-${this.color}`]: !!this.color,
-          'overfrow-scroll': this.scrollable,
-        }}
-      >
-        <slot />
+        }}>
+        <div
+          class={{
+            'segment-box': true,
+            'overfrow-scroll': this.scrollable,
+          }}>
+          <slot />
+        </div>
       </Host>
     );
   }

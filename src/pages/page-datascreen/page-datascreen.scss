@@ -1,12 +1,17 @@
 .cy-page {
-  canvas {
-    margin: 5%;
-    border: 1px solid #cccccc;
-  }
-
   .game-contral {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+  }
+
+  .contral {
+    padding: 5%;
+  }
+
+  .canvas-box {
+    display: flex;
+    margin-top: 15px;
     justify-content: center;
   }
 
@@ -15,13 +20,8 @@
     flex-direction: row;
     justify-content: center;
 
-    cy-button {
-      width: 55px;
-      height: 40px;
-    }
-
     cy-button + cy-button {
-      margin-left: 15%;
+      margin-left: 50px;
     }
   }
 }
