@@ -1,0 +1,22 @@
+cy-virtual-scroll {
+  height: 500px;
+  position: relative;
+  padding-right: 1px;
+  padding-bottom: 1px;
+  overflow: hidden;
+
+  .vitural-viewport {
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    overflow: hidden;
+  }
+
+  .vertical-scroll {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    overflow: scroll;
+  }
+}
