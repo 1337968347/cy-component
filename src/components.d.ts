@@ -104,7 +104,10 @@ export namespace Components {
         "color": string;
         "gestureEnable": boolean;
     }
-    interface CyVirtualScroll {
+    interface CyViewportScroll {
+        "contentHeight": number;
+    }
+    interface CyVirtualTable {
         "itemRenderFn": (cell: any, itemIndex: Number) => HTMLElement;
         "items": any[];
     }
@@ -264,11 +267,17 @@ declare global {
         prototype: HTMLCyToggleElement;
         new (): HTMLCyToggleElement;
     };
-    interface HTMLCyVirtualScrollElement extends Components.CyVirtualScroll, HTMLStencilElement {
+    interface HTMLCyViewportScrollElement extends Components.CyViewportScroll, HTMLStencilElement {
     }
-    var HTMLCyVirtualScrollElement: {
-        prototype: HTMLCyVirtualScrollElement;
-        new (): HTMLCyVirtualScrollElement;
+    var HTMLCyViewportScrollElement: {
+        prototype: HTMLCyViewportScrollElement;
+        new (): HTMLCyViewportScrollElement;
+    };
+    interface HTMLCyVirtualTableElement extends Components.CyVirtualTable, HTMLStencilElement {
+    }
+    var HTMLCyVirtualTableElement: {
+        prototype: HTMLCyVirtualTableElement;
+        new (): HTMLCyVirtualTableElement;
     };
     interface HTMLNavPageoneElement extends Components.NavPageone, HTMLStencilElement {
     }
@@ -342,7 +351,8 @@ declare global {
         "cy-spinner": HTMLCySpinnerElement;
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
-        "cy-virtual-scroll": HTMLCyVirtualScrollElement;
+        "cy-viewport-scroll": HTMLCyViewportScrollElement;
+        "cy-virtual-table": HTMLCyVirtualTableElement;
         "nav-pageone": HTMLNavPageoneElement;
         "nav-pagetwo": HTMLNavPagetwoElement;
         "page-calendar": HTMLPageCalendarElement;
@@ -438,7 +448,11 @@ declare namespace LocalJSX {
         "gestureEnable"?: boolean;
         "onCyChange"?: (event: CustomEvent<any>) => void;
     }
-    interface CyVirtualScroll {
+    interface CyViewportScroll {
+        "contentHeight"?: number;
+        "onScrollChange"?: (event: CustomEvent<any>) => void;
+    }
+    interface CyVirtualTable {
         "itemRenderFn"?: (cell: any, itemIndex: Number) => HTMLElement;
         "items"?: any[];
     }
@@ -482,7 +496,8 @@ declare namespace LocalJSX {
         "cy-spinner": CySpinner;
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
-        "cy-virtual-scroll": CyVirtualScroll;
+        "cy-viewport-scroll": CyViewportScroll;
+        "cy-virtual-table": CyVirtualTable;
         "nav-pageone": NavPageone;
         "nav-pagetwo": NavPagetwo;
         "page-calendar": PageCalendar;
@@ -520,7 +535,8 @@ declare module "@stencil/core" {
             "cy-spinner": LocalJSX.CySpinner & JSXBase.HTMLAttributes<HTMLCySpinnerElement>;
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
-            "cy-virtual-scroll": LocalJSX.CyVirtualScroll & JSXBase.HTMLAttributes<HTMLCyVirtualScrollElement>;
+            "cy-viewport-scroll": LocalJSX.CyViewportScroll & JSXBase.HTMLAttributes<HTMLCyViewportScrollElement>;
+            "cy-virtual-table": LocalJSX.CyVirtualTable & JSXBase.HTMLAttributes<HTMLCyVirtualTableElement>;
             "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;

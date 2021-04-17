@@ -1,9 +1,18 @@
-cy-virtual-scroll {
+cy-virtual-table {
+  display: block;
   height: 500px;
   position: relative;
   padding-right: 1px;
   padding-bottom: 1px;
   overflow: hidden;
+
+  .vitural-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
 
   .vitural-viewport {
     width: calc(100% - 1px);
@@ -17,6 +26,8 @@ cy-virtual-scroll {
     top: 0;
     height: 100%;
     width: 1px;
-    overflow: scroll;
+    z-index: 3;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 }

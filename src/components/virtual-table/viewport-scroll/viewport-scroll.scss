@@ -1,0 +1,8 @@
+cy-viewport-scroll {
+  width: 100%;
+  display: block;
+  .scroll-content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}

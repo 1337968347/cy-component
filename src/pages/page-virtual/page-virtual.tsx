@@ -23,7 +23,7 @@ export class PageVirtual {
           <h3 class="cy-title">虚拟列表</h3>
         </cy-header>
         <cy-content>
-          <cy-virtual-scroll items={this.dataList} itemRenderFn={renderItem.bind(this)}></cy-virtual-scroll>
+          <cy-virtual-table items={this.dataList} itemRenderFn={renderItem.bind(this)}></cy-virtual-table>
         </cy-content>
       </div>
     );
