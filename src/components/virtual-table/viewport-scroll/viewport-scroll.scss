@@ -1,8 +1,27 @@
 cy-viewport-scroll {
-  width: 100%;
+  max-width: 100%;
   display: block;
-  .scroll-content {
-    overflow-x: hidden;
-    overflow-y: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  .inner-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    .vertical-inner-content{
+      position: relative;
+    }
+
+    .vertical-scroll {
+      flex-grow: 1;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
 }

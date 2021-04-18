@@ -12,8 +12,16 @@ export interface RenderCellData {
   data: any;
 }
 
+export interface ColumnOption {
+  prop: string;
+  name: string;
+  width?: number;
+}
+
 export interface VituralOption {
-  rowDatas: any[];
+  source: any[];
+  column: ColumnOption[];
+  defaultWidth: number;
   defaultHeight: number;
   rootEl: HTMLElement;
 }

@@ -5,17 +5,29 @@ import { Component, State, h } from '@stencil/core';
   styleUrl: 'page-virtual.scss',
 })
 export class PageVirtual {
-  @State() dataList: Number[] = [];
+  @State() dataList: any[] = [];
+  @State() columns: any[] = [
+    {
+      prop: 'name',
+      name: 'First',
+    },
+    {
+      prop: 'details',
+      name: 'Second',
+    },
+  ];
 
   connectedCallback() {
-    for (let i = 0; i < 100; i++) {
-      this.dataList.push(i);
+    for (let i = 0; i < 10000; i++) {
+      this.dataList.push({
+        name: 'New item' + i,
+        details: 'Item description' + i,
+      });
     }
     this.dataList = [...this.dataList];
   }
 
   render() {
-    const renderItem = item => <cy-item line>{item}</cy-item>;
     return (
       <div class="cy-page">
         <cy-header>
@@ -23,7 +35,7 @@ export class PageVirtual {
           <h3 class="cy-title">虚拟列表</h3>
         </cy-header>
         <cy-content>
-          <cy-virtual-table items={this.dataList} itemRenderFn={renderItem.bind(this)}></cy-virtual-table>
+          <cy-virtual-table source={this.dataList} columns={this.columns}></cy-virtual-table>
         </cy-content>
       </div>
     );

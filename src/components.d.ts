@@ -106,10 +106,12 @@ export namespace Components {
     }
     interface CyViewportScroll {
         "contentHeight": number;
+        "contentWidth": number;
+        "setScroll": (scrollTop: number) => Promise<void>;
     }
     interface CyVirtualTable {
-        "itemRenderFn": (cell: any, itemIndex: Number) => HTMLElement;
-        "items": any[];
+        "columns": any[];
+        "source": any[];
     }
     interface NavPageone {
     }
@@ -450,11 +452,12 @@ declare namespace LocalJSX {
     }
     interface CyViewportScroll {
         "contentHeight"?: number;
+        "contentWidth"?: number;
         "onScrollChange"?: (event: CustomEvent<any>) => void;
     }
     interface CyVirtualTable {
-        "itemRenderFn"?: (cell: any, itemIndex: Number) => HTMLElement;
-        "items"?: any[];
+        "columns"?: any[];
+        "source"?: any[];
     }
     interface NavPageone {
     }
