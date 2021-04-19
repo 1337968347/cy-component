@@ -28,7 +28,7 @@ export class ViewportScroll {
     }
   }
 
-  @Method() setScroll(scrollTop: number) {
+  @Method() async setScroll(scrollTop: number) {
     console.log(scrollTop);
   }
 

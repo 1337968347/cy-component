@@ -19,7 +19,7 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
       }
     });
 
-    source.map((item, i) => {
+    source.map((_item, i) => {
       if (i === 0) {
         positionY[i] = 0;
       } else {
