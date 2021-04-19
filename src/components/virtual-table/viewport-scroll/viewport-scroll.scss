@@ -1,17 +1,17 @@
 cy-viewport-scroll {
   max-width: 100%;
   display: block;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  
+
   .inner-content {
     display: flex;
     height: 100%;
     flex-direction: column;
 
-    .vertical-inner-content{
+    .vertical-inner-content {
       position: relative;
     }
 
@@ -19,7 +19,7 @@ cy-viewport-scroll {
       flex-grow: 1;
       max-width: 100%;
       overflow-x: hidden;
-      overflow-y: scroll;
+      overflow-y: auto;
       -ms-overflow-style: none;
       scrollbar-width: none;
     }

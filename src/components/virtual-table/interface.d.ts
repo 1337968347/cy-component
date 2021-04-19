@@ -1,15 +1,21 @@
 export type DimensionType = 'rows' | 'cols';
 
 export interface CellPosition {
-  top: number;
-  left: number;
+  offsetX: number;
   width: number;
-  height: number;
+  cols: number;
 }
 
-export interface RenderCellData {
+export interface RenderCell {
   position: CellPosition;
   data: any;
+}
+
+export interface RenderRows {
+  rows: number;
+  offsetY: number;
+  height: number;
+  cells: RenderCell[];
 }
 
 export interface ColumnOption {

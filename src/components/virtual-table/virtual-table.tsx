@@ -36,11 +36,21 @@ export class VirtualScroll {
   }
 
   render() {
-    const renderCell = item => {
-      const { top, left, width, height } = item.position;
+    const renderCell = cells => {
+      const { offsetX, width, height } = cells.position;
       return (
-        <div class="table-cell" style={{ width: width + 'px', height: height + 'px', left: left + 'px', top: top + 'px' }}>
-          {item.data}
+        <div class="table-cell" style={{ width: width + 'px', transform: `translateX(${offsetX}px)` }}>
+          {cells.data}
+        </div>
+      );
+    };
+
+    const renderRow = rows => {
+      return (
+        <div style={{ transform: `translateY(${rows.offsetY}px)`, height: rows.height + 'px' }} class="rows">
+          {rows.cells.map(row => {
+            return renderCell(row);
+          })}
         </div>
       );
     };
@@ -52,14 +62,15 @@ export class VirtualScroll {
             onScrollChange={e => this.handleScroll(e)}
             contentHeight={this.vituralParse.getTotalHeight()}
             contentWidth={this.vituralParse.getTotalWidth()}>
+            <div slot="header">
+              {this.vituralParse.getViewportHeader(this.scrollX, this.scrollY).map(rows => {
+                return renderRow(rows);
+              })}
+            </div>
             <div slot="content">
-              {this.vituralParse.getViewportData(this.scrollX, this.scrollY).map(rowsData => (
-                <div class="table-rows">
-                  {rowsData.map(row => {
-                    return renderCell(row);
-                  })}
-                </div>
-              ))}
+              {this.vituralParse.getViewportData(this.scrollX, this.scrollY).map(rows => {
+                return renderRow(rows);
+              })}
             </div>
           </cy-viewport-scroll>
         </div>
