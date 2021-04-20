@@ -35,7 +35,9 @@ export class PageVirtual {
           <h3 class="cy-title">虚拟表格</h3>
         </cy-header>
         <cy-content>
-          <cy-virtual-table source={this.dataList} columns={this.columns}></cy-virtual-table>
+          <div class="container">
+            <cy-virtual-table source={this.dataList} columns={this.columns}></cy-virtual-table>
+          </div>
         </cy-content>
       </div>
     );

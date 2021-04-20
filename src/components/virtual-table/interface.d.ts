@@ -1,21 +1,35 @@
 export type DimensionType = 'rows' | 'cols';
 
-export interface CellPosition {
-  offsetX: number;
-  width: number;
-  cols: number;
+export interface DataParse {
+  getTotalWidth: () => number;
+  getTotalHeight: () => number;
+  getViewportData: (scrollX: number, scrollY: number) => {
+      rowsData: RowData[];
+      cellsData: CellData[];
+  };
+  getViewportHeader: (scrollX: number, scrollY: number) => CellData[];
+  getViewportHeaderHeight: () => number;
 }
 
-export interface RenderCell {
+export interface CellPosition extends RowPosition {
+  offsetX: number;
+  width: number;
+}
+
+export interface CellData extends RowData {
   position: CellPosition;
+  rows: number;
+  cols: number;
   data: any;
 }
 
-export interface RenderRows {
-  rows: number;
+export interface RowPosition {
   offsetY: number;
   height: number;
-  cells: RenderCell[];
+}
+export interface RowData {
+  rows: number;
+  position: RowPosition;
 }
 
 export interface ColumnOption {

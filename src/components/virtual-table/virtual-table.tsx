@@ -1,5 +1,6 @@
 import { Component, Element, Prop, State, h, Host } from '@stencil/core';
 import { createDataParse } from './parse';
+import { CellData, DataParse, RowData } from './interface';
 @Component({
   tag: 'cy-virtual-table',
   styleUrl: 'virtual-table.scss',
@@ -10,7 +11,7 @@ export class VirtualScroll {
   @Prop() columns: any[] = [];
   @State() scrollX: number = 0;
   @State() scrollY: number = 0;
-  vituralParse: any = null;
+  vituralParse: DataParse = null;
 
   componentWillLoad() {
     this.vituralParse = createDataParse({
@@ -36,21 +37,44 @@ export class VirtualScroll {
   }
 
   render() {
-    const renderCell = cells => {
-      const { offsetX, width, height } = cells.position;
+    const renderHeader = () => {
+      const headerCells: CellData[] = this.vituralParse.getViewportHeader(this.scrollX, this.scrollY);
       return (
-        <div class="table-cell" style={{ width: width + 'px', transform: `translateX(${offsetX}px)` }}>
-          {cells.data}
+        <div class="header-rows" slot="header" style={{ height: this.vituralParse.getViewportHeaderHeight() + 'px' }}>
+          <div class="rows">
+            {headerCells.map(row => {
+              return renderCell(row);
+            })}
+          </div>
         </div>
       );
     };
 
-    const renderRow = rows => {
+    const renderContent = () => {
+      const { rowsData, cellsData } = this.vituralParse.getViewportData(this.scrollX, this.scrollY);
+
+      const getRowData = (rows: number, cellsData: CellData[]) => {
+        return cellsData.filter(i => i.rows === rows);
+      };
+
       return (
-        <div style={{ transform: `translateY(${rows.offsetY}px)`, height: rows.height + 'px' }} class="rows">
-          {rows.cells.map(row => {
-            return renderCell(row);
-          })}
+        <div slot="content">
+          {rowsData.map(rows => (
+            <div class="rows" style={{ transform: `translateY(${rows.position.offsetY}px)`, height: rows.position.height + 'px' }}>
+              {getRowData(rows.rows, cellsData).map(row => {
+                return renderCell(row);
+              })}
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    const renderCell = (cell: CellData) => {
+      const { offsetX, width } = cell.position;
+      return (
+        <div class="table-cell" style={{ width: width + 'px', transform: `translateX(${offsetX}px)` }}>
+          {cell.data}
         </div>
       );
     };
@@ -62,16 +86,8 @@ export class VirtualScroll {
             onScrollChange={e => this.handleScroll(e)}
             contentHeight={this.vituralParse.getTotalHeight()}
             contentWidth={this.vituralParse.getTotalWidth()}>
-            <div slot="header">
-              {this.vituralParse.getViewportHeader(this.scrollX, this.scrollY).map(rows => {
-                return renderRow(rows);
-              })}
-            </div>
-            <div slot="content">
-              {this.vituralParse.getViewportData(this.scrollX, this.scrollY).map(rows => {
-                return renderRow(rows);
-              })}
-            </div>
+            {renderHeader()}
+            {renderContent()}
           </cy-viewport-scroll>
         </div>
       </Host>

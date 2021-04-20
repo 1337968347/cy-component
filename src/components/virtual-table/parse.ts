@@ -1,5 +1,5 @@
 import { clamp } from '../../utils/helpers';
-import { VituralOption, RenderCell, RenderRows } from './interface';
+import { VituralOption, CellData, RowData, DataParse } from './interface';
 
 export const createDataParse = ({ source = [], column = [], defaultWidth = 40, defaultHeight = 30, rootEl }: VituralOption) => {
   const viewportElement = rootEl;
@@ -60,36 +60,58 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
 
   const getViewportData = (scrollX: number, scrollY: number) => {
     const { startX, endX, startY, endY } = getViewportRange(scrollX, scrollY);
-    const renderData: RenderRows[] = [];
+    const rowsData: RowData[] = [];
+    const cellsData: CellData[] = [];
     for (let i = startY; i <= endY; i++) {
-      const rowData = [];
-      const rows: RenderRows = {
+      const rows: RowData = {
         rows: i,
-        offsetY: positionY[i],
-        height: defaultHeight,
-        cells: rowData,
+        position: {
+          offsetY: positionY[i],
+          height: defaultHeight,
+        },
       };
 
       for (let j = startX; j <= endX; j++) {
-        const cellData: RenderCell = {
+        const cellData: CellData = {
+          rows: i,
+          cols: j,
           position: {
-            cols: j,
             offsetX: positionX[j],
+            offsetY: positionY[i],
             width: defaultWidth,
+            height: defaultHeight,
           },
           data: source[i][column[j].prop],
         };
-        rowData.push(cellData);
+        cellsData.push(cellData);
       }
-      renderData.push(rows);
+      rowsData.push(rows);
     }
-    return renderData;
+    return { rowsData, cellsData };
   };
 
   const getViewportHeader = (scrollX: number, scrollY: number) => {
     const { startX, endX } = getViewportRange(scrollX, scrollY);
-    console.log(startX, endX);
-    return [];
+    const headCells: CellData[] = [];
+    for (let i = startX; i <= endX; i++) {
+      const cellData: CellData = {
+        position: {
+          offsetX: positionX[i],
+          offsetY: 0,
+          width: defaultWidth,
+          height: defaultHeight,
+        },
+        rows: 0,
+        cols: i,
+        data: column[i].name,
+      };
+      headCells.push(cellData);
+    }
+    return headCells;
+  };
+
+  const getViewportHeaderHeight = () => {
+    return defaultHeight * 1.3;
   };
 
   calcCellsPosition();
@@ -99,5 +121,6 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
     getTotalHeight,
     getViewportData,
     getViewportHeader,
+    getViewportHeaderHeight,
   };
 };
