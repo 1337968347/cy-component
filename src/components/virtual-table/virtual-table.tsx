@@ -1,6 +1,8 @@
 import { Component, Element, Prop, State, h, Host } from '@stencil/core';
 import { createDataParse } from './parse';
+import { createDiff } from './diff';
 import { CellData, DataParse, RowData } from './interface';
+
 @Component({
   tag: 'cy-virtual-table',
   styleUrl: 'virtual-table.scss',
@@ -12,6 +14,7 @@ export class VirtualScroll {
   @State() scrollX: number = 0;
   @State() scrollY: number = 0;
   vituralParse: DataParse = null;
+  rowsDiff = createDiff<RowData>();
 
   componentWillLoad() {
     this.vituralParse = createDataParse({
@@ -52,14 +55,14 @@ export class VirtualScroll {
 
     const renderContent = () => {
       const { rowsData, cellsData } = this.vituralParse.getViewportData(this.scrollX, this.scrollY);
-
+      const diffData = this.rowsDiff.diff(rowsData, 'rows');
       const getRowData = (rows: number, cellsData: CellData[]) => {
         return cellsData.filter(i => i.rows === rows);
       };
 
       return (
         <div slot="content">
-          {rowsData.map(rows => (
+          {diffData.map(rows => (
             <div class="rows" style={{ transform: `translateY(${rows.position.offsetY}px)`, height: rows.position.height + 'px' }}>
               {getRowData(rows.rows, cellsData).map(row => {
                 return renderCell(row);

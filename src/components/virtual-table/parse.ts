@@ -1,6 +1,6 @@
 import { clamp } from '../../utils/helpers';
-import { VituralOption, CellData, RowData, DataParse } from './interface';
-
+import { VituralOption, CellData, RowData } from './interface';
+const PRERENDERCATCH = 2;
 export const createDataParse = ({ source = [], column = [], defaultWidth = 40, defaultHeight = 30, rootEl }: VituralOption) => {
   const viewportElement = rootEl;
 
@@ -51,10 +51,10 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
   const getViewportRange = (scrollX: number, scrollY: number) => {
     let startX: number, endX: number, startY: number, endY: number;
     const { vWidth, vHeight } = getViewportSize();
-    startX = Math.max(0, positionX.findIndex(i => scrollX <= i) - 1);
-    endX = clamp(startX, startX + Math.floor(vWidth / defaultWidth) + 2, column.length - 1);
-    startY = Math.max(0, positionY.findIndex(i => scrollY <= i) - 1);
-    endY = clamp(startY, startY + Math.floor(vHeight / defaultHeight) + 1, source.length - 1);
+    startX = Math.max(0, positionX.findIndex(i => scrollX <= i) - PRERENDERCATCH);
+    endX = clamp(startX, startX + Math.floor(vWidth / defaultWidth) + PRERENDERCATCH, column.length - 1);
+    startY = Math.max(0, positionY.findIndex(i => scrollY <= i) - PRERENDERCATCH);
+    endY = clamp(startY, startY + Math.floor(vHeight / defaultHeight) + PRERENDERCATCH, source.length - 1);
     return { startX, endX, startY, endY };
   };
 
