@@ -1,13 +1,24 @@
 import { clamp } from '../../utils/helpers';
 import { VituralOption, CellData, RowData } from './interface';
 const PRERENDERCATCH = 2;
-export const createDataParse = ({ source = [], column = [], defaultWidth = 40, defaultHeight = 30, rootEl }: VituralOption) => {
+export const createDataParse = ({ sourceData = [], column = [], defaultWidth = 40, defaultHeight = 30, rootEl }: VituralOption) => {
   const viewportElement = rootEl;
 
-  const positionX = new Array(column.length);
-  const positionY = new Array(source.length);
+  let source = [];
+  let positionX = new Array(column.length);
+  let positionY = new Array(source.length);
   let vWidth: number = 0;
   let vHeight: number = 0;
+
+  const init = () => {
+    setSource(sourceData);
+    calcCellsPosition();
+  };
+
+  const setSource = (sourceF: any[]) => {
+    source = [...sourceF];
+    positionX = new Array(source.length);
+  };
 
   const calcCellsPosition = () => {
     column.map((item, i) => {
@@ -48,18 +59,29 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
     };
   };
 
-  const getViewportRange = (scrollX: number, scrollY: number) => {
-    let startX: number, endX: number, startY: number, endY: number;
-    const { vWidth, vHeight } = getViewportSize();
+  const getViewportRangeX = (scrollX: number) => {
+    let startX: number, endX: number;
+    const { vWidth } = getViewportSize();
     startX = Math.max(0, positionX.findIndex(i => scrollX <= i) - PRERENDERCATCH);
     endX = clamp(startX, startX + Math.floor(vWidth / defaultWidth) + PRERENDERCATCH, column.length - 1);
+    return { startX, endX };
+  };
+
+  const getViewportRangeY = (scrollY: number) => {
+    let startY: number, endY: number;
+    const { vHeight } = getViewportSize();
     startY = Math.max(0, positionY.findIndex(i => scrollY <= i) - PRERENDERCATCH);
     endY = clamp(startY, startY + Math.floor(vHeight / defaultHeight) + PRERENDERCATCH, source.length - 1);
+    return { startY, endY };
+  };
+
+  const getViewportRange = (scrollX: number, scrollY: number) => {
+    const { startX, endX } = getViewportRangeX(scrollX);
+    const { startY, endY } = getViewportRangeY(scrollY);
     return { startX, endX, startY, endY };
   };
 
-  const getViewportData = (scrollX: number, scrollY: number) => {
-    const { startX, endX, startY, endY } = getViewportRange(scrollX, scrollY);
+  const getViewportData = (startX: number, endX: number, startY: number, endY: number) => {
     const rowsData: RowData[] = [];
     const cellsData: CellData[] = [];
     for (let i = startY; i <= endY; i++) {
@@ -90,8 +112,7 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
     return { rowsData, cellsData };
   };
 
-  const getViewportHeader = (scrollX: number, scrollY: number) => {
-    const { startX, endX } = getViewportRange(scrollX, scrollY);
+  const getViewportHeader = (startX: number, endX: number) => {
     const headCells: CellData[] = [];
     for (let i = startX; i <= endX; i++) {
       const cellData: CellData = {
@@ -114,11 +135,14 @@ export const createDataParse = ({ source = [], column = [], defaultWidth = 40, d
     return defaultHeight * 1.3;
   };
 
-  calcCellsPosition();
+  init();
 
   return {
+    setSource,
+    
     getTotalWidth,
     getTotalHeight,
+    getViewportRange,
     getViewportData,
     getViewportHeader,
     getViewportHeaderHeight,

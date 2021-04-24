@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionSheetButton, CalendarDate, CalendarViewMode } from "./interface";
+import { DataParse, ViewPortRange } from "./components/virtual-table/interface";
 export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
@@ -108,6 +109,10 @@ export namespace Components {
         "contentHeight": number;
         "contentWidth": number;
         "setScroll": (scrollTop: number) => Promise<void>;
+    }
+    interface CyVirtualData {
+        "viewPortRange": ViewPortRange;
+        "vituralParse": DataParse;
     }
     interface CyVirtualTable {
         "columns": any[];
@@ -275,6 +280,12 @@ declare global {
         prototype: HTMLCyViewportScrollElement;
         new (): HTMLCyViewportScrollElement;
     };
+    interface HTMLCyVirtualDataElement extends Components.CyVirtualData, HTMLStencilElement {
+    }
+    var HTMLCyVirtualDataElement: {
+        prototype: HTMLCyVirtualDataElement;
+        new (): HTMLCyVirtualDataElement;
+    };
     interface HTMLCyVirtualTableElement extends Components.CyVirtualTable, HTMLStencilElement {
     }
     var HTMLCyVirtualTableElement: {
@@ -354,6 +365,7 @@ declare global {
         "cy-time": HTMLCyTimeElement;
         "cy-toggle": HTMLCyToggleElement;
         "cy-viewport-scroll": HTMLCyViewportScrollElement;
+        "cy-virtual-data": HTMLCyVirtualDataElement;
         "cy-virtual-table": HTMLCyVirtualTableElement;
         "nav-pageone": HTMLNavPageoneElement;
         "nav-pagetwo": HTMLNavPagetwoElement;
@@ -455,6 +467,10 @@ declare namespace LocalJSX {
         "contentWidth"?: number;
         "onScrollChange"?: (event: CustomEvent<any>) => void;
     }
+    interface CyVirtualData {
+        "viewPortRange"?: ViewPortRange;
+        "vituralParse"?: DataParse;
+    }
     interface CyVirtualTable {
         "columns"?: any[];
         "source"?: any[];
@@ -500,6 +516,7 @@ declare namespace LocalJSX {
         "cy-time": CyTime;
         "cy-toggle": CyToggle;
         "cy-viewport-scroll": CyViewportScroll;
+        "cy-virtual-data": CyVirtualData;
         "cy-virtual-table": CyVirtualTable;
         "nav-pageone": NavPageone;
         "nav-pagetwo": NavPagetwo;
@@ -539,6 +556,7 @@ declare module "@stencil/core" {
             "cy-time": LocalJSX.CyTime & JSXBase.HTMLAttributes<HTMLCyTimeElement>;
             "cy-toggle": LocalJSX.CyToggle & JSXBase.HTMLAttributes<HTMLCyToggleElement>;
             "cy-viewport-scroll": LocalJSX.CyViewportScroll & JSXBase.HTMLAttributes<HTMLCyViewportScrollElement>;
+            "cy-virtual-data": LocalJSX.CyVirtualData & JSXBase.HTMLAttributes<HTMLCyVirtualDataElement>;
             "cy-virtual-table": LocalJSX.CyVirtualTable & JSXBase.HTMLAttributes<HTMLCyVirtualTableElement>;
             "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;

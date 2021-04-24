@@ -6,7 +6,7 @@ import { DimensionType } from '../interface';
   styleUrl: 'viewport-scroll.scss',
 })
 export class ViewportScroll {
-    @Prop() contentWidth: number = 0;
+  @Prop() contentWidth: number = 0;
   @Prop() contentHeight: number = 0;
   @Event() scrollChange: EventEmitter;
 

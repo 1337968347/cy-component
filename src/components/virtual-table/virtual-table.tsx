@@ -1,7 +1,7 @@
 import { Component, Element, Prop, State, h, Host } from '@stencil/core';
 import { createDataParse } from './parse';
-import { createDiff } from './diff';
-import { CellData, DataParse, RowData } from './interface';
+
+import { CellData } from './interface';
 
 @Component({
   tag: 'cy-virtual-table',
@@ -11,19 +11,26 @@ export class VirtualScroll {
   @Element() el: HTMLElement;
   @Prop() source: any[] = [];
   @Prop() columns: any[] = [];
-  @State() scrollX: number = 0;
-  @State() scrollY: number = 0;
-  vituralParse: DataParse = null;
-  rowsDiff = createDiff<RowData>();
+  @State() startX: number = 0;
+  @State() endX: number = 0;
+  @State() startY: number = 0;
+  @State() endY: number = 0;
+  scrollX: number = 0;
+  scrollY: number = 0;
+  vituralParse = null;
 
   componentWillLoad() {
     this.vituralParse = createDataParse({
-      source: this.source,
+      sourceData: this.source,
       column: this.columns,
       defaultWidth: 180,
-      defaultHeight: 40,
+      defaultHeight: 50,
       rootEl: this.el,
     });
+  }
+
+  componentDidLoad() {
+    this.updateViewPort();
   }
 
   handleScroll(e: CustomEvent) {
@@ -37,11 +44,20 @@ export class VirtualScroll {
         this.scrollY = offset;
         break;
     }
+    this.updateViewPort();
+  }
+
+  updateViewPort() {
+    const { startX, endX, startY, endY } = this.vituralParse.getViewportRange(this.scrollX, this.scrollY);
+    this.startX = startX;
+    this.startY = startY;
+    this.endX = endX;
+    this.endY = endY;
   }
 
   render() {
     const renderHeader = () => {
-      const headerCells: CellData[] = this.vituralParse.getViewportHeader(this.scrollX, this.scrollY);
+      const headerCells: CellData[] = this.vituralParse.getViewportHeader(this.startX, this.endX);
       return (
         <div class="header-rows" slot="header" style={{ height: this.vituralParse.getViewportHeaderHeight() + 'px' }}>
           <div class="rows">
@@ -49,26 +65,6 @@ export class VirtualScroll {
               return renderCell(row);
             })}
           </div>
-        </div>
-      );
-    };
-
-    const renderContent = () => {
-      const { rowsData, cellsData } = this.vituralParse.getViewportData(this.scrollX, this.scrollY);
-      const diffData = this.rowsDiff.diff(rowsData, 'rows');
-      const getRowData = (rows: number, cellsData: CellData[]) => {
-        return cellsData.filter(i => i.rows === rows);
-      };
-
-      return (
-        <div slot="content">
-          {diffData.map(rows => (
-            <div class="rows" style={{ transform: `translateY(${rows.position.offsetY}px)`, height: rows.position.height + 'px' }}>
-              {getRowData(rows.rows, cellsData).map(row => {
-                return renderCell(row);
-              })}
-            </div>
-          ))}
         </div>
       );
     };
@@ -85,13 +81,19 @@ export class VirtualScroll {
     return (
       <Host>
         <div class="vitural-table">
-          <cy-viewport-scroll
-            onScrollChange={e => this.handleScroll(e)}
-            contentHeight={this.vituralParse.getTotalHeight()}
-            contentWidth={this.vituralParse.getTotalWidth()}>
-            {renderHeader()}
-            {renderContent()}
-          </cy-viewport-scroll>
+          {this.startX !== this.endX && this.startY !== this.endY ? (
+            <cy-viewport-scroll
+              onScrollChange={e => this.handleScroll(e)}
+              contentHeight={this.vituralParse.getTotalHeight()}
+              contentWidth={this.vituralParse.getTotalWidth()}>
+              {renderHeader()}
+              <cy-virtual-data
+                slot="content"
+                vituralParse={this.vituralParse}
+                viewPortRange={{ startX: this.startX, startY: this.scrollY, endX: this.endX, endY: this.endY }}
+              />
+            </cy-viewport-scroll>
+          ) : null}
         </div>
       </Host>
     );
