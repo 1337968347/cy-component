@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionSheetButton, CalendarDate, CalendarViewMode } from "./interface";
-import { DataParse, ViewPortRange } from "./components/virtual-table/interface";
+import { CellData, DataParse, ViewPortRange } from "./components/virtual-table/interface";
 export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
@@ -133,6 +133,9 @@ export namespace Components {
     interface PageSetting {
     }
     interface PageVirtual {
+    }
+    interface VituralRow {
+        "cellsData": CellData[];
     }
 }
 declare global {
@@ -340,6 +343,12 @@ declare global {
         prototype: HTMLPageVirtualElement;
         new (): HTMLPageVirtualElement;
     };
+    interface HTMLVituralRowElement extends Components.VituralRow, HTMLStencilElement {
+    }
+    var HTMLVituralRowElement: {
+        prototype: HTMLVituralRowElement;
+        new (): HTMLVituralRowElement;
+    };
     interface HTMLElementTagNameMap {
         "cy-action-sheet": HTMLCyActionSheetElement;
         "cy-app": HTMLCyAppElement;
@@ -375,6 +384,7 @@ declare global {
         "page-root": HTMLPageRootElement;
         "page-setting": HTMLPageSettingElement;
         "page-virtual": HTMLPageVirtualElement;
+        "vitural-row": HTMLVituralRowElement;
     }
 }
 declare namespace LocalJSX {
@@ -491,6 +501,9 @@ declare namespace LocalJSX {
     }
     interface PageVirtual {
     }
+    interface VituralRow {
+        "cellsData"?: CellData[];
+    }
     interface IntrinsicElements {
         "cy-action-sheet": CyActionSheet;
         "cy-app": CyApp;
@@ -526,6 +539,7 @@ declare namespace LocalJSX {
         "page-root": PageRoot;
         "page-setting": PageSetting;
         "page-virtual": PageVirtual;
+        "vitural-row": VituralRow;
     }
 }
 export { LocalJSX as JSX };
@@ -566,6 +580,7 @@ declare module "@stencil/core" {
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
             "page-setting": LocalJSX.PageSetting & JSXBase.HTMLAttributes<HTMLPageSettingElement>;
             "page-virtual": LocalJSX.PageVirtual & JSXBase.HTMLAttributes<HTMLPageVirtualElement>;
+            "vitural-row": LocalJSX.VituralRow & JSXBase.HTMLAttributes<HTMLVituralRowElement>;
         }
     }
 }

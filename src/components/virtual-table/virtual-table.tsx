@@ -23,8 +23,8 @@ export class VirtualScroll {
     this.vituralParse = createDataParse({
       sourceData: this.source,
       column: this.columns,
-      defaultWidth: 180,
-      defaultHeight: 50,
+      defaultWidth: 100,
+      defaultHeight: 42,
       rootEl: this.el,
     });
   }
@@ -90,7 +90,7 @@ export class VirtualScroll {
               <cy-virtual-data
                 slot="content"
                 vituralParse={this.vituralParse}
-                viewPortRange={{ startX: this.startX, startY: this.scrollY, endX: this.endX, endY: this.endY }}
+                viewPortRange={{ startX: this.startX, startY: this.startY, endX: this.endX, endY: this.endY }}
               />
             </cy-viewport-scroll>
           ) : null}

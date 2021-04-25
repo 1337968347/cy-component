@@ -12,14 +12,14 @@ export class PageVirtual {
     for (let i = 0; i < 1000; i++) {
       this.columns.push({
         prop: 'details' + i,
-        name: 'name' + i,
+        name: i,
       });
     }
     this.columns = [...this.columns];
     for (let i = 0; i < 3000; i++) {
       const rows = {};
       this.columns.map(column => {
-        rows[column.prop] = column.name + ' - ' + i;
+        rows[column.prop] = i + ' - ' + column.name;
       });
       this.dataList.push(rows);
     }

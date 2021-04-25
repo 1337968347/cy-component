@@ -16,16 +16,16 @@ cy-virtual-table {
     position: absolute;
     width: 100%;
     height: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
   .table-cell {
     position: absolute;
     top: 0;
     height: 100%;
     display: flex;
+    contain: strict;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .header-rows {
@@ -33,6 +33,6 @@ cy-virtual-table {
     font-size: 1.3em;
     font-weight: bold;
     position: relative;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
