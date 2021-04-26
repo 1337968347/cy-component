@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop, Method, Event, EventEmitter } from '@stencil/core';
-import { createThrottleFunc } from '../../../utils/helpers';
+import { createScrollService } from '../scroll';
 import { DimensionType } from '../interface';
 
 @Component({
@@ -9,27 +9,30 @@ import { DimensionType } from '../interface';
 export class ViewportScroll {
   @Prop() contentWidth: number = 0;
   @Prop() contentHeight: number = 0;
-  scrollThrottleF = createThrottleFunc(100);
   @Event() scrollChange: EventEmitter;
+  private scrollService;
+
+  connectedCallback() {
+    this.scrollService = createScrollService(
+      {
+        beforeScroll: e => {
+          this.scrollChange.emit(e);
+        },
+        afterScroll: e => {},
+      },
+      30,
+    );
+  }
 
   onScroll(scrollType: DimensionType, e: MouseEvent) {
-    this.scrollThrottleF.throttleF(() => {
-      switch (scrollType) {
-        case 'rows':
-          this.scrollChange.emit({
-            type: scrollType,
-            offset: (e.target as any).scrollLeft,
-          });
-          break;
-
-        case 'cols':
-          this.scrollChange.emit({
-            type: scrollType,
-            offset: (e.target as any).scrollTop,
-          });
-          break;
-      }
-    });
+    switch (scrollType) {
+      case 'rows':
+        this.scrollService.scroll(scrollType, (e.target as any).scrollLeft);
+        break;
+      case 'cols':
+        this.scrollService.scroll(scrollType, (e.target as any).scrollTop);
+        break;
+    }
   }
 
   @Method() async setScroll(scrollTop: number) {

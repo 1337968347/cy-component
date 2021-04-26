@@ -1,6 +1,6 @@
 import { clamp } from '../../utils/helpers';
 import { VituralOption, CellData, RowData } from './interface';
-const PRERENDERCATCH = 5;
+const PRERENDERCATCH = 3;
 export const createDataParse = ({ sourceData = [], column = [], defaultWidth = 40, defaultHeight = 30, rootEl }: VituralOption) => {
   const viewportElement = rootEl;
 

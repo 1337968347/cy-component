@@ -34,14 +34,14 @@ export class VirtualScroll {
   }
 
   handleScroll(e: CustomEvent) {
-    const { type, offset } = e.detail;
-    switch (type) {
+    const { dimension, coordinate } = e.detail;
+    switch (dimension) {
       case 'rows':
-        this.scrollX = offset;
+        this.scrollX = coordinate;
         break;
 
       case 'cols':
-        this.scrollY = offset;
+        this.scrollY = coordinate;
         break;
     }
     this.updateViewPort();
