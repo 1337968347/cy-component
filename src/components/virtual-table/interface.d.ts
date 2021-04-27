@@ -1,3 +1,4 @@
+export * from './scroll';
 export type DimensionType = 'rows' | 'cols';
 
 export interface DataParse {

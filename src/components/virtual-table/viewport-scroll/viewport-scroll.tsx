@@ -10,6 +10,8 @@ export class ViewportScroll {
   @Prop() contentWidth: number = 0;
   @Prop() contentHeight: number = 0;
   @Event() scrollChange: EventEmitter;
+  private horScrollEle: HTMLElement;
+  private verScrollEle: HTMLElement;
   private scrollService;
 
   connectedCallback() {
@@ -18,7 +20,16 @@ export class ViewportScroll {
         beforeScroll: e => {
           this.scrollChange.emit(e);
         },
-        afterScroll: e => {},
+        afterScroll: e => {
+          switch (e.dimension) {
+            case 'rows':
+              this.verScrollEle.scrollLeft = e.coordinate;
+              break;
+            case 'cols':
+              this.horScrollEle.scrollTop = e.coordinate;
+              break;
+          }
+        },
       },
       30,
     );
@@ -35,6 +46,13 @@ export class ViewportScroll {
     }
   }
 
+  onMouseWeel(scrollType: DimensionType, delta: 'deltaX' | 'deltaY', e: WheelEvent) {
+    e.preventDefault();
+    const nowOffset = scrollType === 'rows' ? this.horScrollEle.scrollLeft : this.verScrollEle.scrollTop;
+    const coordinate = nowOffset + e[delta];
+    this.scrollService.scroll(scrollType, coordinate);
+  }
+
   @Method() async setScroll(scrollTop: number) {
     console.log(scrollTop);
   }
@@ -42,6 +60,10 @@ export class ViewportScroll {
   render() {
     return (
       <Host
+        ref={e => (this.horScrollEle = e)}
+        onWheel={e => {
+          this.onMouseWeel('rows', 'deltaX', e);
+        }}
         onScroll={(e: MouseEvent) => {
           this.onScroll('rows', e);
         }}>
@@ -51,6 +73,10 @@ export class ViewportScroll {
           </div>
           <div
             class="vertical-scroll"
+            ref={e => (this.verScrollEle = e)}
+            onWheel={e => {
+              this.onMouseWeel('cols', 'deltaY', e);
+            }}
             onScroll={(e: MouseEvent) => {
               this.onScroll('cols', e);
             }}>
