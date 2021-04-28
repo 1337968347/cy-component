@@ -59,3 +59,25 @@ export const createScrollService = ({ beforeScroll, afterScroll }: ScrollHook, s
     scroll,
   };
 };
+
+export const createGirdScrollService = () => {
+  const elements: { [propsName: string]: HTMLElement[] } = {};
+
+  const resignElement = (el: HTMLElement | null, key: string) => {
+    if (!elements[key]) {
+      elements[key] = [];
+    }
+
+    if (el) {
+      elements[key].push(el);
+    } else if (elements[key]) {
+      delete elements[key];
+    }
+  };
+  
+  
+
+  return {
+    resignElement,
+  };
+};

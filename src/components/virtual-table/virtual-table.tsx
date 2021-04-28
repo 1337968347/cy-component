@@ -15,9 +15,9 @@ export class VirtualScroll {
   @State() endX: number = 0;
   @State() startY: number = 0;
   @State() endY: number = 0;
-  scrollX: number = 0;
-  scrollY: number = 0;
-  vituralParse = null;
+  private scrollX: number = 0;
+  private scrollY: number = 0;
+  private vituralParse = null;
 
   componentWillLoad() {
     this.vituralParse = createDataParse({
