@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionSheetButton, CalendarDate, CalendarViewMode } from "./interface";
-import { CellData, DataParse, ViewPortRange } from "./components/virtual-table/interface";
+import { CellData, DataParse, DimensionType, ViewPortRange } from "./components/virtual-table/interface";
 export namespace Components {
     interface CyActionSheet {
         "buttons": ActionSheetButton[];
@@ -108,7 +108,7 @@ export namespace Components {
     interface CyViewportScroll {
         "contentHeight": number;
         "contentWidth": number;
-        "setScroll": (scrollTop: number) => Promise<void>;
+        "setScroll": (dimension: DimensionType, offset: number) => Promise<void>;
     }
     interface CyVirtualData {
         "viewPortRange": ViewPortRange;

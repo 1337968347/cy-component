@@ -36,7 +36,6 @@ export const createScrollService = ({ beforeScroll, afterScroll }: ScrollHook, s
       dimension: dimension,
       coordinate: offset,
     });
-    setScroll(dimension, offset);
   };
 
   const setScroll = (dimension: DimensionType, offset: number) => {
@@ -57,11 +56,21 @@ export const createScrollService = ({ beforeScroll, afterScroll }: ScrollHook, s
 
   return {
     scroll,
+    setScroll,
   };
 };
 
 export const createGirdScrollService = () => {
   const elements: { [propsName: string]: HTMLElement[] } = {};
+
+  const setScroll = (dimension: DimensionType, offset: number) => {
+    for (let key in elements) {
+      const els = elements[key];
+      els.map((el: any) => {
+        el.setScroll(dimension, offset);
+      });
+    }
+  };
 
   const resignElement = (el: HTMLElement | null, key: string) => {
     if (!elements[key]) {
@@ -74,10 +83,11 @@ export const createGirdScrollService = () => {
       delete elements[key];
     }
   };
-  
-  
 
   return {
     resignElement,
+    setScroll,
   };
 };
+
+export const girdScrollService = createGirdScrollService();

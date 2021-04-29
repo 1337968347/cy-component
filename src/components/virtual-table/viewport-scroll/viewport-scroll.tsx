@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop, Method, Event, EventEmitter } from '@stencil/core';
-import { createScrollService, createGirdScrollService } from '../scroll';
+import { createScrollService, girdScrollService } from '../scroll';
 import { DimensionType } from '../interface';
 
 @Component({
@@ -13,7 +13,6 @@ export class ViewportScroll {
   private horScrollEle: HTMLElement;
   private verScrollEle: HTMLElement;
   private scrollService;
-  private girdScrollService = createGirdScrollService();
 
   connectedCallback() {
     this.scrollService = createScrollService(
@@ -48,24 +47,20 @@ export class ViewportScroll {
   }
 
   onMouseWeel(scrollType: DimensionType, delta: 'deltaX' | 'deltaY', e: WheelEvent) {
+    e.preventDefault()
     const nowOffset = scrollType === 'rows' ? this.horScrollEle.scrollLeft : this.verScrollEle.scrollTop;
     const coordinate = nowOffset + e[delta];
     this.scrollService.scroll(scrollType, coordinate);
   }
 
-  @Method() async setScroll(scrollTop: number) {
-    console.log(scrollTop);
-  }
-
-  handlegetHorRef(el: HTMLElement) {
-    this.horScrollEle = el;
-    this.girdScrollService.resignElement(el, 'rows');
+  @Method() async setScroll(dimension: DimensionType, offset: number) {
+    this.scrollService.setScroll(dimension, offset)
   }
 
   render() {
     return (
       <Host
-        ref={e => this.handlegetHorRef.bind(this, e)}
+        ref={e => this.horScrollEle =e}
         onWheel={e => {
           this.onMouseWeel('rows', 'deltaX', e);
         }}

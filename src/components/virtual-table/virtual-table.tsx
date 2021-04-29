@@ -1,5 +1,6 @@
 import { Component, Element, Prop, State, h, Host } from '@stencil/core';
 import { createDataParse } from './parse';
+import { girdScrollService } from './scroll';
 
 import { CellData } from './interface';
 
@@ -44,6 +45,7 @@ export class VirtualScroll {
         this.scrollY = coordinate;
         break;
     }
+    girdScrollService.setScroll(dimension, coordinate);
     this.updateViewPort();
   }
 
@@ -83,6 +85,9 @@ export class VirtualScroll {
         <div class="vitural-table">
           {this.startX !== this.endX && this.startY !== this.endY ? (
             <cy-viewport-scroll
+              ref={e => {
+                girdScrollService.resignElement(e, 'scroll');
+              }}
               onScrollChange={e => this.handleScroll(e)}
               contentHeight={this.vituralParse.getTotalHeight()}
               contentWidth={this.vituralParse.getTotalWidth()}>
