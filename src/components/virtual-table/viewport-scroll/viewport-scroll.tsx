@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop, Method, Event, EventEmitter } from '@stencil/core';
-import { createScrollService, girdScrollService } from '../scroll';
+import { createScrollService } from '../scroll';
 import { DimensionType } from '../interface';
 
 @Component({
