@@ -124,10 +124,6 @@ export namespace Components {
     }
     interface PageCalendar {
     }
-    interface PageDatascreen {
-    }
-    interface PageNav {
-    }
     interface PageRoot {
     }
     interface PageSetting {
@@ -313,18 +309,6 @@ declare global {
         prototype: HTMLPageCalendarElement;
         new (): HTMLPageCalendarElement;
     };
-    interface HTMLPageDatascreenElement extends Components.PageDatascreen, HTMLStencilElement {
-    }
-    var HTMLPageDatascreenElement: {
-        prototype: HTMLPageDatascreenElement;
-        new (): HTMLPageDatascreenElement;
-    };
-    interface HTMLPageNavElement extends Components.PageNav, HTMLStencilElement {
-    }
-    var HTMLPageNavElement: {
-        prototype: HTMLPageNavElement;
-        new (): HTMLPageNavElement;
-    };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
     var HTMLPageRootElement: {
@@ -379,8 +363,6 @@ declare global {
         "nav-pageone": HTMLNavPageoneElement;
         "nav-pagetwo": HTMLNavPagetwoElement;
         "page-calendar": HTMLPageCalendarElement;
-        "page-datascreen": HTMLPageDatascreenElement;
-        "page-nav": HTMLPageNavElement;
         "page-root": HTMLPageRootElement;
         "page-setting": HTMLPageSettingElement;
         "page-virtual": HTMLPageVirtualElement;
@@ -491,10 +473,6 @@ declare namespace LocalJSX {
     }
     interface PageCalendar {
     }
-    interface PageDatascreen {
-    }
-    interface PageNav {
-    }
     interface PageRoot {
     }
     interface PageSetting {
@@ -534,8 +512,6 @@ declare namespace LocalJSX {
         "nav-pageone": NavPageone;
         "nav-pagetwo": NavPagetwo;
         "page-calendar": PageCalendar;
-        "page-datascreen": PageDatascreen;
-        "page-nav": PageNav;
         "page-root": PageRoot;
         "page-setting": PageSetting;
         "page-virtual": PageVirtual;
@@ -575,8 +551,6 @@ declare module "@stencil/core" {
             "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;
-            "page-datascreen": LocalJSX.PageDatascreen & JSXBase.HTMLAttributes<HTMLPageDatascreenElement>;
-            "page-nav": LocalJSX.PageNav & JSXBase.HTMLAttributes<HTMLPageNavElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
             "page-setting": LocalJSX.PageSetting & JSXBase.HTMLAttributes<HTMLPageSettingElement>;
             "page-virtual": LocalJSX.PageVirtual & JSXBase.HTMLAttributes<HTMLPageVirtualElement>;

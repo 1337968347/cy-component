@@ -47,7 +47,6 @@ export class ViewportScroll {
   }
 
   onMouseWeel(scrollType: DimensionType, delta: 'deltaX' | 'deltaY', e: WheelEvent) {
-    e.preventDefault()
     const nowOffset = scrollType === 'rows' ? this.horScrollEle.scrollLeft : this.verScrollEle.scrollTop;
     const coordinate = nowOffset + e[delta];
     this.scrollService.scroll(scrollType, coordinate);

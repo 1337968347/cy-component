@@ -13,17 +13,7 @@ const menus: Menu[] = [
     icon: 'calendar',
   },
   {
-    title: '导航',
-    path: 'nav',
-    icon: 'nav',
-  },
-  {
-    title: 'canvas',
-    path: 'data-screen',
-    icon: 'data-screen',
-  },
-  {
-    title: '虚拟列表',
+    title: '虚拟表格',
     path: 'virtual-list',
   },
   {
@@ -38,7 +28,7 @@ const menus: Menu[] = [
 export class PageRoot {
   @Element() el: HTMLElement;
   @State() color: Color = configManager.getPreferColor();
-  @State() choose: Menu = menus[3];
+  @State() choose: Menu = menus[1];
 
   switchCom(value) {
     this.choose = value;
@@ -94,14 +84,10 @@ export class PageRoot {
 
 const RenderShowItem = (comName: string) => {
   switch (comName) {
-    case 'nav':
-      return <page-nav />;
     case 'calendar':
       return <page-calendar></page-calendar>;
     case 'setting':
       return <page-setting />;
-    case 'data-screen':
-      return <page-datascreen></page-datascreen>;
     case 'virtual-list':
       return <page-virtual></page-virtual>;
 
