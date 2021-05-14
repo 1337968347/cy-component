@@ -6,6 +6,20 @@ cy-viewport-scroll {
   -ms-overflow-style: none;
   position: relative;
 
+  .ver-scroll-bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 22;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .ver-scroll-barinner {
+      width: 1px;
+    }
+  }
+
   .inner-content {
     display: flex;
     height: 100%;

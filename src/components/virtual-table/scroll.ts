@@ -14,18 +14,20 @@ interface ScrollData {
   coordinate: number;
 }
 
-export const createScrollService = ({ beforeScroll, afterScroll }: ScrollHook, scrollThrottle: number = 30) => {
+export const createScrollService = ({ beforeScroll, afterScroll }: ScrollHook, scrollThrottle: number = 3000) => {
   const previousScroll: DimensionMap<number> = { rows: 0, cols: 0 };
   const preventArtificialScroll: DimensionMap<null | number> = { rows: null, cols: 0 };
 
-  let scrollThrottling = new Date().getTime();
+  let laseScrollTime = new Date().getTime();
 
   const scroll = (dimension: DimensionType, offset: number) => {
     cancelScroll(dimension);
-    const change = new Date().getTime() + scrollThrottle;
-    if (change < scrollThrottling) {
+    const scrollTime = laseScrollTime + scrollThrottle;
+    const now = new Date().getTime();
+    if (now < scrollTime) {
       return;
     }
+    laseScrollTime = new Date().getTime();
 
     if (previousScroll[dimension] === offset) {
       return;
