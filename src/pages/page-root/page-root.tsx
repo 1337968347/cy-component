@@ -8,17 +8,29 @@ interface Menu {
 }
 const menus: Menu[] = [
   {
-    title: '日历',
+    title: 'webGl',
+    path: 'webGl',
+    icon: 'camera'
+  },
+  {
+    title: '仿win10日历',
     path: 'calendar',
     icon: 'calendar',
   },
   {
+    title: '数据可视化',
+    path: 'datascreen',
+    icon: 'data'
+  },
+  {
     title: '虚拟表格',
     path: 'virtual-list',
+    icon: 'table'
   },
   {
     title: '设置',
     path: 'setting',
+    icon: 'setting'
   },
 ];
 @Component({
@@ -28,7 +40,7 @@ const menus: Menu[] = [
 export class PageRoot {
   @Element() el: HTMLElement;
   @State() color: Color = configManager.getPreferColor();
-  @State() choose: Menu = menus[1];
+  @State() choose: Menu = menus[0];
 
   switchCom(value) {
     this.choose = value;
@@ -90,7 +102,10 @@ const RenderShowItem = (comName: string) => {
       return <page-setting />;
     case 'virtual-list':
       return <page-virtual></page-virtual>;
-
+    case 'datascreen':
+      return <page-datascreen></page-datascreen>;
+    case 'webGl':
+      return <page-webgl></page-webgl>;
     default:
       return <div></div>;
   }

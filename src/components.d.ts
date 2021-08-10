@@ -124,11 +124,15 @@ export namespace Components {
     }
     interface PageCalendar {
     }
+    interface PageDatascreen {
+    }
     interface PageRoot {
     }
     interface PageSetting {
     }
     interface PageVirtual {
+    }
+    interface PageWebgl {
     }
     interface VituralRow {
         "cellsData": CellData[];
@@ -309,6 +313,12 @@ declare global {
         prototype: HTMLPageCalendarElement;
         new (): HTMLPageCalendarElement;
     };
+    interface HTMLPageDatascreenElement extends Components.PageDatascreen, HTMLStencilElement {
+    }
+    var HTMLPageDatascreenElement: {
+        prototype: HTMLPageDatascreenElement;
+        new (): HTMLPageDatascreenElement;
+    };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
     var HTMLPageRootElement: {
@@ -326,6 +336,12 @@ declare global {
     var HTMLPageVirtualElement: {
         prototype: HTMLPageVirtualElement;
         new (): HTMLPageVirtualElement;
+    };
+    interface HTMLPageWebglElement extends Components.PageWebgl, HTMLStencilElement {
+    }
+    var HTMLPageWebglElement: {
+        prototype: HTMLPageWebglElement;
+        new (): HTMLPageWebglElement;
     };
     interface HTMLVituralRowElement extends Components.VituralRow, HTMLStencilElement {
     }
@@ -363,9 +379,11 @@ declare global {
         "nav-pageone": HTMLNavPageoneElement;
         "nav-pagetwo": HTMLNavPagetwoElement;
         "page-calendar": HTMLPageCalendarElement;
+        "page-datascreen": HTMLPageDatascreenElement;
         "page-root": HTMLPageRootElement;
         "page-setting": HTMLPageSettingElement;
         "page-virtual": HTMLPageVirtualElement;
+        "page-webgl": HTMLPageWebglElement;
         "vitural-row": HTMLVituralRowElement;
     }
 }
@@ -473,11 +491,15 @@ declare namespace LocalJSX {
     }
     interface PageCalendar {
     }
+    interface PageDatascreen {
+    }
     interface PageRoot {
     }
     interface PageSetting {
     }
     interface PageVirtual {
+    }
+    interface PageWebgl {
     }
     interface VituralRow {
         "cellsData"?: CellData[];
@@ -512,9 +534,11 @@ declare namespace LocalJSX {
         "nav-pageone": NavPageone;
         "nav-pagetwo": NavPagetwo;
         "page-calendar": PageCalendar;
+        "page-datascreen": PageDatascreen;
         "page-root": PageRoot;
         "page-setting": PageSetting;
         "page-virtual": PageVirtual;
+        "page-webgl": PageWebgl;
         "vitural-row": VituralRow;
     }
 }
@@ -551,9 +575,11 @@ declare module "@stencil/core" {
             "nav-pageone": LocalJSX.NavPageone & JSXBase.HTMLAttributes<HTMLNavPageoneElement>;
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;
+            "page-datascreen": LocalJSX.PageDatascreen & JSXBase.HTMLAttributes<HTMLPageDatascreenElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
             "page-setting": LocalJSX.PageSetting & JSXBase.HTMLAttributes<HTMLPageSettingElement>;
             "page-virtual": LocalJSX.PageVirtual & JSXBase.HTMLAttributes<HTMLPageVirtualElement>;
+            "page-webgl": LocalJSX.PageWebgl & JSXBase.HTMLAttributes<HTMLPageWebglElement>;
             "vitural-row": LocalJSX.VituralRow & JSXBase.HTMLAttributes<HTMLVituralRowElement>;
         }
     }
