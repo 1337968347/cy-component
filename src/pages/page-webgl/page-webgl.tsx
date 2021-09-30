@@ -16,7 +16,6 @@ export class PageVirtual {
           </a>
         </cy-header>
         <cy-content>
-          WASD移动, 鼠标点击控制方向
           <iframe src="https://1337968347.github.io/SimpleRenderer" frameborder="0"></iframe>
         </cy-content>
       </div>
