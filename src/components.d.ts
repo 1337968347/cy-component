@@ -126,6 +126,10 @@ export namespace Components {
     }
     interface PageDatascreen {
     }
+    interface PageNoise {
+    }
+    interface PagePathtrace {
+    }
     interface PageRoot {
     }
     interface PageSetting {
@@ -319,6 +323,18 @@ declare global {
         prototype: HTMLPageDatascreenElement;
         new (): HTMLPageDatascreenElement;
     };
+    interface HTMLPageNoiseElement extends Components.PageNoise, HTMLStencilElement {
+    }
+    var HTMLPageNoiseElement: {
+        prototype: HTMLPageNoiseElement;
+        new (): HTMLPageNoiseElement;
+    };
+    interface HTMLPagePathtraceElement extends Components.PagePathtrace, HTMLStencilElement {
+    }
+    var HTMLPagePathtraceElement: {
+        prototype: HTMLPagePathtraceElement;
+        new (): HTMLPagePathtraceElement;
+    };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
     var HTMLPageRootElement: {
@@ -380,6 +396,8 @@ declare global {
         "nav-pagetwo": HTMLNavPagetwoElement;
         "page-calendar": HTMLPageCalendarElement;
         "page-datascreen": HTMLPageDatascreenElement;
+        "page-noise": HTMLPageNoiseElement;
+        "page-pathtrace": HTMLPagePathtraceElement;
         "page-root": HTMLPageRootElement;
         "page-setting": HTMLPageSettingElement;
         "page-virtual": HTMLPageVirtualElement;
@@ -493,6 +511,10 @@ declare namespace LocalJSX {
     }
     interface PageDatascreen {
     }
+    interface PageNoise {
+    }
+    interface PagePathtrace {
+    }
     interface PageRoot {
     }
     interface PageSetting {
@@ -535,6 +557,8 @@ declare namespace LocalJSX {
         "nav-pagetwo": NavPagetwo;
         "page-calendar": PageCalendar;
         "page-datascreen": PageDatascreen;
+        "page-noise": PageNoise;
+        "page-pathtrace": PagePathtrace;
         "page-root": PageRoot;
         "page-setting": PageSetting;
         "page-virtual": PageVirtual;
@@ -576,6 +600,8 @@ declare module "@stencil/core" {
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;
             "page-datascreen": LocalJSX.PageDatascreen & JSXBase.HTMLAttributes<HTMLPageDatascreenElement>;
+            "page-noise": LocalJSX.PageNoise & JSXBase.HTMLAttributes<HTMLPageNoiseElement>;
+            "page-pathtrace": LocalJSX.PagePathtrace & JSXBase.HTMLAttributes<HTMLPagePathtraceElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
             "page-setting": LocalJSX.PageSetting & JSXBase.HTMLAttributes<HTMLPageSettingElement>;
             "page-virtual": LocalJSX.PageVirtual & JSXBase.HTMLAttributes<HTMLPageVirtualElement>;

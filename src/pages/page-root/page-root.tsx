@@ -8,9 +8,17 @@ interface Menu {
 }
 const menus: Menu[] = [
   {
-    title: 'webGl',
-    path: 'webGl',
-    icon: 'camera'
+    title: '水渲染',
+    path: 'water',
+    icon: 'camera',
+  },
+  {
+    title: '图形噪音',
+    path: 'noise',
+  },
+  {
+    title: '路径追踪(待补充)',
+    path: 'pathtrace',
   },
   {
     title: '仿win10日历',
@@ -20,17 +28,17 @@ const menus: Menu[] = [
   {
     title: '数据可视化',
     path: 'datascreen',
-    icon: 'data'
+    icon: 'data',
   },
   {
     title: '虚拟表格',
     path: 'virtual-list',
-    icon: 'table'
+    icon: 'table',
   },
   {
     title: '设置',
     path: 'setting',
-    icon: 'setting'
+    icon: 'setting',
   },
 ];
 @Component({
@@ -104,8 +112,12 @@ const RenderShowItem = (comName: string) => {
       return <page-virtual></page-virtual>;
     case 'datascreen':
       return <page-datascreen></page-datascreen>;
-    case 'webGl':
+    case 'water':
       return <page-webgl></page-webgl>;
+    case 'noise':
+      return <page-noise></page-noise>;
+    case 'pathtrace':
+      return <page-pathtrace></page-pathtrace>;
     default:
       return <div></div>;
   }
