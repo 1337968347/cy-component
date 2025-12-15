@@ -32,6 +32,7 @@ export class PageVirtual {
       <div class="cy-page">
         <a class="github-link" target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/virtual-table">
           <cy-icon name="github" />
+          <span class="link-text">查看源码</span>
         </a>
         <cy-content>
           <div class="container">

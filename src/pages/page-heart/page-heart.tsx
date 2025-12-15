@@ -10,6 +10,7 @@ export class PageHeart {
       <div class="cy-page">
         <a class="github-link" target="_blank" href="https://1337968347.github.io/demo">
           <cy-icon name="github" />
+          <span class="link-text">查看源码</span>
         </a>
         <cy-content>
           <iframe src="https://1337968347.github.io/demo" frameborder="0"></iframe>

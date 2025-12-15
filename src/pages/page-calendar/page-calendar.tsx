@@ -19,6 +19,7 @@ export class PageCalendar {
       <div class="cy-page">
         <a class="github-link" target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/calendar">
           <cy-icon name="github" />
+          <span class="link-text">查看源码</span>
         </a>
         <cy-content>
           <cy-calendar color={this.color} />

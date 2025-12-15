@@ -10,6 +10,7 @@ export class PageVirtual {
       <div class="cy-page">
         <a class="github-link" target="_blank" href="https://github.com/1337968347/2d-noise">
           <cy-icon name="github" />
+          <span class="link-text">查看源码</span>
         </a>
         <cy-content>
           <iframe src="https://1337968347.github.io/2d-noise" frameborder="0"></iframe>
