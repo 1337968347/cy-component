@@ -9,7 +9,6 @@ export class PageVirtual {
     return (
       <div class="cy-page">
         <cy-header>
-          <cy-menu-button class="btn-box" slot="start" />
           <h3 class="cy-title">水渲染 & VR</h3>
           <a target="_blank" href="https://github.com/1337968347/SimpleRenderer" slot="end">
             <cy-icon name="github" />

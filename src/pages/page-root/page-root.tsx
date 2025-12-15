@@ -15,10 +15,12 @@ const menus: Menu[] = [
   {
     title: '图形噪音',
     path: 'noise',
+    icon: 'color',
   },
   {
     title: '路径追踪(待补充)',
     path: 'pathtrace',
+    icon: 'animation',
   },
   {
     title: '仿win10日历',
@@ -70,7 +72,7 @@ export class PageRoot {
       <Host>
         <cy-app>
           <div class="menu-content">
-            <cy-menu>
+            <div class="menu-sidebar">
               <div class="cy-page">
                 <cy-header>
                   <h3 class="cy-title">菜单</h3>
@@ -87,13 +89,13 @@ export class PageRoot {
                       onClick={() => {
                         this.switchCom(menu);
                       }}>
-                      {menu.icon ? <cy-icon slot="start" name={menu.icon}></cy-icon> : null}
+                      <cy-icon slot="start" name={menu.icon}></cy-icon>
                       <h3 class="menu-h3">{menu.title}</h3>
                     </cy-item>
                   ))}
                 </cy-content>
               </div>
-            </cy-menu>
+            </div>
             <div class="menu-page">{RenderShowItem(this.choose.path)}</div>
           </div>
         </cy-app>

@@ -1,9 +1,9 @@
 :host {
-  --min-height: 48px;
+  --min-height: 52px;
   --highlight-color: var(--cy-color-base, #3880ff);
   margin: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 16px;
+  padding-right: 16px;
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
@@ -26,6 +26,7 @@
   box-sizing: border-box;
   z-index: 1;
   min-height: var(--min-height);
+  cursor: pointer;
 }
 
 .item-native {

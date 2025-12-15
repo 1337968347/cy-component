@@ -50,8 +50,8 @@ export class toggle implements ComponentInterface {
     ev.stopImmediatePropagation();
     ev.preventDefault();
     if (this.lastDrag + 300 < Date.now()) {
-      this.checked = !!!this.checked;
-      this.cyChange.emit(!!this.checked);
+      this.checked = !this.checked;
+      this.cyChange.emit(this.checked);
     }
   }
 

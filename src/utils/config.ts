@@ -19,6 +19,11 @@ export const createConfigMananger = () => {
     };
   }
 
+  // 确保默认为明亮模式
+  if (!config.viewMode) {
+    config.viewMode = 'light';
+  }
+
   const getPreferColor = () => {
     return config.preferColor || 'danger';
   };
@@ -46,7 +51,8 @@ export const createConfigMananger = () => {
     localStorage.setItem(STORAGEKEY, JSON.stringify(config));
   };
 
-  setViewMode(getViewMode())
+  // 初始化主题
+  setViewMode(getViewMode());
   
   return {
     getPreferColor,

@@ -26,10 +26,47 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background: var(--cy-background-color);
+}
+
+.menu-sidebar {
+  width: 280px;
+  height: 100%;
+  position: relative;
+  background: var(--cy-toolbar-background);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.08);
+  border-right: 1px solid var(--cy-border-color);
+  flex-shrink: 0;
+
+  .cy-page {
+    background: var(--cy-toolbar-background);
+  }
+
+  cy-content {
+    background: var(--cy-toolbar-background);
+  }
+  
+  // 隐藏菜单标题下方的装饰线
+  cy-header {
+    &::after {
+      display: none;
+    }
+    
+    // 菜单标题下边框
+    border-bottom: 1px solid var(--cy-border-color);
+  }
 }
 
 .menu-item {
-  margin: 3px 0;
+  margin: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &:hover {
+    transform: translateX(4px);
+    background: rgba(var(--cy-color-base-rgb), 0.08);
+  }
 }
 
 .menu-page {
@@ -41,18 +78,74 @@
 .menu-item {
   cy-icon {
     color: var(--cy-color-base);
+    transition: color 0.25s ease;
   }
 }
 
 .select-com {
-  background: var(--cy-color-tint);
+  background: var(--cy-color-base) !important;
   color: var(--cy-color-contrast);
+  box-shadow: 0 4px 16px rgba(var(--cy-color-base-rgb), 0.25);
+  transform: translateX(4px);
+
+  &:hover {
+    background: var(--cy-color-shade) !important;
+    box-shadow: 0 6px 20px rgba(var(--cy-color-base-rgb), 0.3);
+  }
+
   cy-icon {
     color: var(--cy-color-contrast);
+  }
+
+  .menu-h3 {
+    font-weight: 600;
   }
 }
 
 .menu-h3 {
   margin: 0.8em 0;
-  font-size: 0.18rem;
+  font-size: 15px;
+  font-weight: 500;
+  transition: font-weight 0.25s ease;
+}
+
+.cy-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 0 20px;
+}
+
+// 主内容区域的标题样式
+.menu-page {
+  cy-header {
+    border-bottom: 1px solid var(--cy-border-color);
+    
+    // 隐藏主内容区标题下方的装饰线
+    &::after {
+      display: none;
+    }
+    
+    .cy-title {
+      flex: 1;
+    }
+    
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      color: var(--cy-text-color);
+      text-decoration: none;
+      transition: opacity 0.2s;
+      
+      &:hover {
+        opacity: 0.7;
+      }
+      
+      cy-icon {
+        font-size: 24px;
+      }
+    }
+  }
 }

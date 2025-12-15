@@ -142,6 +142,26 @@ export namespace Components {
         "cellsData": CellData[];
     }
 }
+export interface CyBackdropCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCyBackdropElement;
+}
+export interface CyCalendarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCyCalendarElement;
+}
+export interface CySegmentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCySegmentElement;
+}
+export interface CyToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCyToggleElement;
+}
+export interface CyViewportScrollCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCyViewportScrollElement;
+}
 declare global {
     interface HTMLCyActionSheetElement extends Components.CyActionSheet, HTMLStencilElement {
     }
@@ -416,7 +436,7 @@ declare namespace LocalJSX {
     interface CyApp {
     }
     interface CyBackdrop {
-        "onBackDrop"?: (event: CustomEvent<any>) => void;
+        "onBackDrop"?: (event: CyBackdropCustomEvent<any>) => void;
         "stopPropagation"?: boolean;
         "tappable"?: boolean;
     }
@@ -426,7 +446,7 @@ declare namespace LocalJSX {
     }
     interface CyCalendar {
         "color"?: string;
-        "onChoose"?: (event: CustomEvent<any>) => void;
+        "onChoose"?: (event: CyCalendarCustomEvent<any>) => void;
     }
     interface CyCalendarDay {
         "calendarDate"?: CalendarDate;
@@ -471,7 +491,7 @@ declare namespace LocalJSX {
     }
     interface CySegment {
         "color"?: string;
-        "onCyChange"?: (event: CustomEvent<any>) => void;
+        "onCyChange"?: (event: CySegmentCustomEvent<any>) => void;
         "scrollable"?: boolean;
         "value"?: any;
     }
@@ -488,12 +508,12 @@ declare namespace LocalJSX {
         "checked"?: boolean;
         "color"?: string;
         "gestureEnable"?: boolean;
-        "onCyChange"?: (event: CustomEvent<any>) => void;
+        "onCyChange"?: (event: CyToggleCustomEvent<any>) => void;
     }
     interface CyViewportScroll {
         "contentHeight"?: number;
         "contentWidth"?: number;
-        "onScrollChange"?: (event: CustomEvent<any>) => void;
+        "onScrollChange"?: (event: CyViewportScrollCustomEvent<any>) => void;
     }
     interface CyVirtualData {
         "viewPortRange"?: ViewPortRange;

@@ -1,5 +1,5 @@
 :host {
-  --menu-width: 250px;
+  --menu-width: 280px;
   position: absolute;
   top: 0;
   left: 0;
@@ -22,14 +22,14 @@
   z-index: 1;
   position: relative;
   will-change: transform;
-  box-shadow: rgb(0 0 0 / 18%) 4px 0px 16px;
-  border-right: 1px solid rgb(0 0 0 / 0.1);
-
+  background: var(--cy-toolbar-background);
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  border-right: 1px solid var(--cy-border-color);
 }
 
 .menu-right {
   float: right;
   border-left: none;
-  border-left: 1px solid rgb(0 0 0 / 0.1);
-  box-shadow: rgb(0 0 0 / 18%) -4px 0px 16px;
+  border-left: 1px solid var(--cy-border-color);
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
 }

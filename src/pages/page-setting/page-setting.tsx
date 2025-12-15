@@ -49,19 +49,15 @@ export class PageSetting {
   }
 
   themeChange(e: CustomEvent) {
-    if (e.detail) {
-      this.viewMode = 'dark';
-    } else {
-      this.viewMode = 'light';
-    }
-    configManager.setViewMode(this.viewMode);
+    const newMode = e.detail ? 'dark' : 'light';
+    this.viewMode = newMode;
+    configManager.setViewMode(newMode);
   }
 
   render() {
     return (
       <div class="cy-page">
         <cy-header>
-          <cy-menu-button class="btn-box" slot="start" />
           <h3 class="cy-title">设置</h3>
         </cy-header>
         <cy-content>

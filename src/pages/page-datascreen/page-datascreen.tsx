@@ -9,7 +9,6 @@ export class PageDataScreen {
     return (
       <div class="cy-page">
         <cy-header>
-          <cy-menu-button class="btn-box" slot="start" />
           <h3 class="cy-title">数据可视化</h3>
           <a target="_blank" href="https://github.com/1337968347/DataScreen" slot="end">
             <cy-icon name="github" />

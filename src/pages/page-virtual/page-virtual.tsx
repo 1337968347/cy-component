@@ -31,7 +31,6 @@ export class PageVirtual {
     return (
       <div class="cy-page">
         <cy-header>
-          <cy-menu-button class="btn-box" slot="start" />
           <h3 class="cy-title">虚拟表格</h3>
           <div slot="end">
             <a target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/virtual-table">

@@ -7,6 +7,8 @@
   background-color: var(--cy-toolbar-background);
   color: var(--cy-text-color);
   position: relative;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  z-index: 10;
 }
 
 :host::after {

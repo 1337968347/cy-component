@@ -13,8 +13,8 @@ const menuLeftAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
 
   return baseAnimation
     .addElement(baseEl)
-    .easing('cubic-bezier(0.4,0.0,0.6,1)')
-    .duration(300)
+    .easing('cubic-bezier(0.4,0.0,0.2,1)')
+    .duration(350)
     .addAnimation([backdropAnimation, menuEnterAnimation]);
 };
 
@@ -30,8 +30,8 @@ const menuRightAnimationBuilder: AnimationBuilder = (baseEl: HTMLElement) => {
 
   return baseAnimation
     .addElement(baseEl)
-    .easing('cubic-bezier(0.4,0.0,0.6,1)')
-    .duration(300)
+    .easing('cubic-bezier(0.4,0.0,0.2,1)')
+    .duration(350)
     .addAnimation([backdropAnimation, menuEnterAnimation]);
 };
 

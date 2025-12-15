@@ -66,19 +66,19 @@
 
   --cy-background-color: #ffffff;
   --cy-background-contrast: #2b2a2a;
-  --cy-background-contrast-rgb: 18, 18, 18;
+  --cy-background-contrast-rgb: 43, 42, 42;
   --cy-background-color-rgb: 255, 255, 255;
 
-  --cy-text-color: #333333;
+  --cy-text-color: #2c3e50;
 
-  --cy-border-color: #dddddd;
-  --cy-item-background: #e0e0e0;
+  --cy-border-color: #e8ecf1;
+  --cy-item-background: #ffffff;
 
   --cy-toolbar-background: #ffffff;
 
-  --cy-tab-bar-background: #ececec;
+  --cy-tab-bar-background: #f8f9fa;
 
-  --cy-card-background: #dfdfdf;
+  --cy-card-background: #ffffff;
 }
 
 @mixin dark-theme {
@@ -145,28 +145,24 @@
   --cy-color-light-shade: #1e2023;
   --cy-color-light-tint: #383a3e;
 
-  --cy-background-color: #3D3C40;
+  --cy-background-color: #1a1a1d;
   --cy-background-contrast: #dddddd;
-  --cy-background-contrast-rgb: 255, 255, 255;
-  --cy-background-color-rgb: 18, 18, 18;
+  --cy-background-contrast-rgb: 221, 221, 221;
+  --cy-background-color-rgb: 26, 26, 29;
 
-  --cy-text-color: #ffffff;
+  --cy-text-color: #e8e8e8;
 
-  --cy-border-color: #575757;
-  --cy-item-background: #1e1e1e;
+  --cy-border-color: #3a3a3a;
+  --cy-item-background: #2a2a2d;
 
-  --cy-toolbar-background: #313033;
+  --cy-toolbar-background: #252528;
 
   --cy-tab-bar-background: #1f1f1f;
 
-  --cy-card-background: #1e1e1e;
+  --cy-card-background: #2a2a2d;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    @include dark-theme;
-  }
-}
+
 
 .dark-theme {
   @include dark-theme;
