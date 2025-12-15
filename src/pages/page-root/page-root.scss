@@ -63,9 +63,19 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 
+  cy-icon {
+    color: var(--cy-text-color);
+    opacity: 0.6;
+    transition: all 0.25s ease;
+  }
+
   &:hover {
     transform: translateX(4px);
     background: rgba(var(--cy-color-base-rgb), 0.08);
+
+    cy-icon {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -75,12 +85,7 @@
   position: relative;
 }
 
-.menu-item {
-  cy-icon {
-    color: var(--cy-color-base);
-    transition: color 0.25s ease;
-  }
-}
+
 
 .select-com {
   background: var(--cy-color-base) !important;
@@ -95,6 +100,7 @@
 
   cy-icon {
     color: var(--cy-color-contrast);
+    opacity: 1;
   }
 
   .menu-h3 {

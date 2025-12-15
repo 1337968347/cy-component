@@ -128,9 +128,13 @@ export namespace Components {
     }
     interface PageHeart {
     }
+    interface PageHome {
+    }
     interface PageNoise {
     }
     interface PagePathtrace {
+    }
+    interface PageRasterizer {
     }
     interface PageRoot {
     }
@@ -351,6 +355,12 @@ declare global {
         prototype: HTMLPageHeartElement;
         new (): HTMLPageHeartElement;
     };
+    interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
+    }
+    var HTMLPageHomeElement: {
+        prototype: HTMLPageHomeElement;
+        new (): HTMLPageHomeElement;
+    };
     interface HTMLPageNoiseElement extends Components.PageNoise, HTMLStencilElement {
     }
     var HTMLPageNoiseElement: {
@@ -362,6 +372,12 @@ declare global {
     var HTMLPagePathtraceElement: {
         prototype: HTMLPagePathtraceElement;
         new (): HTMLPagePathtraceElement;
+    };
+    interface HTMLPageRasterizerElement extends Components.PageRasterizer, HTMLStencilElement {
+    }
+    var HTMLPageRasterizerElement: {
+        prototype: HTMLPageRasterizerElement;
+        new (): HTMLPageRasterizerElement;
     };
     interface HTMLPageRootElement extends Components.PageRoot, HTMLStencilElement {
     }
@@ -425,8 +441,10 @@ declare global {
         "page-calendar": HTMLPageCalendarElement;
         "page-datascreen": HTMLPageDatascreenElement;
         "page-heart": HTMLPageHeartElement;
+        "page-home": HTMLPageHomeElement;
         "page-noise": HTMLPageNoiseElement;
         "page-pathtrace": HTMLPagePathtraceElement;
+        "page-rasterizer": HTMLPageRasterizerElement;
         "page-root": HTMLPageRootElement;
         "page-setting": HTMLPageSettingElement;
         "page-virtual": HTMLPageVirtualElement;
@@ -542,9 +560,13 @@ declare namespace LocalJSX {
     }
     interface PageHeart {
     }
+    interface PageHome {
+    }
     interface PageNoise {
     }
     interface PagePathtrace {
+    }
+    interface PageRasterizer {
     }
     interface PageRoot {
     }
@@ -589,8 +611,10 @@ declare namespace LocalJSX {
         "page-calendar": PageCalendar;
         "page-datascreen": PageDatascreen;
         "page-heart": PageHeart;
+        "page-home": PageHome;
         "page-noise": PageNoise;
         "page-pathtrace": PagePathtrace;
+        "page-rasterizer": PageRasterizer;
         "page-root": PageRoot;
         "page-setting": PageSetting;
         "page-virtual": PageVirtual;
@@ -633,8 +657,10 @@ declare module "@stencil/core" {
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;
             "page-datascreen": LocalJSX.PageDatascreen & JSXBase.HTMLAttributes<HTMLPageDatascreenElement>;
             "page-heart": LocalJSX.PageHeart & JSXBase.HTMLAttributes<HTMLPageHeartElement>;
+            "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-noise": LocalJSX.PageNoise & JSXBase.HTMLAttributes<HTMLPageNoiseElement>;
             "page-pathtrace": LocalJSX.PagePathtrace & JSXBase.HTMLAttributes<HTMLPagePathtraceElement>;
+            "page-rasterizer": LocalJSX.PageRasterizer & JSXBase.HTMLAttributes<HTMLPageRasterizerElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
             "page-setting": LocalJSX.PageSetting & JSXBase.HTMLAttributes<HTMLPageSettingElement>;
             "page-virtual": LocalJSX.PageVirtual & JSXBase.HTMLAttributes<HTMLPageVirtualElement>;

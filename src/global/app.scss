@@ -81,6 +81,9 @@
   --cy-card-background: #ffffff;
 }
 
+*{
+    -webkit-text-fill-color: initial!important;
+}
 @mixin dark-theme {
   --cy-color-primary: #428cff;
   --cy-color-primary-rgb: 66, 140, 255;
@@ -250,6 +253,7 @@ body {
   color: var(--cy-text-color, #ffffff);
   background: var(--cy-background-color, #ffffff);
   overflow-y: overlay;
+
 }
 
 .cy-page {

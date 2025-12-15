@@ -18,14 +18,19 @@ const menus: Menu[] = [
     icon: 'color',
   },
   {
-    title: '路径追踪(待补充)',
+    title: '小球路径追踪(webGL)',
     path: 'pathtrace',
     icon: 'animation',
   },
   {
-    title: '心脏标准切面',
+    title: '软光栅(纯JS)',
+    path: 'rasterizer',
+    icon: 'button',
+  },
+  {
+    title: '心脏标准切面(webGL)',
     path: 'heart',
-    icon: 'mobile',
+    icon: 'data-screen',
   },
   {
     title: '仿win10日历',
@@ -57,8 +62,19 @@ export class PageRoot {
   @State() color: Color = configManager.getPreferColor();
   @State() choose: Menu = menus[0];
 
+  componentWillLoad() {
+    // 从 URL 读取初始路由
+    const hash = window.location.hash.slice(1);
+    const menu = menus.find(m => m.path === hash);
+    if (menu) {
+      this.choose = menu;
+    }
+  }
+
   switchCom(value) {
     this.choose = value;
+    // 更新 URL 锤点
+    window.location.hash = value.path;
   }
 
   toggleMenu() {
@@ -125,9 +141,11 @@ const RenderShowItem = (comName: string) => {
       return <page-noise></page-noise>;
     case 'pathtrace':
       return <page-pathtrace></page-pathtrace>;
+    case 'rasterizer':
+      return <page-rasterizer></page-rasterizer>;
     case 'heart':
       return <page-heart></page-heart>;
     default:
-      return <div></div>;
+      return <page-webgl></page-webgl>;
   }
 };
