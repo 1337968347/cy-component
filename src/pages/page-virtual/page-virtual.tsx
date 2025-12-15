@@ -30,14 +30,9 @@ export class PageVirtual {
   render() {
     return (
       <div class="cy-page">
-        <cy-header>
-          <h3 class="cy-title">虚拟表格</h3>
-          <div slot="end">
-            <a target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/virtual-table">
-              <cy-icon name="github" />
-            </a>
-          </div>
-        </cy-header>
+        <a class="github-link" target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/virtual-table">
+          <cy-icon name="github" />
+        </a>
         <cy-content>
           <div class="container">
             <cy-virtual-table source={this.dataList} columns={this.columns}></cy-virtual-table>

@@ -17,12 +17,9 @@ export class PageCalendar {
   render() {
     return (
       <div class="cy-page">
-        <cy-header>
-          <h3 class="cy-title">仿win10日历</h3>
-          <a target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/calendar" slot="end">
-            <cy-icon name="github" />
-          </a>
-        </cy-header>
+        <a class="github-link" target="_blank" href="https://github.com/1337968347/cy-component/tree/master/src/components/calendar">
+          <cy-icon name="github" />
+        </a>
         <cy-content>
           <cy-calendar color={this.color} />
           <cy-time color={this.color} />

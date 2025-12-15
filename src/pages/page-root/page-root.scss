@@ -45,13 +45,13 @@
   cy-content {
     background: var(--cy-toolbar-background);
   }
-  
+
   // 隐藏菜单标题下方的装饰线
   cy-header {
     &::after {
       display: none;
     }
-    
+
     // 菜单标题下边框
     border-bottom: 1px solid var(--cy-border-color);
   }
@@ -121,16 +121,16 @@
 .menu-page {
   cy-header {
     border-bottom: 1px solid var(--cy-border-color);
-    
+
     // 隐藏主内容区标题下方的装饰线
     &::after {
       display: none;
     }
-    
+
     .cy-title {
       flex: 1;
     }
-    
+
     a {
       display: flex;
       align-items: center;
@@ -138,11 +138,11 @@
       color: var(--cy-text-color);
       text-decoration: none;
       transition: opacity 0.2s;
-      
+
       &:hover {
         opacity: 0.7;
       }
-      
+
       cy-icon {
         font-size: 24px;
       }

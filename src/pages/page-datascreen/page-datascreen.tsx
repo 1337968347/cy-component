@@ -8,12 +8,9 @@ export class PageDataScreen {
   render() {
     return (
       <div class="cy-page">
-        <cy-header>
-          <h3 class="cy-title">数据可视化</h3>
-          <a target="_blank" href="https://github.com/1337968347/DataScreen" slot="end">
-            <cy-icon name="github" />
-          </a>
-        </cy-header>
+        <a class="github-link" target="_blank" href="https://github.com/1337968347/DataScreen">
+          <cy-icon name="github" />
+        </a>
         <cy-content>
           <iframe src="https://1337968347.github.io/DataScreen/#/" frameborder="0"></iframe>
         </cy-content>

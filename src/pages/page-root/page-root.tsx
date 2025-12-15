@@ -23,6 +23,11 @@ const menus: Menu[] = [
     icon: 'animation',
   },
   {
+    title: '心脏标准切面',
+    path: 'heart',
+    icon: 'mobile',
+  },
+  {
     title: '仿win10日历',
     path: 'calendar',
     icon: 'calendar',
@@ -75,7 +80,7 @@ export class PageRoot {
             <div class="menu-sidebar">
               <div class="cy-page">
                 <cy-header>
-                  <h3 class="cy-title">菜单</h3>
+                  <h3 class="cy-title">作品集</h3>
                 </cy-header>
                 <cy-content>
                   {menus.map(menu => (
@@ -120,6 +125,8 @@ const RenderShowItem = (comName: string) => {
       return <page-noise></page-noise>;
     case 'pathtrace':
       return <page-pathtrace></page-pathtrace>;
+    case 'heart':
+      return <page-heart></page-heart>;
     default:
       return <div></div>;
   }

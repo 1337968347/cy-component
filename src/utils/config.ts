@@ -53,7 +53,7 @@ export const createConfigMananger = () => {
 
   // 初始化主题
   setViewMode(getViewMode());
-  
+
   return {
     getPreferColor,
     getViewMode,

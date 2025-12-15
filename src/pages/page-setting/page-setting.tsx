@@ -57,9 +57,6 @@ export class PageSetting {
   render() {
     return (
       <div class="cy-page">
-        <cy-header>
-          <h3 class="cy-title">设置</h3>
-        </cy-header>
         <cy-content>
           <cy-item button line onClick={this.selectColor.bind(this)}>
             <h4>主题色</h4>

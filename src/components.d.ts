@@ -126,6 +126,8 @@ export namespace Components {
     }
     interface PageDatascreen {
     }
+    interface PageHeart {
+    }
     interface PageNoise {
     }
     interface PagePathtrace {
@@ -343,6 +345,12 @@ declare global {
         prototype: HTMLPageDatascreenElement;
         new (): HTMLPageDatascreenElement;
     };
+    interface HTMLPageHeartElement extends Components.PageHeart, HTMLStencilElement {
+    }
+    var HTMLPageHeartElement: {
+        prototype: HTMLPageHeartElement;
+        new (): HTMLPageHeartElement;
+    };
     interface HTMLPageNoiseElement extends Components.PageNoise, HTMLStencilElement {
     }
     var HTMLPageNoiseElement: {
@@ -416,6 +424,7 @@ declare global {
         "nav-pagetwo": HTMLNavPagetwoElement;
         "page-calendar": HTMLPageCalendarElement;
         "page-datascreen": HTMLPageDatascreenElement;
+        "page-heart": HTMLPageHeartElement;
         "page-noise": HTMLPageNoiseElement;
         "page-pathtrace": HTMLPagePathtraceElement;
         "page-root": HTMLPageRootElement;
@@ -531,6 +540,8 @@ declare namespace LocalJSX {
     }
     interface PageDatascreen {
     }
+    interface PageHeart {
+    }
     interface PageNoise {
     }
     interface PagePathtrace {
@@ -577,6 +588,7 @@ declare namespace LocalJSX {
         "nav-pagetwo": NavPagetwo;
         "page-calendar": PageCalendar;
         "page-datascreen": PageDatascreen;
+        "page-heart": PageHeart;
         "page-noise": PageNoise;
         "page-pathtrace": PagePathtrace;
         "page-root": PageRoot;
@@ -620,6 +632,7 @@ declare module "@stencil/core" {
             "nav-pagetwo": LocalJSX.NavPagetwo & JSXBase.HTMLAttributes<HTMLNavPagetwoElement>;
             "page-calendar": LocalJSX.PageCalendar & JSXBase.HTMLAttributes<HTMLPageCalendarElement>;
             "page-datascreen": LocalJSX.PageDatascreen & JSXBase.HTMLAttributes<HTMLPageDatascreenElement>;
+            "page-heart": LocalJSX.PageHeart & JSXBase.HTMLAttributes<HTMLPageHeartElement>;
             "page-noise": LocalJSX.PageNoise & JSXBase.HTMLAttributes<HTMLPageNoiseElement>;
             "page-pathtrace": LocalJSX.PagePathtrace & JSXBase.HTMLAttributes<HTMLPagePathtraceElement>;
             "page-root": LocalJSX.PageRoot & JSXBase.HTMLAttributes<HTMLPageRootElement>;
