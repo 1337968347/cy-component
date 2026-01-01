@@ -13,7 +13,7 @@ export class PageHeart {
           <span class="link-text">查看源码</span>
         </a>
         <cy-content>
-          <iframe src="https://1337968347.github.io/demo" frameborder="0"></iframe>
+          <iframe src="/projects/demo/index.html" frameborder="0"></iframe>
         </cy-content>
       </div>
     );

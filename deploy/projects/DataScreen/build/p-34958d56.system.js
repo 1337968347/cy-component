@@ -1,0 +1,1 @@
+System.register([],(function(t){"use strict";return{execute:function(){var e=t("c",{w:"1920",h:"1080",bgc:"#0d2a43",bgi:"",baseUrl:"https://api.myjson.com/bins"})}}}));

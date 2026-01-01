@@ -13,7 +13,7 @@ export class PageDataScreen {
           <span class="link-text">查看源码</span>
         </a>
         <cy-content>
-          <iframe src="https://1337968347.github.io/DataScreen/#/" frameborder="0"></iframe>
+          <iframe src="/projects/DataScreen/index.html#/" frameborder="0"></iframe>
         </cy-content>
       </div>
     );

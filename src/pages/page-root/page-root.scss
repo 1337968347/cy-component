@@ -29,6 +29,74 @@
   background: var(--cy-background-color);
 }
 
+// 移动端菜单按钮
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  width: auto;
+  min-width: 44px;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 22px;
+  background: rgba(var(--cy-background-color-rgb), 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  color: var(--cy-text-color);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background: rgba(var(--cy-background-color-rgb), 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  cy-icon {
+    font-size: 24px;
+  }
+}
+
+// 移动端遮罩层
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.menu-overlay-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .menu-sidebar {
   width: 280px;
   height: 100%;
@@ -37,6 +105,7 @@
   box-shadow: 2px 0 16px rgba(0, 0, 0, 0.08);
   border-right: 1px solid var(--cy-border-color);
   flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   .cy-page {
     background: var(--cy-toolbar-background);
@@ -54,6 +123,36 @@
 
     // 菜单标题下边框
     border-bottom: 1px solid var(--cy-border-color);
+  }
+}
+
+// 移动端响应式
+@media (max-width: 767px) {
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-overlay {
+    display: block;
+  }
+
+  .menu-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+
+    &.menu-open {
+      transform: translateX(0);
+    }
+  }
+
+  .menu-page {
+    margin-left: 0;
   }
 }
 

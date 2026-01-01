@@ -1,0 +1,2 @@
+import{p as o,b as t}from"./p-d40a0503.js";export{s as setNonce}from"./p-d40a0503.js";import"./p-328a110d.js";const p=()=>{const s=import.meta.url;const t={};if(s!==""){t.resourcesUrl=new URL(".",s).href}return o(t)};p().then((s=>t([],s)));
+//# sourceMappingURL=app.esm.js.map

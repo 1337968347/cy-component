@@ -1,0 +1,1 @@
+import"./p-36ddbbc3.js";import"./p-f14a9a94.js";export{g as getDataScreen,s as setDataScreen}from"./p-8be1997b.js";

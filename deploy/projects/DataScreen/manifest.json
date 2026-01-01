@@ -1,0 +1,17 @@
+{
+  "name": "data-screen",
+  "short_name": "data-screen",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [{
+    "src": "assets/icon/icon-192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },{
+    "src": "assets/icon/icon-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "background_color": "#488aff",
+  "theme_color": "#488aff"
+}

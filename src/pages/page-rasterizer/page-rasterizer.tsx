@@ -13,7 +13,7 @@ export class PageRasterizer {
           <span class="link-text">查看源码</span>
         </a>
         <cy-content>
-          <iframe src="https://1337968347.github.io/tinyrenderer/" frameborder="0"></iframe>
+          <iframe src="/projects/tinyrenderer/index.html" frameborder="0"></iframe>
         </cy-content>
       </div>
     );

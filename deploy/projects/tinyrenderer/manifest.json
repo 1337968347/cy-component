@@ -1,0 +1,8 @@
+{
+  "name": "Stencil Starter",
+  "short_name": "Stencil",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#16161d",
+  "theme_color": "#16161d"
+}

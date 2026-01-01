@@ -1,0 +1,1 @@
+import{r as t}from"./p-900143dd.js";import{g as o,h as s,j as r}from"./p-0ef20132.js";const n=class{constructor(o){t(this,o)}create(t){return o("ion-toast",t)}dismiss(t,o,r){return s(document,t,o,"ion-toast",r)}async getTop(){return r(document,"ion-toast")}};export{n as ion_toast_controller};

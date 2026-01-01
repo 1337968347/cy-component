@@ -1,0 +1,1 @@
+import{r as t,h as c,H as e}from"./p-09c1f8fc.js";const n=class{constructor(c){t(this,c)}toggleMenu(){document.querySelector("cy-menu").toggle()}render(){return c(e,{onClick:this.toggleMenu,class:"activatable",slot:"start"},c("cy-icon",{name:"menu"}),c("cy-ripple",{type:"unbounded"}))}};export{n as cy_menu_button}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>噪音</title>
+
+    <style>
+      .box {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      iframe {
+        width: 600px;
+        height: 600px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h2>白噪音</h2>
+      <iframe src="./staticNoise" frameborder="0"></iframe>
+    </div>
+    <div class="box">
+      <h2>Value噪音</h2>
+      <iframe src="./valueNoise" frameborder="0"></iframe>
+    </div>
+    <div class="box">
+      <h2>柏林Perlin噪音</h2>
+      <iframe src="./perlinNoise" frameborder="0"></iframe>
+    </div>
+    <div class="box">
+      <h2>细胞噪音</h2>
+      <iframe src="./cellNoise/" frameborder="0"></iframe>
+    </div>
+  </body>
+</html>

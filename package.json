@@ -9,7 +9,7 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "depoly": "npm run build && gh-pages -d www"
+    "deploy": "sh publish.sh"
   },
   "devDependencies": {
     "@stencil/core": "^2.5.2",

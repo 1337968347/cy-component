@@ -61,6 +61,7 @@ export class PageRoot {
   @Element() el: HTMLElement;
   @State() color: Color = configManager.getPreferColor();
   @State() choose: Menu = menus[0];
+  @State() menuOpen: boolean = false;
 
   componentWillLoad() {
     // 从 URL 读取初始路由
@@ -69,16 +70,44 @@ export class PageRoot {
     if (menu) {
       this.choose = menu;
     }
+
+    // 检测是否为 PC 端，如果是 PC 端则默认展开
+    this.updateMenuState();
+  }
+
+  componentDidLoad() {
+    // 监听窗口大小变化
+    window.addEventListener('resize', this.updateMenuState.bind(this));
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.updateMenuState.bind(this));
+  }
+
+  updateMenuState = () => {
+    // PC 端：屏幕宽度 >= 768px
+    const isPc = window.innerWidth >= 768;
+    this.menuOpen = isPc;
+  }
+
+  toggleMenu = () => {
+    // 移动端才允许切换
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      this.menuOpen = !this.menuOpen;
+    }
   }
 
   switchCom(value) {
     this.choose = value;
     // 更新 URL 锤点
     window.location.hash = value.path;
-  }
 
-  toggleMenu() {
-    document.querySelector('cy-menu').toggle();
+    // 移动端点击菜单后自动收起
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      this.menuOpen = false;
+    }
   }
 
   @Listen('settingChange', { capture: true })
@@ -89,11 +118,29 @@ export class PageRoot {
   }
 
   render() {
+    const isMobile = window.innerWidth < 768;
+
     return (
       <Host>
         <cy-app>
+          {/* 移动端菜单按钮 - 只在移动端渲染 */}
+          {isMobile && (
+            <button class="menu-toggle" onClick={this.toggleMenu}>
+              <cy-icon name="menu"></cy-icon>
+            </button>
+          )}
+
+          {/* 移动端遮罩层 */}
+          <div class={{
+            'menu-overlay': true,
+            'menu-overlay-visible': this.menuOpen
+          }} onClick={this.toggleMenu}></div>
+
           <div class="menu-content">
-            <div class="menu-sidebar">
+            <div class={{
+              'menu-sidebar': true,
+              'menu-open': this.menuOpen
+            }}>
               <div class="cy-page">
                 <cy-header>
                   <h3 class="cy-title">作品集</h3>
