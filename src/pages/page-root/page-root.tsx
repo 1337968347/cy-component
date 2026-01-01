@@ -48,6 +48,11 @@ const menus: Menu[] = [
     icon: 'table',
   },
   {
+    title: 'Android APP',
+    path: 'android',
+    icon: 'mobile',
+  },
+  {
     title: '设置',
     path: 'setting',
     icon: 'setting',
@@ -192,6 +197,8 @@ const RenderShowItem = (comName: string) => {
       return <page-rasterizer></page-rasterizer>;
     case 'heart':
       return <page-heart></page-heart>;
+    case 'android':
+      return <page-android></page-android>;
     default:
       return <page-webgl></page-webgl>;
   }

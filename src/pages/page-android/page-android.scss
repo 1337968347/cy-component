@@ -1,0 +1,24 @@
+.android-page {
+  padding: 20px;
+  text-align: center;
+
+  h2 {
+    color: var(--cy-text-color);
+    margin-bottom: 20px;
+  }
+
+  .download-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--cy-global-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

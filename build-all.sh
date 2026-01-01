@@ -117,6 +117,20 @@ mkdir -p "$DEPLOY_DIR/projects/raytrace"
 cp -r www/* "$DEPLOY_DIR/projects/raytrace/"
 echo "✓ raytrace 构建完成"
 
+# 8. 复制 Android APK
+echo ""
+echo "======================================"
+echo "8. 复制 Android APK..."
+echo "======================================"
+mkdir -p "$DEPLOY_DIR/projects/android"
+APK_SOURCE="$BASE_DIR/AwesomeProject/android/app/build/outputs/apk/release/app-release.apk"
+if [ -f "$APK_SOURCE" ]; then
+    cp "$APK_SOURCE" "$DEPLOY_DIR/projects/android/"
+    echo "✓ Android APK 复制完成"
+else
+    echo "⚠️ Android APK 未找到: $APK_SOURCE"
+fi
+
 echo ""
 echo "======================================"
 echo "所有项目构建完成!"
@@ -133,5 +147,6 @@ echo "    ├── DataScreen/"
 echo "    ├── demo/"
 echo "    ├── SimpleRenderer/"
 echo "    ├── tinyrenderer/"
-echo "    └── raytrace/"
+echo "    ├── raytrace/"
+echo "    └── android/"
 echo ""
